@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 폼 sample</title>
+    <style>
+        div {
+            border: 1px solid red;
+            box-sizing: border-box;
+        }
+
+        #login_form {
+            width: 300px;
+            height: 150px;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        #login_form>div, #login_form>form {
+            width: 100%;
+        }
+
+        #login_form_input {
+            height: 80%;
+        }
+
+        #login_form_join {
+            height: 20%;
+            text-align: center;
+        }
+
+        #login_form_input>div {
+            height: 100%;
+            float: left;
+        }
+
+        #login_input_id_pwd {
+            width: 65%;
+        }
+
+        #login_input_btn {
+            width: 35%;
+        }
+
+        #login_input_id_pwd>div {
+            width: 100%;
+            height: 50%;
+        }
+
+        #input_id, #input_pwd, #login_btn {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 1. 전체 로그인폼을 감싸는 div -->
+    <div id="login_form">
+
+        <!-- 2_1. 입력을 받는 input태그가 위치할 div -->
+        <!-- <div id="login_form_input"> -->
+        <form method="GET" id="login_form_input">
+            <!-- 3_1. ID/PWD input 태그가 위치할 div-->
+            <div id="login_input_id_pwd">
+
+                <!-- 4_1. ID 입력 -->
+                <div id="login_input_id">
+                    <input type="text" id="input_id" name="input_id" placeholder="ID를 입력하세요.">
+                </div>
+
+                <!-- 4_2. PWD 입력 -->
+                <div id="login_input_pwd">
+                    <input type="password" id="input_pwd" name="input_pwd" placeholder="PWD를 입력하세요.">
+                </div>
+            </div>
+
+            <!-- 3_2. 로그인 버튼이 위치할 div -->
+            <div id="login_input_btn">
+                <button type="submit" id="login_btn">로그인</button>
+            </div>
+        </form>
+
+        <!-- 2_2. 회원가입 페이지 이동용 a태그가 위치할 div -->
+        <div id="login_form_join">
+            <a href="#">회원가입</a>
+            <a href="#">ID/PWD 찾기</a>
+        </div>
+    </div>
+</body>
+</html>

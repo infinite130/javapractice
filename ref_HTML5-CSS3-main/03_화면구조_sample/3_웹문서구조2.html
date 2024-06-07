@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>웹문서 구조 2</title>
+    <style>
+        div {
+            border: 1px solid red;
+            /* div별 경계선 표현*/
+            box-sizing: border-box;
+            /* div box-sizing 변경 */
+        }
+
+        #wrapper {
+            width: 1000px;
+            height: 800px;
+            /* div를 화면 가운데로 오도록 함 */
+            margin: auto;
+        }
+
+        #wrapper>div {
+            width: 100%;
+            /* 너비는 모두 동일 */
+        }
+
+        /* 높이는 원하는 비율로 할당 */
+        #header {
+            height: 20%;
+        }
+
+        #navigator {
+            height: 5%;
+        }
+
+        #content {
+            height: 55%;
+        }
+
+        #footer {
+            height: 20%;
+        }
+
+        #header>div,
+        #content>div {
+            height: 100%;
+            float: left;
+        }
+
+        #header-1 {
+            width: 20%;
+        }
+
+        #header-2 {
+            width: 65%;
+        }
+
+        #header-3 {
+            width: 15%;
+        }
+
+        /* 높이는 content와 같게, 폭은 원하는 비율로 조정 */
+        #content-1 {
+            width: 15%;
+        }
+
+        #content-2 {
+            width: 60%;
+        }
+
+        #content-3 {
+            width: 25%;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <div class="header" id="header1"></div>
+            <div class="header" id="header2"></div>
+            <div class="header" id="header3"></div>
+        </div>
+
+        <div id="navigator"></div>
+
+        <div id="content">
+            <!-- content 부분을 가로 3등분 -->
+            <div id="content-1"></div>
+            <div id="content-2"></div>
+            <div id="content-3"></div>
+        </div>
+        <div id="footer"></div>
+    </div>
+</body>
+</html>

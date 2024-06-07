@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>웹문서 구조 1(연습)</title>
+    <style>
+        div {
+            border: 1px solid red;
+            box-sizing: border-box;
+        }
+
+        #wrapper {
+            width: 1000px;
+            height: 800px;
+            margin: auto;
+        }
+
+        #wrapper > div {
+            width: 100%;
+        }
+
+        #header {
+            height: 20%;
+        }
+
+        #content {
+            height: 60%;
+        }
+
+        #footer {
+            height: 20%;
+        }
+
+        #content > div {
+            height: 100%;
+            float: left;
+            /* 블록속성을 가진 요소들의 정렬방식을 지정 */
+            /* float 속성 지정 시 해당 요소는 공중에 뜬 형식됨 */
+        }
+
+        #content-1 {
+            width: 15%;
+        }
+
+        #content-2 {
+            width: 65%;
+        }
+
+        #content-3 {
+            width: 20%;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header"></div>
+        <div id="content">
+            <div id="content-1"></div>
+            <div id="content-2"></div>
+            <div id="content-3"></div>
+        </div>
+        <div id="footer"></div>
+    </div>
+</body>
+</html>

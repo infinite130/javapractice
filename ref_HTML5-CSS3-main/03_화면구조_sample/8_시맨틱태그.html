@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>시맨틱태그 sample</title>
+    <style>
+        header, nav, section, article, aside, footer {
+            border: 1px solid red;
+            box-sizing: border-box;
+            display: block;
+            /* IE8 이하 버전은 시맨틱 태그를 인식하지 않고, 시맨틱 태그를 inline 요소로 취급함
+               이를 방지하기 위하여 시맨특 태그들을 block요소로 취급하게끔 하는 css 설정 */
+        }
+
+        body {
+            width: 1000px;
+            height: 800px;
+            border: 1px solid red;
+            margin: auto;
+        }
+
+        header, nav, section, footer {
+            width: 100%;
+        }
+
+        header, footer {
+            height: 20%;
+        }
+
+        nav {
+            height: 5%;
+        }
+
+        #content {
+            height: 55%;
+        }
+
+        #header-1, #header-2, #header-3 {
+            height: 100%;
+            float: left;
+        }
+
+        #header-1 {
+            width: 20%;
+        }
+
+        #header-2 {
+            width: 65%;
+        }
+
+        #header-3 {
+            width: 15%;
+        }
+
+        #content > aside, #content-1, #content-2 {
+            height: 100%;
+            float: left;
+        }
+
+        #content > aside {
+            width: 15%;
+        }
+
+        #content-1 {
+            width: 65%;
+        }
+
+        #content-2 {
+            width: 20%;
+        }
+
+        #content-2 > header, #content-2 > article {
+            width: 100%;
+        }
+
+        #content-2 > header {
+            height: 30%;
+        }
+
+        #content-2 > article {
+            height: 70%;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        시맨틱 태그 : HTML5 부터 제공하는 기능 
+                     단, IE8 이하 버전에서는 제대로 인식되지 않고, 인라인 요소로 인식함
+
+                     기존에 div로 구조잡을 때 각 div 의미를 우리가 직접 부여 -> 문제 발생
+                     따라서 각 영역별로 태그를 애초에 제공하는 것
+                     태그만 보고 이게 어느 영역인지 파악하기 쉽도록 (명확한 구분가능, 타인이 해석할 때 동일하게 해석 가능)
+
+        <header> : 가장 위에 나타나는 머리말 
+        <nav>   : 목차형태의 메뉴 -> header 안에 들어갈 수도 있고 다른 태그 내에도 들어갈 수 있음
+        <section> : 본문 내용(컨텐츠)을 의미하는 태그 -> section안에 section이 들어갈 수 있고 다양한곳에서 사용 가능 
+        <article> : 따로 분할해서 다른 곳에 써도 가능한 컨텐츠들을 묶는 태그
+        <aside> : 본문 이외의 내용 / 광고 배너나 링크의 모음 같은 것들 (필수적이지 않은 내용들을 넣을 때 사용)
+        <footer> : 웹 문서의 바닥글 (제작 정보, 저작권 등)
+     -->
+    <header>
+        <section id="header-1"></section>
+        <section id="header-2"></section>
+        <section id="header-3"></section>
+    </header>
+
+    <nav></nav>
+
+    <section id="content">
+        <aside></aside>
+        <section id="content-1"></section>
+        <section id="content-2">
+            <header></header>
+            <article></article>
+        </section>
+    </section>
+
+    <footer></footer>
+</body>
+</html>

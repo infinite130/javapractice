@@ -4,19 +4,19 @@
     <title>main</title>
 </head>
 <body>
-    <h1>EMPLOYEE 테이블에서 EMP_ID를 이용하여 사원 정보 조회해오기</h1>
+    <h3>EMPLOYEE 테이블에서 EMP_ID를 이용하여 사원 정보 조회해오기</h3>
     <form action="${ pageContext.servletContext.contextPath }/employee/select">
         <label>조회할 사원 : </label>
         <input type="text" name="empId" id="empId">
         <button type="submit">조회하기</button>
     </form>
 
-    <h1>EMPLOYEE 테이블에서 직원 전체 정보 조회(퇴사하지 않은 직원만 조회)</h1>
+    <h3>EMPLOYEE 테이블에서 직원 전체 정보 조회(퇴사하지 않은 직원만 조회)</h3>
     <button onclick="location.href='${pageContext.servletContext.contextPath}/employee/list'">
         직원 정보 전체 조회하기
     </button>
 
-    <h1>EMPLOYEE 테이블에서 신규 직원 정보 추가</h1>
+    <h3>EMPLOYEE 테이블에서 신규 직원 정보 추가</h3>
     <form action="${ pageContext.servletContext.contextPath }/employee/insert" method="post">
         직원명 : <input type="text" name="empName"><br>
         주민등록번호 : <input type="text" name="empNo"><br>
@@ -63,14 +63,14 @@
         <button type="submit">등록하기</button>
     </form>
 
-    <h1>EMPLOYEE 테이블에서 직원명 수정</h1>
+    <h3>EMPLOYEE 테이블에서 직원명 수정</h3>
     <form action="${ pageContext.servletContext.contextPath }/employee/update" method="post">
         사번 : <input type="text" name="empId"/>
         변경할 사원명 : <input type="text" name="empName"/>
         <button type="submit">사원명 변경</button>
     </form>
 
-    <h1>EMPLOYEE 테이블에서 직원 정보 삭제</h1>
+    <h3>EMPLOYEE 테이블에서 직원 정보 삭제</h3>
     <form action="${ pageContext.servletContext.contextPath }/employee/delete" method="post">
         사번 : <input type="text" name="empId"/>
         <button type="submit">직원 정보 삭제</button>

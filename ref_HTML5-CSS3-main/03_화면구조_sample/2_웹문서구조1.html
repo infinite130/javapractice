@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>웹문서 구조 1</title>
+    <style>
+        div {
+            /* div 별 경계선 표현 */
+            border: 1px solid red;
+            box-sizing: border-box;
+            /* div box-sizing 변경 */
+        }
+
+        #wrapper {
+            width: 1000px;
+            height: 800px;
+            /* div를 화면 가운데로 오도록 함 */
+            margin: auto;
+        }
+
+        #wrapper>div {
+            width: 100%;
+            /* 너비는 모두 동일 */
+        }
+
+        /* 높이는 원하는 비율로 할당 */
+        #header {
+            height: 20%;
+        }
+
+        #content {
+            height: 60%;
+        }
+
+        #footer {
+            height: 20%;
+        }
+
+        #content>div {
+            height: 100%;
+            float: left;
+        }
+
+        #content-1 {
+            width: 15%;
+        }
+
+        #content-2 {
+            width: 85%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="header"></div>
+        <div id="content">
+            <!-- content 부분을 좌우 2등분 -->
+            <div id="content-1"></div>
+            <div id="content-2"></div>
+        </div>
+        <div id="footer"></div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+      /* 속성값과 일치하는 객체(태그, 요소) 선택 */
+      div[name=name2] {
+        background: yellow;
+    }
+
+    /* 속성 안의 값이 특정 값을 단어(띄어쓰기 단위)로써 포함하는 객체 선택 */
+    div[name~=name1] {
+        background: red;
+    }
+    
+    /* 속성 값이 특정 값과 일치하거나 '-'문자가 곧바로 해당 값 뒤에 따라붙는 객체 선택 */
+    div[class|=class] {  /* class 또는 class- */
+        background: blue;
+    }
+
+    /* 속성 값을 가지고 있으며, 접두사로 특정 값이 포함되어 있는 객체 선택 */
+    div[name^=name] {
+        background: green;
+    }
+
+    /* 속성 안의 값이 특정 값으로 끝나는(=접미사) 객체 선택 */
+    div[class$=class] {
+        color: white;
+    }
+
+    /* 속성 안의 값이 특정 값을 포함하는 객체 선택 */
+    div[class*=div] {
+        background: purple;
+        color: yellow;
+    }
+
+    /* 자손 선택자 */
+    #test1 > h4 {
+        background: pink;
+    }
+
+    #test1 > ul > li { 
+        /* id 속성이 test1인 요소의 자손으로 ul 태그가 존재하지 않으므로 선택되지 않음 */
+        background: gray;
+    }
+
+    /* 후손 선택자 */
+    #test1 ul {
+        background: gray;
+    }
+
+    /* 동일한 선택자를 또 사용해도 문제 없음 */
+    #test1 ul {
+        color: white;
+    }
+
+    /* 동위(형제 관계) 선택자 */
+    #div-test1 {
+        background: red;
+    }
+
+    /* 해당 요소 바로 다음에 있는 특정 타입의 요소를 선택 */
+    #div-test1 + div {
+        background: blue;
+    }
+
+    /* 해당 요소보다 뒤에 존재하는 특정 타입의 요소를 모두 선택 */
+    /*
+    #div-test1 ~ div {
+        background: green;
+    }
+    */
+
+    #active-test, #hover-test {
+        width: 300px;
+        height: 300px;
+        background: orange;
+    }
+
+    /* css에서 제공하는 이벤트 관련 선택자 */
+    #active-test:active {
+        background: black;
+        color: white;
+    }
+
+    #hover-test:hover {
+        cursor: pointer;
+        background: plum;
+        color: purple;
+        font: 40px bold;
+    }
+
+    input[type=checkbox]:checked {
+        width: 20px;
+        height: 20px;
+    }
+
+    #userId:focus, #userPwd:focus {
+        background: green;
+    }
+
+    option:disabled {
+        background: red;
+        color: white;
+    }
+
+    option:enabled {
+        background: yellowgreen;
+    }
+
+    input:disabled {
+        background: aqua;
+    }

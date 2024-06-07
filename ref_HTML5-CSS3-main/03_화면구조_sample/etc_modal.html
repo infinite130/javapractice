@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>modal sample</title>
+    <style>
+        .modal-content {
+            border: 1px solid red;
+            margin: auto;
+            background: white;
+            position: relative;
+            padding: 0;
+            width: 500px;
+            height: 250px;
+            border-radius: 20px;
+        }
+
+        .container {
+            padding: 0.01em 16px;
+            background: black;
+            color: white;
+            border-radius: 20px;
+        }
+
+        .display-topright {
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 50px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .btn:hover {
+            color: red !important;
+            cursor: pointer;
+        }
+
+        .modal {
+            z-index: 10;
+            /* display:none; */
+            padding-top: 100px;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            overflow: auto;
+            background: rgba(0, 25, 0, 0.2)
+        }
+
+        @keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        .animate-top {
+            animation: animatetop 3s
+        }
+    </style>
+    <script>
+        function clickAction() {
+            document.getElementById("id01").style.display = "block";
+        }
+
+        function exitModal() {
+            document.getElementById("id01").style.display = "none";
+        }
+    </script>
+</head>
+<body>
+    <button class="input_button" onclick="clickAction();">button</button>
+
+    <div id="id01" class="modal">
+        <div class="modal-content animate-top">
+            <header class="container">
+                <span class="btn display-topright" onclick="exitModal();">x</span>
+                <h2>Hello</h2>
+            </header>
+        </div>
+    </div>
+</body>
+</html>

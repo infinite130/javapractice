@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>전체 통합 연습</title>
+    <style>
+        div {
+            border: 1px solid red;
+            box-sizing: border-box;
+        }
+
+        #wrapper {
+            width: 1000px;
+            height: 800px;
+            margin: auto;
+        }
+
+        #wrapper>div {
+            width: 100%;
+        }
+
+        #header {
+            height: 20%;
+        }
+
+        #navigator {
+            height: 5%;
+        }
+
+        #content {
+            height: 55%;
+        }
+
+        #footer {
+            height: 20%;
+        }
+
+        #header > div, #content > div {
+            height: 100%;
+            float: left;
+        }
+
+        #header-1 {
+            width: 20%;
+            position: relative;
+        }
+
+        /* 로고 이미지 스타일 추가 */
+        #home-logo {
+            position: absolute;
+            margin: auto;
+            bottom: 0;
+            top: 0;
+            right: 0;
+            left: 0;
+        }
+
+
+        #header-2 {
+            width: 65%;
+            position: relative;
+        }
+
+        #header-3 {
+            width: 15%;
+        }
+
+        #content-1 {
+            width: 15%;
+        }
+
+        #content-2 {
+            width: 60%;
+        }
+
+        #content-3 {
+            width: 25%;
+        }
+
+
+        /* footer 스타일 추가 */
+        #footer-1, #footer-2 {
+            width: 100%;
+        }
+
+        #footer-1 {
+            height: 20%;
+        }
+
+        #footer-2 {
+            height: 80%;
+        }
+
+        #footer-2>p {
+            margin: 0;
+            font-size: 12px;
+        }
+
+        #p1, #p2 {
+            width: 100%;
+        }
+
+        #p1 {
+            height: 80%;
+        }
+
+        #p2 {
+            height: 20%;
+            text-align: center;
+        }
+
+        #footer-1 > a {
+            text-decoration: none;
+            font-weight: 600;
+            margin: 10px;
+            line-height: 25px;
+            color: black;
+        }
+
+        /* 검색창 폼 스타일 추가 */
+        #search-form {
+            width: 80%;
+            height: 20%;
+            margin: auto;
+            position: absolute;
+            bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+        #search-form > div {
+            height: 100%;
+            float: left;
+        }
+
+        #search-text-area {
+            width: 80%;
+        }
+
+        #search-btn-area {
+            width: 20%;
+        }
+
+        #search-input, #search-btn {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        /* navigator 스타일 추가 */
+        #navi {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            height: 100%;
+        }
+
+        #navi > li {
+            float: left;
+            width: 15%;
+            height: 100%;
+            text-align: center;
+        }
+
+        #navi li a {
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 900;
+            color: orange;
+            padding-top: 3px;
+            display: block;
+            height: 100%;
+            line-height: 30px;
+            transform: scale(1);
+            /* 통합시 이 작업 필수 */
+        }
+
+        #navi li a:hover {
+            color: red;
+        }
+
+        #navi li > ul {
+            list-style-type: none;
+            padding: 0;
+            display: none;
+        }
+
+        #navi li > a:hover + ul {
+            display: block;
+        }
+
+        #navi li ul:hover {
+            display: block;
+        }
+
+        #navi > li > ul > li > a {
+            font-size: 15px;
+        }
+
+        /* 로그인 폼 스타일 추가 */
+        #login_form {
+            width: 100%;
+            height: 30%;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        #login_form > div, #login_form > form {
+            width: 100%;
+        }
+
+        #login_form_input {
+            height: 80%;
+        }
+
+        #login_form_join {
+            height: 20%;
+            text-align: center;
+        }
+
+        #login_form_input > div {
+            height: 100%;
+            float: left;
+        }
+
+        #login_input_id_pwd {
+            width: 65%;
+        }
+
+        #login_input_btn {
+            width: 35%;
+        }
+
+        #login_input_id_pwd > div {
+            width: 100%;
+            height: 50%;
+        }
+
+        #input_id, #input_pwd, #login_btn {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <!-- header-1 : 로고 이미지 -->
+            <div id="header-1">
+                <a href="#">
+                    <img src="logo.jpg" id="home-logo" width="120px">
+                </a>
+            </div>
+
+            <!-- header-2 : 5_검색창폼 -->
+            <div id="header-2">
+                <form id="search-form">
+                    <div id="search-text-area">
+                        <input type="text" name="search" id="search-input">
+                    </div>
+                    <div id="search-btn-area">
+                        <button type="submit" id="search-btn">검색</button>
+                    </div>
+                </form>
+            </div>
+            <div id="header-3"></div>
+        </div>
+
+        <!-- navigator : 6_navigator -->
+        <div id="navigator">
+            <ul id="navi">
+                <li><a href="#">Java</a></li>
+                <li><a href="#">Oracle</a></li>
+                <li><a href="#">Front-End</a>
+                    <ul>
+                        <li><a href="#">HTML5</a></li>
+                        <li><a href="#">CSS3</a></li>
+                        <li><a href="#">JavaScript</a></li>
+                        <li><a href="#">jQuery</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Server</a>
+                    <ul>
+                        <li><a href="#">JDBC</a></li>
+                        <li><a href="#">Servlet</a></li>
+                        <li><a href="#">JSP</a></li>
+                        <li><a href="#">AJAX</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Framework</a>
+                    <ul>
+                        <li><a href="#">MyBatis</a></li>
+                        <li><a href="#">Spring</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div id="content">
+            <div id="content-1"></div>
+            <div id="content-2"></div>
+
+            <!-- content3 : 로그인폼 -->
+            <div id="content-3">
+                <div id="login_form">
+                    <form method="get" id="login_form_input">
+                        <div id="login_input_id_pwd">
+                            <div id="login_input_id">
+                                <input type="text" id="input_id" name="userId" placeholder="ID를 입력하세요.">
+                            </div>
+                            <div id="login_input_pwd">
+                                <input type="password" id="input_pwd" name="userPwd" placeholder="PWD를 입력하세요.">
+                            </div>
+                        </div>
+                        <div id="login_input_btn">
+                            <button type="submit" id="login_btn">로그인</button>
+                        </div>
+                    </form>
+                    <div id="login_form_join">
+                        <a href="#">회원가입</a> &nbsp;&nbsp;
+                        <a href="#">ID/PWD 찾기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer : 7_footer -->
+        <div id="footer">
+            <div id="footer-1">
+                <a href="#">이용약관</a> |
+                <a href="#">개인정보취급방침</a> |
+                <a href="#">인재채용</a> |
+                <a href="#">고객센터</a>
+            </div>
+
+            <div id="footer-2">
+                <p id="p1"> <!-- height : 80% -->
+                    종로 캠퍼스 : 서울 종로구 인사동길 12 대일빌딩 7층, 15층<br>
+                    강남 캠퍼스 : 서울 서초구 강남대로 405 통영빌딩 8층<br>
+                    구로 캠퍼스 : 서울 구로구 경인로 557 삼영빌딩 4층 ((주)하이미디어멀티캠퍼스)<br>
+                    천호 캠퍼스 : 서울 강동구 천호대로 1027 동원천호빌딩 5층<br>
+                </p>
+                <p id="p2"> <!-- height : 20% -->
+                    Copyright ⓒHimedia Academy, All Rights Reserved.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

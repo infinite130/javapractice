@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        링크 기능은 웹 문서가 다른 문서와 구분되는 가장 핵심적인 기능이다.
+        클릭을 통해 연결된 곳으로 이동하여 사용을 편리하게 하는 기능이다.
+        텍스트를 클릭해 이동하는 방법이나 이미지를 클릭해 이동하는 방법이 있으며
+        페이지 내에서의 링크를 통한 이동도 가능하다.
+    -->
+    <h1>하이퍼링크 관련 태그</h1>
+
+    <h3>a태그(anchor 태그)를 이용한 하이퍼링크</h3>
+    <ul>
+        <li><a href="1_글자관련태그.html">글자 관련 태그</a></li>
+        <li><a href="2_목록관련태그.html">목록 관련 태그</a></li>
+        <li><a href="3_표관련태그.html">표 관련 태그</a></li>
+        <li><a href="4_영역관련태그.html">영역 관련 태그</a></li>
+        <li><a href="5_이미지관련태그.html">이미지 관련 태그</a></li>
+    </ul>
+
+    <br>
+
+    <!-- 네트워크가 연결된 상황이라면 현재 서비스 중인 웹페이지 링크도 가능하다. -->
+    <!-- target 속성
+        _self : 기존 탭 활용
+        _blank : 새 탭으로 열기
+    -->
+    <ul>
+        <li><a href="https://www.naver.com" target="_self">Naver</a></li>
+        <li><a href="https://www.google.com" target="_blank">Google</a></li>
+        <li><a href="https://www.daum.net" target="_blank">Daum</a></li>
+    </ul>
+
+    <br>
+
+    <!-- img 태그를 이용해 링크를 걸 수 있다. -->
+    <a href="http://www.w3schools.com" target="_blank">
+        <img src="../sample/image/forest1.PNG" width="150px" height="100px">
+    </a>
+
+    <br>
+
+    <h3 id="menu">한 페이지 내에서 점프하는 앵커 만들기</h3>
+    <ol>
+        <li><a href="#content1">본문 내용 1</a></li>
+        <li><a href="#content2">본문 내용 2</a></li>
+        <li><a href="#content3">본문 내용 3</a></li>
+    </ol>
+
+    <h4 id="content1">Contents 1</h4>
+    <pre>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur hendrerit dui efficitur, lobortis nulla eget, vehicula dolor. Aenean vulputate quam massa, id iaculis velit convallis nec. Nullam ut lacinia sapien, vel hendrerit leo. Cras vitae ante orci. Nunc urna magna, malesuada a blandit et, pulvinar quis odio. Aenean quis viverra nibh. Etiam vel accumsan mauris, sit amet aliquam enim. Morbi porttitor ultricies ex nec pharetra. Phasellus odio libero, aliquet eu vestibulum nec, hendrerit non enim. Sed consectetur eleifend eros at pretium. Sed arcu justo, ullamcorper in augue ut, lobortis hendrerit magna.
+
+Vestibulum sed leo at justo tempor vestibulum. Vivamus sagittis, augue sit amet aliquam pellentesque, mauris massa mattis enim, eu malesuada felis ligula vel nulla. Maecenas blandit odio sed ornare sodales. Quisque eu metus ut ante iaculis vulputate. Duis vel urna tincidunt, ornare sem ac, lobortis ex. Phasellus eu porta elit. Quisque finibus diam ac sem elementum, id fermentum lectus maximus. In dui metus, scelerisque non tempus ac, fermentum nec ante. Etiam sed accumsan erat. Cras iaculis suscipit mauris, vel auctor lorem mattis at. Nunc non luctus metus, quis elementum metus. Aliquam eget pharetra urna. Mauris non erat pharetra, congue velit sed, tempus massa. Pellentesque sit amet odio in eros tincidunt luctus in tristique nunc.
+
+Proin consectetur bibendum risus, non scelerisque nisi euismod et. Nulla dignissim neque elit, nec accumsan nibh facilisis ut. Praesent tellus diam, pulvinar id erat nec, pretium vestibulum justo. In feugiat lorem vel felis pulvinar commodo. Integer lacus lectus, pulvinar ut efficitur quis, auctor vitae dolor. Curabitur vehicula at dolor sit amet convallis. In et dictum lacus.
+
+Proin at quam lorem. Phasellus vitae nisl nulla. Sed bibendum erat ornare turpis tempor, et egestas enim mollis. Duis elementum nisl a libero pellentesque lobortis. Vivamus lacinia purus nisi, non malesuada felis fermentum sit amet. Suspendisse malesuada sem dictum risus vestibulum, et sagittis massa hendrerit. Donec sollicitudin enim ac risus fringilla tempus. Nam et felis sed metus vehicula gravida eget quis ligula. Nulla tempor ipsum ex, eget dictum nisl vulputate sed. In dui enim, commodo sit amet hendrerit a, cursus non ante. Praesent semper neque non tellus iaculis scelerisque. Duis hendrerit sem elementum nulla pulvinar, eu viverra nisi posuere. Maecenas laoreet placerat metus, ac rutrum elit auctor id. Maecenas malesuada at erat eu porttitor.
+
+Nulla dolor lectus, finibus pellentesque dolor non, mattis egestas arcu. Ut feugiat fermentum eros sit amet mattis. Praesent vitae sapien ac leo sollicitudin hendrerit. Sed eu neque augue. In bibendum massa enim, sit amet lobortis mi tempus quis. Proin posuere nibh id pellentesque gravida. Maecenas viverra erat in sapien vulputate molestie. Aenean venenatis ex odio, non mattis urna cursus eu. Nullam tristique lacus nulla, a lobortis nisi aliquet id. Pellentesque placerat, magna quis malesuada feugiat, nisi arcu maximus nunc, ac placerat sapien eros eget tortor.
+    </pre>
+    <a href="#menu">메뉴로 돌아가기</a>
+
+    <h4 id="content2">Contents 2</h4>
+    <pre>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur hendrerit dui efficitur, lobortis nulla eget, vehicula dolor. Aenean vulputate quam massa, id iaculis velit convallis nec. Nullam ut lacinia sapien, vel hendrerit leo. Cras vitae ante orci. Nunc urna magna, malesuada a blandit et, pulvinar quis odio. Aenean quis viverra nibh. Etiam vel accumsan mauris, sit amet aliquam enim. Morbi porttitor ultricies ex nec pharetra. Phasellus odio libero, aliquet eu vestibulum nec, hendrerit non enim. Sed consectetur eleifend eros at pretium. Sed arcu justo, ullamcorper in augue ut, lobortis hendrerit magna.
+
+Vestibulum sed leo at justo tempor vestibulum. Vivamus sagittis, augue sit amet aliquam pellentesque, mauris massa mattis enim, eu malesuada felis ligula vel nulla. Maecenas blandit odio sed ornare sodales. Quisque eu metus ut ante iaculis vulputate. Duis vel urna tincidunt, ornare sem ac, lobortis ex. Phasellus eu porta elit. Quisque finibus diam ac sem elementum, id fermentum lectus maximus. In dui metus, scelerisque non tempus ac, fermentum nec ante. Etiam sed accumsan erat. Cras iaculis suscipit mauris, vel auctor lorem mattis at. Nunc non luctus metus, quis elementum metus. Aliquam eget pharetra urna. Mauris non erat pharetra, congue velit sed, tempus massa. Pellentesque sit amet odio in eros tincidunt luctus in tristique nunc.
+
+Proin consectetur bibendum risus, non scelerisque nisi euismod et. Nulla dignissim neque elit, nec accumsan nibh facilisis ut. Praesent tellus diam, pulvinar id erat nec, pretium vestibulum justo. In feugiat lorem vel felis pulvinar commodo. Integer lacus lectus, pulvinar ut efficitur quis, auctor vitae dolor. Curabitur vehicula at dolor sit amet convallis. In et dictum lacus.
+
+Proin at quam lorem. Phasellus vitae nisl nulla. Sed bibendum erat ornare turpis tempor, et egestas enim mollis. Duis elementum nisl a libero pellentesque lobortis. Vivamus lacinia purus nisi, non malesuada felis fermentum sit amet. Suspendisse malesuada sem dictum risus vestibulum, et sagittis massa hendrerit. Donec sollicitudin enim ac risus fringilla tempus. Nam et felis sed metus vehicula gravida eget quis ligula. Nulla tempor ipsum ex, eget dictum nisl vulputate sed. In dui enim, commodo sit amet hendrerit a, cursus non ante. Praesent semper neque non tellus iaculis scelerisque. Duis hendrerit sem elementum nulla pulvinar, eu viverra nisi posuere. Maecenas laoreet placerat metus, ac rutrum elit auctor id. Maecenas malesuada at erat eu porttitor.
+
+Nulla dolor lectus, finibus pellentesque dolor non, mattis egestas arcu. Ut feugiat fermentum eros sit amet mattis. Praesent vitae sapien ac leo sollicitudin hendrerit. Sed eu neque augue. In bibendum massa enim, sit amet lobortis mi tempus quis. Proin posuere nibh id pellentesque gravida. Maecenas viverra erat in sapien vulputate molestie. Aenean venenatis ex odio, non mattis urna cursus eu. Nullam tristique lacus nulla, a lobortis nisi aliquet id. Pellentesque placerat, magna quis malesuada feugiat, nisi arcu maximus nunc, ac placerat sapien eros eget tortor.
+    </pre>
+    <a href="#menu">메뉴로 돌아가기</a>
+
+    <h4 id="content3">Contents 3</h4>
+    <pre>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur hendrerit dui efficitur, lobortis nulla eget, vehicula dolor. Aenean vulputate quam massa, id iaculis velit convallis nec. Nullam ut lacinia sapien, vel hendrerit leo. Cras vitae ante orci. Nunc urna magna, malesuada a blandit et, pulvinar quis odio. Aenean quis viverra nibh. Etiam vel accumsan mauris, sit amet aliquam enim. Morbi porttitor ultricies ex nec pharetra. Phasellus odio libero, aliquet eu vestibulum nec, hendrerit non enim. Sed consectetur eleifend eros at pretium. Sed arcu justo, ullamcorper in augue ut, lobortis hendrerit magna.
+
+Vestibulum sed leo at justo tempor vestibulum. Vivamus sagittis, augue sit amet aliquam pellentesque, mauris massa mattis enim, eu malesuada felis ligula vel nulla. Maecenas blandit odio sed ornare sodales. Quisque eu metus ut ante iaculis vulputate. Duis vel urna tincidunt, ornare sem ac, lobortis ex. Phasellus eu porta elit. Quisque finibus diam ac sem elementum, id fermentum lectus maximus. In dui metus, scelerisque non tempus ac, fermentum nec ante. Etiam sed accumsan erat. Cras iaculis suscipit mauris, vel auctor lorem mattis at. Nunc non luctus metus, quis elementum metus. Aliquam eget pharetra urna. Mauris non erat pharetra, congue velit sed, tempus massa. Pellentesque sit amet odio in eros tincidunt luctus in tristique nunc.
+
+Proin consectetur bibendum risus, non scelerisque nisi euismod et. Nulla dignissim neque elit, nec accumsan nibh facilisis ut. Praesent tellus diam, pulvinar id erat nec, pretium vestibulum justo. In feugiat lorem vel felis pulvinar commodo. Integer lacus lectus, pulvinar ut efficitur quis, auctor vitae dolor. Curabitur vehicula at dolor sit amet convallis. In et dictum lacus.
+
+Proin at quam lorem. Phasellus vitae nisl nulla. Sed bibendum erat ornare turpis tempor, et egestas enim mollis. Duis elementum nisl a libero pellentesque lobortis. Vivamus lacinia purus nisi, non malesuada felis fermentum sit amet. Suspendisse malesuada sem dictum risus vestibulum, et sagittis massa hendrerit. Donec sollicitudin enim ac risus fringilla tempus. Nam et felis sed metus vehicula gravida eget quis ligula. Nulla tempor ipsum ex, eget dictum nisl vulputate sed. In dui enim, commodo sit amet hendrerit a, cursus non ante. Praesent semper neque non tellus iaculis scelerisque. Duis hendrerit sem elementum nulla pulvinar, eu viverra nisi posuere. Maecenas laoreet placerat metus, ac rutrum elit auctor id. Maecenas malesuada at erat eu porttitor.
+
+Nulla dolor lectus, finibus pellentesque dolor non, mattis egestas arcu. Ut feugiat fermentum eros sit amet mattis. Praesent vitae sapien ac leo sollicitudin hendrerit. Sed eu neque augue. In bibendum massa enim, sit amet lobortis mi tempus quis. Proin posuere nibh id pellentesque gravida. Maecenas viverra erat in sapien vulputate molestie. Aenean venenatis ex odio, non mattis urna cursus eu. Nullam tristique lacus nulla, a lobortis nisi aliquet id. Pellentesque placerat, magna quis malesuada feugiat, nisi arcu maximus nunc, ac placerat sapien eros eget tortor.
+    </pre>
+    <a href="#menu">메뉴로 돌아가기</a>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</body>
+</html>
