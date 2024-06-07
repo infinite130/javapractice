@@ -9,25 +9,5 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
-  <servlet>
-    <description></description>
-    <display-name>ForwardServlet</display-name>
-    <servlet-name>ForwardServlet</servlet-name>
-    <servlet-class>com.practice.forward.ForwardServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ForwardServlet</servlet-name>
-    <url-pattern>/ForwardServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>OrderResultServlet</display-name>
-    <servlet-name>OrderResultServlet</servlet-name>
-    <servlet-class>com.practice.order.OrderResultServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>OrderResultServlet</servlet-name>
-    <url-pattern>/OrderResultServlet</url-pattern>
-  </servlet-mapping>
  
 </web-app>

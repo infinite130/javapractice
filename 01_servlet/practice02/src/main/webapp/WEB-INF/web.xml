@@ -9,14 +9,5 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
-  <servlet>
-    <description></description>
-    <display-name>OrderPageTestServlet</display-name>
-    <servlet-name>OrderPageTestServlet</servlet-name>
-    <servlet-class>com.ohgiraffers.practice.orderpage.OrderPageTestServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>OrderPageTestServlet</servlet-name>
-    <url-pattern>/OrderPageTestServlet</url-pattern>
-  </servlet-mapping>
+
 </web-app>
