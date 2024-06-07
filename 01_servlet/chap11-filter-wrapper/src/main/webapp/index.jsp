@@ -11,5 +11,21 @@
 	
 	<h3>Filter LifeCycle</h3>
 	<a href="first/filter">Filter 사용하기</a>
+	
+	<hr>
+	
+	<h3>Filter 활용하기</h3>
+	<form action="member/regist" method="post">
+		<label>ID : </label>
+		<input type="text" name="userId">
+		<br>
+		<label>PW : </label>
+		<input type="password" name="password">
+		<br>
+		<label>NAME : </label>
+		<input type="text" name="name">
+		<br>
+		<button type="submit">sign up</button>
+	</form>
 </body>
 </html>

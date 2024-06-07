@@ -28,4 +28,23 @@
     <filter-name>FirstFilter</filter-name>
     <url-pattern>/FirstFilter</url-pattern>
   </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RegistMemberServlet</display-name>
+    <servlet-name>RegistMemberServlet</servlet-name>
+    <servlet-class>com.ohgiraffers.filterwrapper.section02.uses.RegistMemberServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegistMemberServlet</servlet-name>
+    <url-pattern>/RegistMemberServlet</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <display-name>PasswordEncryptFilter</display-name>
+    <filter-name>PasswordEncryptFilter</filter-name>
+    <filter-class>com.ohgiraffers.filterwrapper.section02.uses.PasswordEncryptFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>PasswordEncryptFilter</filter-name>
+    <url-pattern>/PasswordEncryptFilter</url-pattern>
+  </filter-mapping>
 </web-app>
