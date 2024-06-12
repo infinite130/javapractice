@@ -9,34 +9,4 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
-  <servlet>
-    <description></description>
-    <display-name>TestOneServlet</display-name>
-    <servlet-name>TestOneServlet</servlet-name>
-    <servlet-class>com.ohgiraffers.eljstl.controller.TestOneServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>TestOneServlet</servlet-name>
-    <url-pattern>/TestOneServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>TestTwoServlet</display-name>
-    <servlet-name>TestTwoServlet</servlet-name>
-    <servlet-class>com.ohgiraffers.eljstl.controller.TestTwoServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>TestTwoServlet</servlet-name>
-    <url-pattern>/TestTwoServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>TestFourServlet</display-name>
-    <servlet-name>TestFourServlet</servlet-name>
-    <servlet-class>com.ohgiraffers.eljstl.controller.TestFourServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>TestFourServlet</servlet-name>
-    <url-pattern>/TestFourServlet</url-pattern>
-  </servlet-mapping>
 </web-app>

@@ -136,10 +136,20 @@
   <hr/>
 
   <h2>c:forTokens 태그 - 문자열을 토큰으로 분리 처리할 때 사용</h2>
+  <ul>
+  	<c:forTokens var="saying" items="hello hi 안녕 bye sayonara" delims=" ">
+  		<li>${ saying }</li>
+  	</c:forTokens>
+  </ul>
+
 
   <hr/>
 
   <h2>c:url 태그 - 링크 설정 정보 별도 지정 시 사용</h2>
+  <c:url var="fmtlink" value="testJstlCoreResult.jsp">
+  	<c:param name="num" value="777"/>
+  </c:url>
+  <a href="${ fmtlink }">결과 화면 연결</a>
   
 
 </body>
