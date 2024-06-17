@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohgiraffers.auth.admin.model.dao.AdminDAO">
+
+	<resultMap type="com.ohgiraffers.auth.admin.model.dao.AdminDAO" id="memberResultMap">
+		<id property="memberNo" column="MEMBER_NO"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="memberName" column="NICKNAME"/>
+		<result property="enrollDate" column="ENROLL_DATE"/>
+	</resultMap>
+
+	<insert id="insertMember" parameterType="com.ohgiraffers.auth.admin.model.dto.MemberDTO">
+	INSERT INTO 
+			TBL_MEMBER (
+						MEMBER_ID
+						, NICKNAME
+						, ENROLL_DATE
+						)
+			VALUES (
+					#{ memberId }
+					, #{ memberName }
+					, #{ enrollDate }
+					)
+	</insert>
+	
+	<select id="selectEncryptedPwd" resultType="java.lang.String">
+	SELECT MEMBER_PWD
+	  FROM TBL_MEMBER
+	 WHERE MEMBER_ID = #{ memberId }
+	</select>
+	
+	<select id="selectLoginMember" resultMap="memberResultMap">
+	SELECT MEMBER_NO
+			, MEMBER_ID
+			, NICKNAME
+			, ENROLL_DATE
+	  FROM TBL_MEMBER
+	 WHERE MEMBER_ID = #{ memberId }
+	</select>
+
+</mapper>

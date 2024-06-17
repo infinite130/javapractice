@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+.divmenu {
+	display: flex;
+}
+
+.divmenu div {
+	padding: 50px;
+	margin-right: 10px;
+	background-color: skyblue;
+	border: 1px solid black;	
+}
+
+.mlist {
+	border: 10px double blue;
+}
+
+.mlist th,td {
+	border: 1px solid skyblue;
+}
