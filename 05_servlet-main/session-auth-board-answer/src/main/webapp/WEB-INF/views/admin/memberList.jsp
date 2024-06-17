@@ -17,16 +17,14 @@
 			<th>회원명</th>
 			<th>가입일자</th>
 		</tr>
-		<%-- 
-		<c:forEach items="${ }" var="">
+		<c:forEach items="${ memberList }" var="member">
 			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td>${ member.memberNo }</td>
+				<td>${ member.memberId }</td>
+				<td>${ member.memberName }</td>
+				<td>${ member.enrollDate }</td>
 			</tr>
-		</c:forEach> 
-		--%>
+		</c:forEach>
 	</table>
 </body>
 </html>
