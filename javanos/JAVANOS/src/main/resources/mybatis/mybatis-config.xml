@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<environments default="dev">
+		<environment id="dev">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.cj.jdbc.Driver" />
+				<property name="url" value="jdbc:mysql://localhost/javanos" />
+				<property name="username" value="songpa" />
+				<property name="password" value="songpa" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<mappers>
+		<mapper resource="com/javanos/project/community/model/dao/CommunityDAO.xml"/>
+		<mapper resource="com/javanos/project/user/model/dao/UserDAO.xml"/>
+		<!-- <mapper resource="com/javanos/project/notice/model/dao/NoticeDAO.xml"/> -->
+		<!-- <mapper resource="com/javanos/project/down/model/dao/DownDAO.xml"/> -->
+		<!-- <mapper resource="com/javanos/project/lnf/model/dao/LnfBoardDAO.xml"/> -->
+		<!-- <mapper resource="com/javanos/project/report/model/dao/ReportDAO.xml"/> -->
+	</mappers>
+</configuration>

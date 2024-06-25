@@ -1,0 +1,23 @@
+-- TBL_USER
+INSERT INTO TBL_USER (USER_ID, USER_PWD, USER_NAME, USER_NICKNAME, USER_EMAIL, USER_ROLE) 
+VALUES ('admin', 'admin', '관리자', '관리자', 'admin@google.com', 'ROLE_ADMIN');
+
+-- TBL_STATION
+INSERT INTO TBL_STATION (STA_CODE, STA_NAME, STA_LINE) VALUES
+(340, '가락시장', '3호선'),
+(2548, '천호', '5호선');
+
+-- TBL_LNF
+INSERT INTO TBL_LNF (LNF_MISSING, LNF_FIND_DATE, LNF_FIND_TIME, LNF_KEEP, LNF_DESCRIPTION, LNF_WRITER_NO, LNF_STA_NO) VALUES 
+('냉장고', '2024-06-20', '12:30:00', '가락시장역 3호선 역사', '냉장고를 어떻게 가지고 다니시죠?', 1, 1),
+('지갑', '2024-06-21', '10:15:00', '발견 장소', '저 민증 3개 있어요. 잃어버려서 재발급 2번 했어요. 근데 집에서 다시 찾았어요.', 1, 2);
+
+-- TBL_REPORT 
+INSERT INTO TBL_REPORT (REPORT_REASON, REPORT_DATE, REPORT_STATUS, REPORT_USER_NO, REPORTED_USER_NO, PIC_NO)
+VALUES ('모욕적인 글 작성', CURRENT_TIMESTAMP, 'Y', 1, 2, 2);
+
+INSERT INTO TBL_DOWN (DOWN_ROOM , DOWN_FULL, DOWN_USER_NO, DOWN_STA_NO, IN_STA_NO) VALUES
+         ('2-1칸', '상', 1,1,1),
+			   ('3-2칸', '중', 1,2,2);
+
+-- COMMIT;

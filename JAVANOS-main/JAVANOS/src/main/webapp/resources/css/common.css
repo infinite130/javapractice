@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .header {
+        background-color: #333;
+        overflow: hidden;
+    }
+    .menu-area {
+        max-width: 1000px;
+        margin: auto;
+    }
+    .nav-area {
+        display: flex;
+        justify-content: flex-end; /* Align items to the right */
+    }
+    .nav-area ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+    .nav-area li {
+        margin-left: 10px; /* Add space between menu items */
+    }
+    .nav-area li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+    .nav-area li a:hover {
+        background-color: #575757;
+    }
+    .nav-area .admin {
+        background-color: #444;
+    }
