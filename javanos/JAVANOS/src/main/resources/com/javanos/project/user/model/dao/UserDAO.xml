@@ -18,6 +18,27 @@
 		<result property="userStopDate" column="USER_STOP_DATE"/>
 	</resultMap>
 	
+	<select id="selectCountByUserId" resultType="_int">
+		SELECT
+			COUNT(USER_NO)
+		FROM TBL_USER
+		WHERE USER_ID = #{ userId }
+	</select>
+	
+	<select id="selectCountByUserNickname" resultType="_int">
+		SELECT
+			COUNT(USER_NO)
+		FROM TBL_USER
+		WHERE USER_NICKNAME = #{ userNickname }
+	</select>
+	
+	<select id="selectCountByUserEmail" resultType="_int">
+		SELECT
+			COUNT(USER_NO)
+		FROM TBL_USER
+		WHERE USER_EMAIL = #{ userEmail }
+	</select>
+	
 	<insert id="insertUser" parameterType="com.javanos.project.user.model.dto.UserDTO">
 		INSERT INTO TBL_USER
 		(
@@ -46,40 +67,40 @@
 	</select>
 	
 	<select id="selectLoginUser" resultMap="userResultMap">
-	SELECT
-		USER_NO,
-		USER_ID,
-		USER_PWD,
-		USER_NAME,
-		USER_NICKNAME,
-		USER_EMAIL,
-		USER_ROLE,
-		USER_ENROLL_DATE,
-		USER_STATUS,
-		USER_STOP_DATE
-	FROM TBL_USER
-	 WHERE USER_ID = #{ userId }
-	 	AND USER_STATUS = 'Y'
-	 	AND (USER_STOP_DATE IS NULL OR CURDATE() > USER_STOP_DATE)
+		SELECT
+			USER_NO,
+			USER_ID,
+			USER_PWD,
+			USER_NAME,
+			USER_NICKNAME,
+			USER_EMAIL,
+			USER_ROLE,
+			USER_ENROLL_DATE,
+			USER_STATUS,
+			USER_STOP_DATE
+		FROM TBL_USER
+	 	WHERE USER_ID = #{ userId }
+	 		AND USER_STATUS = 'Y'
+	 		AND (USER_STOP_DATE IS NULL OR CURDATE() > USER_STOP_DATE)
 	</select>
 	
 	<update id="updateUser" parameterType="com.javanos.project.user.model.dto.UserDTO">
-	UPDATE 
-		TBL_USER
-	SET USER_NICKNAME = #{ userNickname },
-		USER_EMAIL = #{ userEmail }
-	WHERE USER_NO = #{ userNo }
-	 	AND USER_STATUS = 'Y'
-	 	AND (USER_STOP_DATE IS NULL OR CURDATE() > USER_STOP_DATE) 
+		UPDATE 
+			TBL_USER
+		SET USER_NICKNAME = #{ userNickname },
+			USER_EMAIL = #{ userEmail }
+		WHERE USER_NO = #{ userNo }
+	 		AND USER_STATUS = 'Y'
+	 		AND (USER_STOP_DATE IS NULL OR CURDATE() > USER_STOP_DATE) 
 	</update>
 	
 	<update id="deleteUser" parameterType="com.javanos.project.user.model.dto.UserDTO">
-	UPDATE
-		TBL_USER
-	SET USER_STATUS = 'N'
-	WHERE USER_NO = #{ userNo }
-	 	AND USER_STATUS = 'Y'
-	 	AND (USER_STOP_DATE IS NULL OR CURDATE() > USER_STOP_DATE) 
+		UPDATE
+			TBL_USER
+		SET USER_STATUS = 'N'
+		WHERE USER_NO = #{ userNo }
+	 		AND USER_STATUS = 'Y'
+	 		AND (USER_STOP_DATE IS NULL OR CURDATE() > USER_STOP_DATE) 
 	</update>
 	
 </mapper>

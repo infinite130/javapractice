@@ -17,6 +17,7 @@
 					<td>아이디</td>
 					<td><input type="text" name="userId" id="userId" value="${ sessionScope.loginUser.userId }" readonly></td>
 				</tr>
+				
 				<tr>
 					<td>이름</td>
 					<td><input type="text" name="userName" value="${ sessionScope.loginUser.userName }" readonly></td>
@@ -32,7 +33,7 @@
 			</table>
 			<div class="btns" align="center">
 				<input type="submit" id="updateBtn" value="수정"><br>
-				<input type="button" id="cancleBtn" value="취소">
+				<input type="button" id="cancelBtn" value="취소">
 				<input type="button" id="deleteBtn" value="회원탈퇴">
 			</div>
 		</form>

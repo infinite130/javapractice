@@ -80,6 +80,9 @@ public class AuthenticationFilter implements Filter {
 		List<String> userPermitList = new ArrayList<>();
 		List<String> adminPermitList = new ArrayList<>();
 		
+		allPermitList.add("/user/check-id");
+		allPermitList.add("/user/check-nickname");
+		allPermitList.add("/user/check-email");
 		allPermitList.add("/user/join");
 		allPermitList.add("/user/login");
 		allPermitList.add("/user/logout");

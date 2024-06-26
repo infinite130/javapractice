@@ -21,6 +21,26 @@ public class UserService {
 		session.close();
 		return result;
 	}
+	
+	public int checkDupUserNickname(String userNickname) {
+		SqlSession session = getSqlSession();
+		userDAO = session.getMapper(UserDAO.class);
+		
+		int result = userDAO.selectCountByUserNickname(userNickname);
+		
+		session.close();
+		return result;
+	}
+	
+	public int checkDupUserEmail(String userEmail) {
+		SqlSession session = getSqlSession();
+		userDAO = session.getMapper(UserDAO.class);
+		
+		int result = userDAO.selectCountByUserEmail(userEmail);
+		
+		session.close();
+		return result;
+	}
 
 	public int joinUser(UserDTO requestUser) {
 		SqlSession session = getSqlSession();

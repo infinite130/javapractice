@@ -5,6 +5,10 @@ import com.javanos.project.user.model.dto.UserDTO;
 public interface UserDAO {
 	
 	int selectCountByUserId(String userId);
+	
+	int selectCountByUserNickname(String userNickname);
+	
+	int selectCountByUserEmail(String userEmail);
 
 	int insertUser(UserDTO requestUser);
 	

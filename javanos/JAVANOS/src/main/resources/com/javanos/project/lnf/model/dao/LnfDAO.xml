@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javanos.project.lnf.model.dao.LnfDAO">
+
+	<resultMap type="com.javanos.project.user.model.dto.UserDTO" id="userResultMap">
+		<id property="userNo" column="USER_NO"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userNickname" column="USER_NICKNAME"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="userRole" column="USER_ROLE"/>
+		<result property="userEnrollDate" column="USER_ENROLL_DATE"/>
+		<result property="userStatus" column="USER_STATUS"/>
+		<result property="userStopDate" column="USER_STOP_DATE"/>
+	</resultMap>
+
+	<resultMap type="com.javanos.project.lnf.model.dto.StationDTO" id="stationResultMap">
+		<id property="staNo" column="STA_NO"/>
+		<result property="staCode" column="STA_CODE"/>
+		<result property="staName" column="STA_NAME"/>
+		<result property="staLine" column="STA_LINE"/>
+	</resultMap>
+	
+	<resultMap type="com.javanos.project.lnf.model.dto.LnfBoardDTO" id="lnfResultMap">
+		<id property="lnfNo" column="LNF_NO"/>
+		<result property="missing" column="LNF_MISSING"/>
+		<result property="findDate" column="LNF_FIND_DATE"/>
+		<result property="findTime" column="LNF_FIND_TIME"/>
+		<result property="keep" column="LNF_KEEP"/>
+		<result property="description" column="LNF_DESCRIPTION"/>
+		<result property="enrollDate" column="LNF_ENROLL_DATE"/>
+		<result property="modifyDate" column="LNF_MODIFY_DATE"/>
+		<result property="boardStatus" column="LNF_BOARD_STATUS"/>
+		<association property="userNo" resultMap="userResultMap"/>
+		<association property="staNo" resultMap="stationResultMap"/>
+	</resultMap>
+	
+	<!-- 게시글 삽입 -->
+	<insert id="enrollBoard">
+		INSERT INTO TBL_LNF(
+			STA_NO,
+			LNF_FIND_DATE,
+			LNF_FIND_TIME,
+			LNF_MISSING,
+			LNF_KEEP,
+			LNF_DESCRIPTION,
+			LNF_ENROLL_DATE	
+			LNF_		
+		) VALUES (
+			#{staNo},
+			#{findDate},
+			#{findTime},
+			#{missing},
+			#{keep},
+			#{description},
+			#{enrollDate},
+		
+		)
+	</insert>
+		
+	<!-- 게시판 목록 조회 -->
+	
+	<!-- 게시글 수정 -->
+	
+	<!-- 게시글 삭제 -->
+	
+	<!-- 게시글 상세 보기 조회 -->
+	
+</mapper>

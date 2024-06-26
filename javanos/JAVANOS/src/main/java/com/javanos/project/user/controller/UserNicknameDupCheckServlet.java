@@ -9,15 +9,17 @@ import java.io.IOException;
 
 import com.javanos.project.user.model.service.UserService;
 
-@WebServlet("/user/check-id")
-public class UserIdDupCheckServlet extends HttpServlet {
+@WebServlet("/user/check-nickname")
+public class UserNicknameDupCheckServlet extends HttpServlet {
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userId");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String userNickname = request.getParameter("userNickname");
+
+		int result = new UserService().checkDupUserNickname(userNickname);
 		
-		int result = new UserService().checkDupUserId(userId);
-		
-		if(result > 0) {
+		if (result > 0) {
 			response.getWriter().write("fail");
 		} else {
 			response.getWriter().write("pass");
