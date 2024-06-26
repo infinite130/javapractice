@@ -15,12 +15,12 @@
 			<div class="nav-area">
 				<ul>
 					<li><a href="${ pageContext.servletContext.contextPath }">home</a></li>
-					<li><a href="">내려요</a></li>
+					<li><a href="${ pageContext.servletContext.contextPath }/down/enroll">내려요</a></li>
 					<li><a href="${ pageContext.servletContext.contextPath }/lnf/first">분실물</a></li>
 					<li><a href="${ pageContext.servletContext.contextPath }/community/list">커뮤니티</a></li>
-					<li><a href="">공지사항</a></li>
+					<li><a href="${ pageContext.servletContext.contextPath }/notice/list">공지사항</a></li>
 					<c:choose>
-						<c:when test="${ empty sessionScope.loginUser }">
+						<c:when test="${ empty sessionScope.loginUser }"> 
 							<li><a href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
 						</c:when>
 						<c:when test="${ sessionScope.loginUser.userRole eq 'ROLE_USER' }">

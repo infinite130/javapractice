@@ -9,29 +9,41 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.javanos.project.user.model.dto.UserDTO;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @WebServlet("/RegistReport")
 public class RegistReportServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
         // 로그인된 사용자 아이디 가져오기
         HttpSession session = request.getSession();
-        String userId = (String) session.getAttribute("userId");
+        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            response.sendRedirect("login.jsp"); // 로그인 페이지로 리디렉션
+            return;
+        }
+        String userId = loginUser.getUserId();
 
         // reportregistmain 에서 입력한 데이터 수신
-        String check1 = request.getParameter("check1");
+        String check1 = request.getParameter("actualCheck1"); // 변경된 부분: 실제 신고 내용을 가져옴
         String additionalText = request.getParameter("additionalText");
-        
+        String communityNo = request.getParameter("communityNo");
+        String reportedUserId = request.getParameter("reportedUserId"); // 신고당한 사용자 ID
+
         // 현재 날짜 가져오기
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String currentDate = formatter.format(new Date());
 
         // 수신받은 데이터를 콘솔에 출력
-        System.out.println("작성자: " + userId);
+        System.out.println("신고한 회원: " + userId);
+        System.out.println("신고당한 회원: " + reportedUserId);
         System.out.println("신고 내용: " + check1);
         if (additionalText != null && !additionalText.isEmpty()) {
             System.out.println("기타 내용: " + additionalText);
@@ -45,11 +57,15 @@ public class RegistReportServlet extends HttpServlet {
                 reports = new ArrayList<>();
                 getServletContext().setAttribute("reports", reports);
             }
-            reports.add(new String[]{userId, check1, additionalText, currentDate});
+            reports.add(new String[]{userId, reportedUserId, check1, additionalText, currentDate, communityNo});
         }
 
         // 사용자에게 "신고가 완료되었습니다" 메시지 표시 후 리다이렉트
         request.setAttribute("successCode", "reportSubmitted");
         request.getRequestDispatcher("/WEB-INF/views/common/success.jsp").forward(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
     }
 }

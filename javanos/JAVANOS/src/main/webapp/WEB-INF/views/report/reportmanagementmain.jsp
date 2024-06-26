@@ -32,7 +32,8 @@
 <table>
     <tr>
         <th>#</th>
-        <th>작성자</th>
+        <th>신고한 회원</th>
+        <th>신고당한 회원</th>
         <th>신고 내용</th>
         <th>등록일</th>
     </tr>
@@ -44,15 +45,18 @@
             for (Object reportObj : reportsList) {
                 if (reportObj instanceof String[]) {
                     String[] report = (String[]) reportObj;
-                    String userId = report[0];
-                    String check1 = report[1];
-                    String additionalText = report[2];
-                    String currentDate = report[3];
+                    String userId = report[0]; // 신고한 회원 ID
+                    String reportedUserId = report[1]; // 신고당한 회원 ID
+                    String check1 = report[2];
+                    String additionalText = report[3];
+                    String currentDate = report[4];
+                    String communityNo = report[5];
     %>
     <tr>
         <td><%= index++ %></td>
         <td><%= userId %></td>
-        <td><%= check1 %></td>
+        <td><%= reportedUserId %></td>
+        <td><a href="${pageContext.servletContext.contextPath}/reportdetail?userId=<%= userId %>&reportedUserId=<%= reportedUserId %>&check1=<%= check1 %>&additionalText=<%= additionalText %>&currentDate=<%= currentDate %>"><%= check1 %></a></td>
         <td><%= currentDate %></td>
     </tr>
     <%
