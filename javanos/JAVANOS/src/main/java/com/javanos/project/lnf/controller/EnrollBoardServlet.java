@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/board/insert")
+@WebServlet("/lnf/insert")
 public class EnrollBoardServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,55 +28,46 @@ public class EnrollBoardServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		/* 가지고 와야 할 정보
-		 * 게시판 정보
-		 * first page - 역, 호선, 발견 일 (근데 이걸 enrollForm 받아와야 하는건가)
-		 * enroll page - 발견 시간, 분실 품목, 보관 장소, 내용
-		 */
+		String StaLine = request.getParameter("staLine");
+		String staName = request.getParameter("staName");
 		
-		int lnfNo = Integer.parseInt(request.getParameter("lnfNo"));
-//		int staNo=((StationDTO) request.getSession().getAttribute("stationNo")).getStaNo();
-		String missing = request.getParameter("missing");
 		String findDateStr = request.getParameter("findDate");
-			Date findDate = null;
-			try {
-	            SimpleDateFormat sdf = new SimpleDateFormat("yy-mm-dd");
-	            java.util.Date date = sdf.parse(findDateStr);
-	            findDate = new Time(date.getTime());
-	        } catch (ParseException e) {
-	            e.printStackTrace();
-	            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid time format");
-	            return;
-	        }
-		String findTimeStr = request.getParameter("findTime");
-			Time findTime = null;
-			try {
-	            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-	            java.util.Date date = sdf.parse(findTimeStr);
-	            findTime = new Time(date.getTime());
-	        } catch (ParseException e) {
-	            e.printStackTrace();
-	            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid time format");
-	            return;
-	        }
+		Date findDate = null;
+		try {
+		    findDate = new SimpleDateFormat("yyyy-MM-dd").parse(findDateStr);
+		} catch (ParseException e) {
+		    e.printStackTrace(); // 오류 처리 필요
+		}
+		
+		String missing = request.getParameter("missing");
 		String keep = request.getParameter("keep");
-		String description =request.getParameter("description");
-		int writerNo = ((UserDTO) request.getSession().getAttribute("userNo")).getUserNo();
+		String description = request.getParameter("description");
+//		int writerMemberNo = ((UserDTO) request.getSession().getAttribute("loginMember")).getUserNo();
 		
-		LnfBoardDTO enrollBoard = new LnfBoardDTO();
-		enrollBoard.setLnfNo(lnfNo);
-		enrollBoard.getStaNo();
-		enrollBoard.setMissing(missing);	
-		enrollBoard.setFindDate(findDate);
-		enrollBoard.setFindTime(findTime);
-		enrollBoard.setKeep(keep);
-		enrollBoard.setDescription(description);
-		enrollBoard.getUserNo();
+		LnfBoardDTO newBoard = new LnfBoardDTO();
+		StationDTO newStaBoard = new StationDTO();
+		newStaBoard.setStaLine(StaLine);
+		newStaBoard.setStaName(staName);	
+		newBoard.setMissing(missing);
+		newBoard.setKeep(keep);
+		newBoard.setDescription(description);
+//		newBoard.getUserNo();
 		
-		int result = new LnfBoardService().enrollBoard(enrollBoard);
+		LnfBoardService boardService = new LnfBoardService();
+		int result = boardService.enrollBoard(newBoard);
 		
+		System.out.println(boardService);
 		
-		request.getRequestDispatcher(request.getContextPath() +"/board/main");
+		String path = "";
+		if(result > 0) {
+			path = "/WEB-INF/views/common/success.jsp";
+			request.setAttribute("message", "게시판 등록이 완료되었습니다.");
+		} else {
+			path = "/WEB-INF/views/common/failed.jsp";
+			request.setAttribute("message", "게시판 작성에 실패하셨습니다.");
+		}
+		
+		request.getRequestDispatcher(path).forward(request, response);
 	}
 
 }

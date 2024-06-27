@@ -19,6 +19,7 @@ public class ReportDetailServlet extends HttpServlet {
         String check1 = request.getParameter("check1");
         String additionalText = request.getParameter("additionalText");
         String currentDate = request.getParameter("currentDate");
+        String communityNo = request.getParameter("communityNo");
 
         // 받은 데이터를 request 속성에 설정
         request.setAttribute("userId", userId);
@@ -26,6 +27,7 @@ public class ReportDetailServlet extends HttpServlet {
         request.setAttribute("check1", check1);
         request.setAttribute("additionalText", additionalText);
         request.setAttribute("currentDate", currentDate);
+        request.setAttribute("communityNo", communityNo);
 
         // JSP 페이지로 포워딩
         request.getRequestDispatcher("/WEB-INF/views/report/reportdetail.jsp").forward(request, response);

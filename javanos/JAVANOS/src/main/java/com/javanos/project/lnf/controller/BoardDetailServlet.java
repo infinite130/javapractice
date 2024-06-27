@@ -7,10 +7,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/board/detail")
+@WebServlet("/lnf/detail")
 public class BoardDetailServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.getRequestDispatcher("/WEB-INF/views/lnf/page/detailForm.jsp").forward(request, response);
 
 	}
 

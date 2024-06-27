@@ -44,10 +44,11 @@
             <th>신고한 회원</th>
             <td>${userId}</td>
         </tr>
-        <tr>
-            <th>신고 게시글</th>
-            <td>${additionalText}</td>
-        </tr>
+			<tr>
+			    <th>신고 게시글</th>
+			    <td><a href="${pageContext.servletContext.contextPath}/community/detail?communityNo=${param.communityNo}">게시글 보기</a></td>
+			</tr>
+
         <tr>
             <th>신고일</th>
             <td>${currentDate}</td>

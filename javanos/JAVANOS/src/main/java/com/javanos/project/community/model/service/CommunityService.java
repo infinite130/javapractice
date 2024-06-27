@@ -35,22 +35,19 @@ public class CommunityService {
 	 * session.close(); return community; }
 	 */
 
-	public int updateCommunity(CommunityDTO updateCommunity) {
-		SqlSession session = getSqlSession();
-
-		communityDAO = session.getMapper(CommunityDAO.class);
-
-		int result = communityDAO.updateCommunity(updateCommunity);
-
-		if (result > 0) {
-			session.commit();
-		} else {
-			session.rollback();
-		}
-		session.close();
-
-		return result;
-	}
+	/*
+	 * public int updateCommunity(CommunityDTO updateCommunity) { SqlSession session
+	 * = getSqlSession();
+	 * 
+	 * communityDAO = session.getMapper(CommunityDAO.class);
+	 * 
+	 * int result = communityDAO.updateCommunity(updateCommunity);
+	 * 
+	 * if (result > 0) { session.commit(); } else { session.rollback(); }
+	 * session.close();
+	 * 
+	 * return result; }
+	 */
 
 	public int deleteCommunity(int communityNo) {
 
@@ -143,5 +140,54 @@ public class CommunityService {
 		session.close();
 		return community;
 	}
+
+	public int updateCommunityWithPic(CommunityDTO community) {
+		System.out.println(community);
+
+		SqlSession session = getSqlSession();
+		communityDAO = session.getMapper(CommunityDAO.class);
+		
+		int result = 0;
+		result = communityDAO.deletePicture(community.getCommunityNo());
+		
+		if(result>0) {
+			
+			result = communityDAO.updateCommunity(community);
+			
+			if(result > 0) {
+				
+				  List<PictureDTO> pictureList = community.getPictureList();
+				  int pictureResult = 0; 
+				  for (PictureDTO pictureDTO : pictureList) {
+					  System.out.println("pictureList 반복중");
+					  pictureDTO.setCommunityNo(community.getCommunityNo()); 
+					  pictureResult += communityDAO.insertPicture(pictureDTO); 
+				  }
+				  
+				  if(pictureResult == pictureList.size()) { 
+					  System.out.println("DB에 수정 성공!");
+					  session.commit(); 
+					  result = 1; 
+				  }else { 
+					  System.out.println("DB에 수정 실패!");
+					  session.rollback(); 
+					  result = 0;
+				  }
+				 
+		    } else {
+		        session.rollback();
+		        System.out.println("DB에 수정 실패!");
+		        result = 0;
+		    }
+		}else {
+			System.out.println("DB에 수정 실패!");
+			  session.rollback(); 
+			  result = 0;
+		}
+	    
+	    session.close();
+	    return result;
+	}
+
 
 }

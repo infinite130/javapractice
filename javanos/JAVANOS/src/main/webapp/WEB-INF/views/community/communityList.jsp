@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>커뮤니티</title>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script></head>
-<body>
+<body>	
 	<jsp:include page="../common/menubar.jsp"/>
 	
 	<c:if test="${ sessionScope.loginUser.userRole eq 'ROLE_USER' }">

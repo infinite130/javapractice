@@ -40,33 +40,37 @@
 	
 	<!-- 게시글 삽입 -->
 	<insert id="enrollBoard">
-		INSERT INTO TBL_LNF(
-			STA_NO,
-			LNF_FIND_DATE,
-			LNF_FIND_TIME,
-			LNF_MISSING,
-			LNF_KEEP,
-			LNF_DESCRIPTION,
-			LNF_ENROLL_DATE	
-			LNF_		
-		) VALUES (
-			#{staNo},
-			#{findDate},
-			#{findTime},
-			#{missing},
-			#{keep},
-			#{description},
-			#{enrollDate},
-		
-		)
+    INSERT INTO TBL_LNF(
+        LNF_FIND_DATE,
+        LNF_MISSING,
+        LNF_FIND_TIME,
+        LNF_KEEP,
+        LNF_DESCRIPTION
+    ) VALUES (
+        #{findDate},
+        #{missing},
+        #{findTime},
+        #{keep},
+        #{description}
+    )
 	</insert>
 		
 	<!-- 게시판 목록 조회 -->
+	<select id="selectAllBoardList" resultMap="lnfResultMap">
+		SELECT * FROM TBL_LNF;
+	</select>
 	
 	<!-- 게시글 수정 -->
 	
 	<!-- 게시글 삭제 -->
 	
 	<!-- 게시글 상세 보기 조회 -->
+	
+	<!-- 첫 화면 -->
+	
+	<select id="selectStaLine" resultMap="stationResultMap">
+		SELECT * FROM TBL_STATION;
+	</select>
+		
 	
 </mapper>

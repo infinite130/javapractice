@@ -20,7 +20,7 @@ public class CommunitySelectListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//CommunityDTO를 list로 구성해서 forward시키기
-		
+
 		
 		List<CommunityDTO> communityList = new CommunityService().selectThumbnailList();
 		

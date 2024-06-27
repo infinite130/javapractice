@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,15 +22,17 @@
 									<input type="text" name="communityTitle" id="communityTitle">
 								</td>
 							</tr>
+
+
+
 							<tr>
-								<td>썸네일 이미지</td>
 								<td>
 									<div class="title-img-area" id="titleImgArea">
 										<img id="titleImgView" width="350" height="200">
 									</div>
 								</td>
 								<td>
-									<input type="file" id="thumbnailImg" name="thumbnailImg" onchange="loadImg(this,1)">
+									<input type="file" id="Images" name="thumbnailImg" onchange="loadImg(this,1)">
 								</td>
 							</tr>
 							
@@ -38,11 +41,11 @@
 								<td>내용 사진</td>
 								<td>
 									<div class="body-img-area1" id="bodyImgArea1">
-										<img id="bodyImgView1" width="120" height="100">
+										<img id="bodyImgView1"  width="120" height="100">
 									</div>	
 								</td>
 								<td>
-									<input type="file" id="bodyImg1" name="bodyImg1" onchange="loadImg(this,2)">
+									<input type="file" id="bodyImg1" name="bodyImg1" onchange="loadImg(this,2)" multiple>
 								</td>
 								<td>
 									<div class="body-img-area2" id="bodyImgArea2">
@@ -50,16 +53,16 @@
 									</div>	
 								</td>
 								<td>
-									<input type="file" id="bodyImg2" name="bodyImg2" onchange="loadImg(this,3)">
-								</td>
+<!-- 									<input type="file" id="bodyImg2" name="bodyImg2" onchange="loadImg(this,3)">
+ -->								</td>
 								<td>
 									<div class="body-img-area3" id="bodyImgArea3">
-										<img id="bodyImgView3" width="120" height="100">
-									</div>	
+<!-- 										<img id="bodyImgView3" width="120" height="100">
+ -->									</div>	
 								</td>
 								<td>
-									<input type="file" id="bodyImg3" name="bodyImg3" onchange="loadImg(this,4)">
-								</td>
+<!-- 									<input type="file" id="bodyImg3" name="bodyImg3" onchange="loadImg(this,4)">
+ -->								</td>
 							</tr>
 							<tr>
 								<td>내용</td>

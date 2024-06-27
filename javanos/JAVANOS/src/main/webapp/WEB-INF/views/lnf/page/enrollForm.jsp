@@ -11,54 +11,69 @@
 	<jsp:include page="../../common/menubar.jsp"/>
 	
 	<div>
-		<h2 align="center">분실물 게시글 등록</h2>
 		<br>
-		<form action="${ pageContext.servletContext.contextPath }/board/insert" method="post">
-			<table>
-			<!-- 호선, 습득 역, 발견일 정보 출력 -->
-			<tr>
-				<td>호선</td>
-				<td>${ sessionScope.loginMember.memberName }</td>
-					<input type="hidden" name="boardWriterMemberNo" value="${ sessionScope.loginMember.memberNo }">
+		<h2 align="center">게시판 작성</h2>
+		<div class="table-area" align="center">
+			<form action="${ pageContext.servletContext.contextPath }/lnf/insert" method="post">
+				<table>
+					<tr>
+						<td>호선</td>
+						<td>
+							<select name="staLine">
+								<option value="1">1호선</option>
+								<option value="2">2호선</option>
+								<option value="3">3호선</option>
+								<option value="4">4호선</option>
+								<option value="5">5호선</option>
+								<option value="6">6호선</option>
+								<option value="7">7호선</option>
+								<option value="8">8호선</option>
+								<option value="9">9호선</option>
+								<option value="경의중앙선">경의중앙선</option>
+								<option value="공항철도">공항철도</option>
+								<option value="수인분당선">수인분당선</option>
+							</select>
+						</td>
+						
+						<td>역 </td>
+						<td>
+							<input type="text" name="staName">
+						</td>
 					
-				<c:forEach var="fruit" items="${fruits}">
-    				<p>${fruit}</p>
-				</c:forEach>
-			</tr>
-			
-			<!-- 입력 받기  -->
-				<tr>
-					<td>분실 품목</td>
-					<td>
-						<input type="text" name="missing"/>
-					</td>
-				</tr>
-				<tr>
-					<td>발견 시간</td>
-					<td>
-						<input type="time" name="findTime"/>
-					</td>
-				</tr>
-				<tr>
-					<td>보관 장소</td>
-					<td>
-						<input type="text" name="keep"/>
-					</td>
-				</tr>
-				<tr>
-					<td>상세 설명</td>
-					<td>
-						<input type="text" name="description"/>
-					</td>
-				</tr>				
+						<td>발견일</td>
+						<td>
+							<input type="date" name="findDate">
+						</td>
+					</tr>
+					<tr>
+						<td>분실 품목</td>
+						<td>
+							<input type="text" name="missing">
+						</td>
 
-			</table>
+						<td>보관 장소</td>
+						<td>
+							<input type="text" name="keep">
+						</td>
+					</tr>
+					<tr>
+						<td>내용</td>
+						<td>
+							<textarea name="description" cols="100" rows="15" style="resize:none;"></textarea>
+						</td>
+					</tr>
+				</table>
 				<br>
-			<div align="center">
-				<button type="submit">등록</button>
-			</div>
-		</form>	
-	</div>	
+				<div align="center">
+					<!-- 취소하면 firstPage로 반환 -->
+					<button type="reset">취소하기</button>
+					<button type="submit">등록하기</button>
+				</div>
+				
+			</form>
+			
+		</div>
+	</div>
 
 </body>
 </html>

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/* 전체 페이지 설정 */
+/* 전체 페이지 설정*/
 body {
     font-family: Arial, sans-serif; /* 글꼴 설정 */
     margin: 0;
@@ -8,39 +8,45 @@ body {
     background-color: #f2f2f2; /* 배경색 */
 }
 
-/* 로그인 폼 설정 */
-.login-wrapper {
-    width: 400px; /* 최대 너비 설정 */
+/* 회원가입 폼 설정*/
+.join-wrapper {
+    width: 500px; /* 최대 너비 설정 */
     padding: 20px; /* 내부 여백 */
     background-color: #fff; /* 배경색 */
     border-radius: 15px; /* 테두리 둥글게 */
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* 그림자 효과 */
     
     margin: auto; /* 가운데 정렬 */
-    margin-top: 150px; /* 메뉴 바와 간격 설정 */ 
+    margin-top: 20px; /* 메뉴 바와 간격 설정 */ 
 }
 
-/* Login 설정 */
-.login-wrapper h2 {
+/* sign up 설정*/
+.join-wrapper h2 {
     text-align: center; /* 제목 가운데 정렬 */
     margin-bottom: 20px; /* 아래 여백 */
 }
 
-/* 로그인 폼의 input 설정 */
-#login-form input {
+/* checkbox 를 제외한 회원가입 폼 안의 input 설정*/
+#join-form input:not([type="checkbox"]) {
     width: 100%; /* 입력 필드 너비 100% */
-    margin-top: 10px; /* 위 여백 */
-    margin-bottom: 10px; /* 아래 여백 */
+    margin-top: 7px; /* 위 여백 */
+    margin-bottom: 7px; /* 아래 여백 */
     padding: 10px; /* 내부 여백 */
     font-size: 16px; /* 글꼴 크기 */
     border: 1px solid #ccc; /* 테두리 */
     border-radius: 5px; /* 테두리 둥글게 */
     box-sizing: border-box; /* 테두리 포함하여 크기 계산 */
-	height: 50px; /* 높이 */
 }
 
-/* 로그인 버튼 설정 */
-#login-form input[type="submit"] {
+/* label 설정 */
+.agree-container {
+	margin-top: 7px; /* 위 여백 */
+	margin-bottom: 7px; /* 아래 여백 */
+	font-size: 16px;  /* 글꼴 크기 */
+ }
+
+/* 회원가입 버튼 설정 */
+#join-form input[type="submit"] {
     background-color: #333; /* 배경색 */
     color: white; /* 글자색 */
     border: none; /* 테두리 없음 */
@@ -51,29 +57,14 @@ body {
     font-size: 16px; /* 글꼴 크기 */
 }
 
-/* 로그인 버튼 설정 */
-#login-form input[type="submit"]:hover {
+/* 회원가입 버튼 설정 */
+#join-form input[type="submit"]:hover {
     background-color: #575757; /* 마우스 오버시 배경색 변화 */
 }
 
 /* 에러 메시지 설정 */
-.error {
+.message {
     color: red; /* 오류 메시지 글자색 */
     font-size: 14px; /* 글꼴 크기 */
-}
-
-/* 회원가입 링크 */
-p {
-	text-align: right; 	/* 텍스트 가운데 정렬 */
-	margin-top: 10px; /* 위 여백 */
-	margin-bottom: 5px; /* 아래 여백 */
-}
-
-p a {
-	color: #007bff; 	/* 링크 색상 설정 */
-	text-decoration: none;		/* 밑줄 제거 */
-}
-
-p a:hover {
-	text-decoration: underline;		/* 호버 시 밑줄 추가 */
+    margin-top: 5px; /* 위쪽 여백 추가 */
 }

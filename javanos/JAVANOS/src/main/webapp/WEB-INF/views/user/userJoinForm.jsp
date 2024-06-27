@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Javanos</title>
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/user/userJoinForm.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>

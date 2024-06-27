@@ -1,42 +1,81 @@
 @charset "UTF-8";
 
 body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
-    .header {
-        background-color: #333;
-        overflow: hidden;
-    }
-    .menu-area {
-        max-width: 1000px;
-        margin: auto;
-    }
-    .nav-area {
-        display: flex;
-        justify-content: flex-end; /* Align items to the right */
-    }
-    .nav-area ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-    }
-    .nav-area li {
-        margin-left: 10px; /* Add space between menu items */
-    }
-    .nav-area li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 14px 20px;
-        text-decoration: none;
-        transition: background-color 0.3s;
-    }
-    .nav-area li a:hover {
-        background-color: #575757;
-    }
-    .nav-area .admin {
-        background-color: #444;
-    }
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.header {
+    background-color: #333;
+    overflow: hidden;
+}
+.menu-area {
+    max-width: 1000px;
+    margin: auto;
+}
+.nav-area {
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+}
+.nav-area ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+.nav-area li {
+    margin-left: 10px; /* Add space between menu items */
+}
+.nav-area li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+.nav-area li a:hover {
+    background-color: #575757;
+}
+.nav-area .admin {
+    background-color: #444;
+}
+
+/* Footer 스타일 추가 */
+.footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+.home-image {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.home-image img {
+    max-width: 100%;
+    height: auto;
+}
+.logo-container {
+    text-align: center;
+}
+
+.logo-container img {
+    max-width: 400px; /* 로고 크기를 적절히 조정하세요 */
+    height: 90px;
+}
+.main-image-container, .home-image-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.main-image-container img, .home-image-container img {
+    max-width: 100%;
+    height: auto;
+}
+

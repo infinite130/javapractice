@@ -1,12 +1,14 @@
 package com.javanos.project.lnf.model.service;
 
+import static com.javanos.project.common.mybatis.Template.getSqlSession;
+
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
-import static com.javanos.project.common.mybatis.Template.getSqlSession;
 
 import com.javanos.project.lnf.model.dao.LnfDAO;
 import com.javanos.project.lnf.model.dto.LnfBoardDTO;
+import com.javanos.project.lnf.model.dto.StationDTO;
 
 public class LnfBoardService {
 	
@@ -98,5 +100,17 @@ public class LnfBoardService {
 	}
 		
 	// 첫화면 
+//	public String StaLine selectStaLine(){
+//		
+//		SqlSession session = getSqlSession();
+//		lnfDAO = session.getMapper(LnfDAO.class);
+//		
+//		List<StationDTO> selectStaLine = lnfDAO.selectStaLine();
+//		
+//		session.close();
+//		
+//		return selectStaLine;
+//		
+//	}
 
 }

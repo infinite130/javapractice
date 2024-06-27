@@ -12,12 +12,11 @@ public interface CommunityDAO {
 	 * List<CommunityDTO> selectAllCommunityList();
 	 * 
 	 * CommunityDTO selectOneCommunity(int communityNo);
+		int updateCommunity(CommunityDTO updateCommunity);
 	 */
 	List<CommunityDTO> selectThumbnailList();
 	
 	CommunityDTO selectOneThumbnailList(int communityNo);
-
-	int updateCommunity(CommunityDTO updateCommunity);
 
 	int deleteCommunity(int communityNo);
 
@@ -26,6 +25,13 @@ public interface CommunityDAO {
 	int insertPicture(PictureDTO pictureDTO);
 
 	int incrementCommunityCount(int communityNo);
+
+	int updateCommunity(CommunityDTO community);
+
+	int updatePicture(PictureDTO pictureDTO);
+
+	int deletePicture(int communityNo);
+
 
 
 

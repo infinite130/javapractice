@@ -4,9 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>🦕Javanos</title>
+<title>JAVANOS</title>
 </head>
 <body>
-	<jsp:include page="../common/menubar.jsp"/>
+<jsp:include page="../common/menubar.jsp"/>
+
+<!-- 루트 URL에 접속할 때만 표시될 이미지 -->
+<div class="main-image-container">
+    <img src="${ pageContext.servletContext.contextPath }/resources/image/common/mainimage.png" alt="Main Image">
+</div>
+
 </body>
 </html>
