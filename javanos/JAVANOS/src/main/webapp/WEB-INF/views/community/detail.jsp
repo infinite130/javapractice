@@ -9,20 +9,33 @@
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
+	
+	<c:if test="${ sessionScope.loginUser.userNo eq community.userNo }">
+		<button onclick="gomModifypage()">수정</button>
+			<button onclick="deletecommunity()">삭제</button>
+	</c:if>
+	
 	<table>
 		<tr>
-			<th>제목: ${ community.communityTitle }</th>
+			<td>제목: ${ community.communityTitle }</td>
 			<td>조회수: ${ community.communityCount }</td>
 		</tr>
+		
 		<tr>
 			<td>작성일: ${ community.communityEnrollDate }</td>
 			<td>작성자: ${ community.user.userNickname }</td>
 		</tr>
+		
 		<tr>
-			<td>
-			사진 나오는 곳
-			</td>
+			<c:if test="${ not empty community.pictureList[0].thumbnailPath }">
+				<c:forEach items="${ community.pictureList }" var = "picture">
+					<td>
+						<img id="image" onerror="setDefaultImage(this);" width="250" height="180" src="${pageContext.servletContext.contextPath }${ picture.thumbnailPath }">
+					</td>
+				</c:forEach>
+			</c:if>
 		</tr>
+		
 		<tr>
 			<td>내용: ${ community.communityBody }</td>
 		</tr>
@@ -30,10 +43,6 @@
 	
 	
 	<c:choose>
-		<c:when test="${ sessionScope.loginUser.userNo eq community.userNo }">
-			<button onclick="gomModifypage()">수정</button>
-			<button onclick="deletecommunity()">삭제</button>
-		</c:when>
 		<c:when test="${ (sessionScope.loginUser.userRole eq 'ROLE_USER') && (!(sessionScope.loginUser.userNo eq community.userNo))}">
 			<button>신고</button>
 		</c:when>
@@ -41,6 +50,7 @@
 			<button>계정정지</button>
 		</c:when>
 	</c:choose>
+	<button id="listbtn" onclick="gotolist()">목록보기</button>
 	
 	
 	
@@ -58,8 +68,12 @@
 			let communityNo = ${ community.communityNo }
 			location.href="${pageContext.servletContext.contextPath}/community/delete?communityNo="+ communityNo;
 		}
+	</script>
 	
-	
+	<script>
+	function gotolist() {
+		location.href="${pageContext.servletContext.contextPath}/community/list";
+	}
 	</script>
  	
 	 

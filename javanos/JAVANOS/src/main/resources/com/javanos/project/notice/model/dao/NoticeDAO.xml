@@ -1,1 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.javanos.project.notice.model.dao.NoticeDAO">
+
+	<resultMap
+		type="com.javanos.project.notice.model.dto.NoticeDTO"
+		id="noticeResultMap">
+
+		<!-- property(DTO 필드 이름) - column(DB테이블의 열 이름) 둘이를 매핑한거임 -->
+		<id property="noticeNo" column="NOTICE_NO" />
+		<result property="noticeTitle" column="NOTICE_TITLE" />
+		<result property="noticeBody" column="NOTICE_BODY" />
+		<result property="noticeEnrollDate" column="NOTICE_ENROLL_DATE" />
+		<result property="noticeModifyDate" column="NOTICE_MODIFY_DATE" />
+		<result property="noticeCount" column="NOTICE_COUNT" />
+		<result property="noticeBoardStatus" column="NOTICE_BOARD_STATUS" />
+		<result property="noticeUserno" column="NOTICE_USER_NO" />
+		<association property="noticeWriter"
+			resultMap="userResultMap" />
+
+	</resultMap>
+
+
+	<resultMap
+		type="com.javanos.project.user.model.dto.UserDTO" id="userResultMap">
+
+		<!--  property(DTO 필드 이름) - column(DB테이블의 열 이름) 둘이를 매핑한거임 -->
+		<id property="userNo" column="USER_NO" />
+		<result property="userId" column="USER_ID" />
+		<result property="userPwd" column="USER_PWD" />
+		<result property="userName" column="USER_NAME" />
+		<result property="userNickname" column="USER_NICKNAME" />
+		<result property="userEmail" column="USER_EMAIL" />
+		<result property="userRole" column="USER_ROLE" />
+		<result property="userEnrollDate" column="USER_ENROLL_DATE" />
+		<result property="userStatus" column="USER_STATUS" />
+		<result property="userStopDate" column="USER_STOP_DATE" />
+
+	</resultMap>
+
+
+	<!-- 쿼리로 공지사항 목록 조회하는 매핑 정의 -->
+	<select id="selectAllNoticeList" resultMap="noticeResultMap">
+
+		SELECT /*
+		com.javanos.project.notice.model.dao.NoticeDAO#selectAllNoticeList()
+		*/
+		A.NOTICE_NO,
+		A.NOTICE_TITLE,
+		A.NOTICE_BODY,
+		A.NOTICE_USER_NO,
+		B.USER_NICKNAME,
+		A.NOTICE_ENROLL_DATE,
+		A.NOTICE_COUNT
+
+
+		FROM TBL_NOTICE A
+		<!-- 공지사항작성자 회원번호 = 로그인회원번호 : 공지사항 작성자 닉네임 가져옴 -->
+		JOIN TBL_USER B ON (A.NOTICE_USER_NO = B.USER_NO)
+
+		WHERE A.NOTICE_BOARD_STATUS = "Y"   <!-- 공지사항 상태 'Y'일때만 조회함 -->
+
+		ORDER BY A.NOTICE_NO DESC  <!-- 공지사항 정렬 최신순 -->
+	</select>
+
+</mapper>

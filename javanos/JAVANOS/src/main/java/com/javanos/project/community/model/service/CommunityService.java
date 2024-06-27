@@ -16,25 +16,24 @@ public class CommunityService {
 
 	private CommunityDAO communityDAO;
 
-	public List<CommunityDTO> selectAllCommunityList() {
-		SqlSession session = getSqlSession();
-		communityDAO = session.getMapper(CommunityDAO.class);
+	/*
+	 * public List<CommunityDTO> selectAllCommunityList() { SqlSession session =
+	 * getSqlSession(); communityDAO = session.getMapper(CommunityDAO.class);
+	 * 
+	 * List<CommunityDTO> communityList = communityDAO.selectAllCommunityList();
+	 * 
+	 * session.close(); return communityList;
+	 * 
+	 * }
+	 */
 
-		List<CommunityDTO> communityList = communityDAO.selectAllCommunityList();
-
-		session.close();
-		return communityList;
-
-	}
-
-	public CommunityDTO selectOneCommunity(int communityNo) {
-		SqlSession session = getSqlSession();
-		communityDAO = session.getMapper(CommunityDAO.class);
-
-		CommunityDTO community = communityDAO.selectOneCommunity(communityNo);
-		session.close();
-		return community;
-	}
+	/*
+	 * public CommunityDTO selectOneCommunity(int communityNo) { SqlSession session
+	 * = getSqlSession(); communityDAO = session.getMapper(CommunityDAO.class);
+	 * 
+	 * CommunityDTO community = communityDAO.selectOneCommunity(communityNo);
+	 * session.close(); return community; }
+	 */
 
 	public int updateCommunity(CommunityDTO updateCommunity) {
 		SqlSession session = getSqlSession();
@@ -104,6 +103,45 @@ public class CommunityService {
 	    session.close();
 	    return result;
 		
+	}
+
+	public List<CommunityDTO> selectThumbnailList() {
+		SqlSession session = getSqlSession();
+		communityDAO = session.getMapper(CommunityDAO.class);
+
+		List<CommunityDTO> communityList = communityDAO.selectThumbnailList();
+
+		session.close();
+		return communityList;
+		
+	}
+
+	public CommunityDTO selectOneThumbnailList(int communityNo) {
+		
+		SqlSession session = getSqlSession();
+		communityDAO = session.getMapper(CommunityDAO.class);
+
+		CommunityDTO community = null;
+		
+		int result = communityDAO.incrementCommunityCount(communityNo);
+		
+		if(result>0) {
+			
+			
+			community = communityDAO.selectOneThumbnailList(communityNo);
+			
+			if(community!=null) {
+				session.commit();
+			}else {
+				session.rollback();
+			}
+			
+		}else {
+			session.rollback();
+		}
+		
+		session.close();
+		return community;
 	}
 
 }

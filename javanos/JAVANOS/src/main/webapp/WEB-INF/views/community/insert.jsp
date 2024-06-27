@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>커뮤니티 게시글 작성</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script></head>
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
@@ -17,7 +18,7 @@
 							<tr>
 								<td>제목</td>
 								<td>
-									<input type="text" name="communityTitle">
+									<input type="text" name="communityTitle" id="communityTitle">
 								</td>
 							</tr>
 							<tr>
@@ -63,15 +64,15 @@
 							<tr>
 								<td>내용</td>
 								<td>
-									<textarea name="communityBody" rows="5" cols="50" style="resize:none;"></textarea>
+									<textarea name="communityBody" id="communityBody" rows="5" cols="50" style="resize:none;"></textarea>
 								</td>
 							</tr>
 						</table>
 				</div>
 				<br>
 				<div>
-					<button type="submit">등록</button>
-					<button onclick="gobackList()">취소</button>
+					<button type="submit" id="submitBtn">등록</button>
+					<button onclick="goBackList()">취소</button>
 				</div>
 			</form>
 			
@@ -135,11 +136,22 @@
 				*/
 			
 			
-				function gobackList() {
+				function goBackList() {
 					window.history.back();
 					//혹시 모르니까
 					/* location.href="${pageContext.servletContext.contextPath}/community/list";  */
 				}
+				
+				
+				document.querySelector('#submitBtn').addEventListener('click',function(e){
+					if(document.querySelector('#communityTitle').value==''){
+						e.preventDefault()//폼 전송을 막는다.
+						alert('제목이 비어있습니다!!')
+					}else if(document.querySelector('#communityBody').value==''){
+						e.preventDefault()//폼 전송을 막는다.
+						alert('내용이 비어있습니다!!')
+					}
+				})
 			</script>
 		</div>
 

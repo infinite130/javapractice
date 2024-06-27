@@ -38,7 +38,7 @@
 		<result property="communityBoardStatus" column="COMMUNITY_BOARD_STATUS"/>
 		<result property="userNo" column="USER_NO"/>
 		<association property="user" resultMap="UserResultMap"/>
-		<collection property="pictureList" column="PictureResultMap"/>
+		<collection property="pictureList" resultMap="PictureResultMap"/>
 	</resultMap>
 	
 	<resultMap type="com.javanos.project.community.model.dto.PictureDTO" id="PictureResultMap">
@@ -52,7 +52,7 @@
 		<result property="communityNo" column="COMMUNITY_NO"/>
 	</resultMap>
 
-	<select id="selectAllCommunityList" resultMap="communityResultMap">
+<!-- 	<select id="selectAllCommunityList" resultMap="communityResultMap">
 		SELECT
 				A.COMMUNITY_NO,
 				A.COMMUNITY_TITLE,
@@ -65,10 +65,10 @@
 		FROM TBL_COMMUNITY A JOIN TBL_USER B ON (A.USER_NO = B.USER_NO)
 		WHERE A.COMMUNITY_BOARD_STATUS = 'Y'
 		ORDER BY A.COMMUNITY_ENROLL_DATE DESC
-	</select>
+	</select> -->
 
 
-	<select id="selectOneCommunity" resultMap="communityResultMap">
+<!-- 	<select id="selectOneCommunity" resultMap="communityResultMap">
 	SELECT 
 				A.COMMUNITY_NO,
 				A.COMMUNITY_TITLE,
@@ -81,7 +81,7 @@
 		FROM TBL_COMMUNITY A JOIN TBL_USER B ON (A.USER_NO = B.USER_NO)
 		AND A.COMMUNITY_BOARD_STATUS = 'Y'
 		WHERE A.COMMUNITY_NO = #{communityNo}
-	</select>
+	</select> -->
 	
 	<update id="updateCommunity" parameterType="com.javanos.project.community.model.dto.CommunityDTO">
 		UPDATE TBL_COMMUNITY
@@ -93,34 +93,56 @@
 	</update>
 	
 	<delete id="deleteCommunity" parameterType="int">
-		UPDATE TBL_COMMUNITY
+		UPDATE TBL_COMMUNITY A, TBL_PIC B
 		SET
-			COMMUNITY_BOARD_STATUS = 'N'
-		WHERE COMMUNITY_NO = #{communityNo}
+			A.COMMUNITY_BOARD_STATUS = 'N',
+            B.PIC_BOARD_STATUS = 'N'
+		WHERE A.COMMUNITY_NO = B.COMMUNITY_NO
+        AND A.COMMUNITY_NO = #{communityNo};
 	</delete>
 	
 
+	<update id="incrementCommunityCount">
+		UPDATE TBL_COMMUNITY
+		SET COMMUNITY_COUNT = COMMUNITY_COUNT + 1
+		WHERE COMMUNITY_NO = #{communityNo}
+	</update>
 	
-<!-- 	<select id="selectThumbnailList" resultMap="ThumbnailResultMap">
-		SELECT
+	<select id="selectThumbnailList" resultMap="ThumbnailResultMap">
+        SELECT
+	        A.COMMUNITY_NO,
+	        A.COMMUNITY_TITLE,
+	        A.COMMUNITY_BODY,
+	        A.COMMUNITY_COUNT,
+	        A.COMMUNITY_ENROLL_DATE,
+	        A.USER_NO,
+	        B.USER_NICKNAME,
+        	C.THUMBNAIL_PATH
+    	FROM TBL_COMMUNITY A
+	    JOIN TBL_USER B ON (A.USER_NO = B.USER_NO)
+	    LEFT JOIN TBL_PIC C ON (A.COMMUNITY_NO = C.COMMUNITY_NO AND C.FILE_TYPE = 'TITLE') 
+	    WHERE A.COMMUNITY_BOARD_STATUS = 'Y'
+	    ORDER BY A.COMMUNITY_ENROLL_DATE DESC;
+	</select>
+	
+	<select id="selectOneThumbnailList" resultMap="ThumbnailResultMap">
+        SELECT 
 				A.COMMUNITY_NO,
 				A.COMMUNITY_TITLE,
-				B.USER_NICKNAME,
+				A.COMMUNITY_BODY,
 				A.COMMUNITY_COUNT,
 				A.COMMUNITY_ENROLL_DATE,
-				C.PIC_NO,
+				A.COMMUNITY_BOARD_STATUS,
+				A.USER_NO,
+				B.USER_NICKNAME,
 				C.ORIGINAL_NAME,
-				C.SAVED_NAME,
-				C.SAVE_PATH,
+				C.FILE_TYPE,
 				C.THUMBNAIL_PATH
 		FROM TBL_COMMUNITY A 
-			JOIN TBL_USER B ON (A.USER_NO = B.USER_NO)
-			JOIN TBL_PIC C ON (A.COMMUNITY_NO = C.COMMUNITY_NO)
-		WHERE A.COMMUNITY_BOARD_STATUS = 'Y' 
-			AND C.PIC_BOARD_STATUS = 'Y'
-			AND C.FILE_TYPE = 'TITLE'
-		ORDER BY A.COMMUNITY_ENROLL_DATE DESC
-	</select> -->
+		JOIN TBL_USER B ON (A.USER_NO = B.USER_NO)
+		LEFT JOIN TBL_PIC C ON (A.COMMUNITY_NO = C.COMMUNITY_NO AND A.COMMUNITY_BOARD_STATUS = 'Y')
+		WHERE A.COMMUNITY_NO = #{communityNo}
+	</select>
 	
 	<insert id="insertCommunityTitleAndBody" parameterType="com.javanos.project.community.model.dto.CommunityDTO">
 		INSERT INTO TBL_COMMUNITY(

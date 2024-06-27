@@ -1,1 +1,69 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.javanos.project.down.model.dao.DownDAO">
+
+<!-- 	<resultMap type="com.javanos.project.down.model.dto.DownDTO" id="downResultMap">
+		<id property="downno" column="DOWN_NO"/>
+		<result property="downroom" column="DOWN_ROOM"/>
+		<result property="downfull" column="DOWN_FULL"/>
+		<result property="downenrolldate" column="DOWN_ENROLL_DATE"/>
+		<result property="downmodifydate" column="DOWN_MODIFY_DATE"/>
+		<result property="downboardstatus" column="DOWN_BOARD_STATUS"/>
+		<result property="downuserno" column="DOWN_USER_NO"/>
+		<result property="downstano" column="DOWN_STA_NO"/>
+		<result property="instano" column="IN_STA_NO"/>
+<association property="user" resultMap="UserResultMap"></association>
+<association property="station" resultMap="stationResultMap"></association>
+	</resultMap>
+	
+	<resultMap type="com.javanos.project.user.model.dto.UserDTO" id="UserResultMap">
+		<id property="userNo" column="USER_NO"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userNickname" column="USER_NICKNAME"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="userRole" column="USER_ROLE"/>
+		<result property="userEnrollDate" column="USER_ENROLL_DATE"/>
+		<result property="userStatus" column="USER_STATUS"/>
+		<result property="userStopDate" column="USER_STOP_DATE"/>
+	</resultMap>
+	
+	<resultMap type="com.javanos.project.lnf.model.dto.StationDTO" id="stationResultMap">
+		<id property="userNo" column="STA_NO"/>
+		<result property="userId" column="STA_CODE"/>
+		<result property="userPwd" column="STA_NAME"/>
+		<result property="userName" column="STA_LINE"/>		
+	</resultMap> -->
+	
+		<insert id="insertDown" parameterType="com.javanos.project.down.model.dto.DownDTO">
+         insert INTO TBL_DOWN
+        (
+         IN_STA_NO,
+         DOWN_STA_NO,
+         DOWN_USER_NO,
+         DOWN_ROOM,
+         DOWN_FULL
+        )
+        VALUES
+        (
+          #{ inStationNo },
+         #{downStationNo },
+         #{ userNo },
+         #{downRoom},
+         #{ downFull}
+        )
+	</insert>
+	
+	
+</mapper>	
+	
+	
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+>>>>>>> develop
+
+

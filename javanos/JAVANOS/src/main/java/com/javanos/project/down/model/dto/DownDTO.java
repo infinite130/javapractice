@@ -8,22 +8,25 @@ import com.javanos.project.user.model.dto.UserDTO;
 public class DownDTO implements java.io.Serializable {
 
 	private int downNo;
-	private String downRoom;
-	private String downFull;
-	private Date downEnrollDate;
-	private Date downModifyDate;
-	private String downStatus;
-	private UserDTO userName; //객체 가져다가 , 닉네임과 아이디 사용 할 수 있음 
-	private StationDTO station;
-	
+	private String downRoom; //칸
+	private String downFull; //혼잡도
+	private Date downEnrollDate; //등록일(작성일)
+	private Date downModifyDate; //수정일
+	private String downStatus; //게시판 삭제
+	private int userNo;
+	private UserDTO user; //객체 가져다가 , 닉네임과 아이디 사용 할 수 있음 
+	private int inStationNo;
+	private StationDTO inStation; //현재역
+    private int downStationNo;
+	private StationDTO downStation; //내릴역
 	
 	public DownDTO() {
-		super();
 		
 	}
 
 	public DownDTO(int downNo, String downRoom, String downFull, Date downEnrollDate, Date downModifyDate,
-			String downStatus, UserDTO userName, StationDTO station) {
+			String downStatus, int userNo, UserDTO user, int inStationNo, StationDTO inStation, int downStationNo,
+			StationDTO downStation) {
 		super();
 		this.downNo = downNo;
 		this.downRoom = downRoom;
@@ -31,8 +34,12 @@ public class DownDTO implements java.io.Serializable {
 		this.downEnrollDate = downEnrollDate;
 		this.downModifyDate = downModifyDate;
 		this.downStatus = downStatus;
-		this.userName = userName;
-		this.station = station;
+		this.userNo = userNo;
+		this.user = user;
+		this.inStationNo = inStationNo;
+		this.inStation = inStation;
+		this.downStationNo = downStationNo;
+		this.downStation = downStation;
 	}
 
 	public int getDownNo() {
@@ -83,29 +90,61 @@ public class DownDTO implements java.io.Serializable {
 		this.downStatus = downStatus;
 	}
 
-	public UserDTO getUserName() {
-		return userName;
+	public int getUserNo() {
+		return userNo;
 	}
 
-	public void setUserName(UserDTO userName) {
-		this.userName = userName;
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 
-	public StationDTO getStation() {
-		return station;
+	public UserDTO getUser() {
+		return user;
 	}
 
-	public void setStation(StationDTO station) {
-		this.station = station;
+	public void setUser(UserDTO user) {
+		this.user = user;
+	}
+
+	public int getInStationNo() {
+		return inStationNo;
+	}
+
+	public void setInStationNo(int inStationNo) {
+		this.inStationNo = inStationNo;
+	}
+
+	public StationDTO getInStation() {
+		return inStation;
+	}
+
+	public void setInStation(StationDTO inStation) {
+		this.inStation = inStation;
+	}
+
+	public int getDownStationNo() {
+		return downStationNo;
+	}
+
+	public void setDownStationNo(int downStationNo) {
+		this.downStationNo = downStationNo;
+	}
+
+	public StationDTO getDownStation() {
+		return downStation;
+	}
+
+	public void setDownStation(StationDTO downStation) {
+		this.downStation = downStation;
 	}
 
 	@Override
 	public String toString() {
 		return "DownDTO [downNo=" + downNo + ", downRoom=" + downRoom + ", downFull=" + downFull + ", downEnrollDate="
-				+ downEnrollDate + ", downModifyDate=" + downModifyDate + ", downStatus=" + downStatus + ", userName="
-				+ userName + ", station=" + station + "]";
+				+ downEnrollDate + ", downModifyDate=" + downModifyDate + ", downStatus=" + downStatus + ", userNo="
+				+ userNo + ", user=" + user + ", inStationNo=" + inStationNo + ", inStation=" + inStation
+				+ ", downStationNo=" + downStationNo + ", downStation=" + downStation + "]";
 	}
-	
-	
+
 	
 }

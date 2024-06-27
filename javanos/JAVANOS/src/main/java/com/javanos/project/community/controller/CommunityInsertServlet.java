@@ -44,6 +44,7 @@ public class CommunityInsertServlet extends HttpServlet {
 			int maxFileSize = 1024 * 1024 * 10;
 			String encodingType = "UTF-8";
 			
+			
 			// 사진들이 저장될 경로
 			String fileUploadDirectory = rootLocation + "/resources/upload/original/";
 			String thumbnailDirectory = rootLocation + "/resources/upload/thumbnail/";
@@ -52,12 +53,18 @@ public class CommunityInsertServlet extends HttpServlet {
 			File directoryFile = new File(fileUploadDirectory);
 			File directoryThumbnail = new File(thumbnailDirectory);
 			
+			System.out.println("Root Location: " + rootLocation);
+	        System.out.println("File Upload Directory: " + fileUploadDirectory);
+	        System.out.println("Thumbnail Directory: " + thumbnailDirectory);
+			
 			//만약 해당경로의 파일이 존재하지 않는다면??
 			if(!directoryFile.exists() || !directoryThumbnail.exists()) {
 				//해당 파일을 만들자
+				
 				directoryFile.mkdirs();//mkdir은 폴더 하나만 만들지만 mkdirs는 상위폴더까지 만들어줌
 				directoryThumbnail.mkdirs();
 			}
+			
 			
 			//-----------------------실질적으로 저장하는 과정-----------------------------------------------------
 			//파일에 관한 정보는 List, 그외의 정보들은 Map에 담는다
@@ -67,7 +74,7 @@ public class CommunityInsertServlet extends HttpServlet {
 			// 파일 자체에 대한 환경설정 느낌이다. 위에서 설정한 최대 크기나 파일저장경로 등을 포함하는 인스턴스 생성
 			DiskFileItemFactory.Builder fileItemFactory = new DiskFileItemFactory.Builder();
 			//위에서 설정해둔 File 형식의 경로를 가지고 있는 객체(길)
-			fileItemFactory.setPath(directoryFile.getPath());//path 설정
+			fileItemFactory.setPath(directoryFile.getPath());//path 설정//original 디렉토리 
 			fileItemFactory.setBufferSize(maxFileSize);//최대 사이즈 설정
 			
 			//설정한 환경을 JakartaServletFileUpload에 붙여준다.
@@ -78,9 +85,10 @@ public class CommunityInsertServlet extends HttpServlet {
 				List<FileItem> fileItems = fileUpload.parseRequest(request);
 				
 				//안에 어떤 순서대로 담겼는지 모르니까 출력해보자
-				/*
-				 * for (FileItem fileItem : fileItems) { System.out.println(fileItem); }
-				 */
+				
+				int countPicture = 0;
+				for (FileItem fileItem : fileItems) { System.out.println(fileItem); }
+				 
 				// 해당 형식처럼 나오는 걸 확인할 수 있다.
 				/*
 				 * name=null, StoreLocation=null, size=5 bytes, isFormField=true, FieldName=communityTitle
@@ -90,8 +98,8 @@ public class CommunityInsertServlet extends HttpServlet {
 				 * */
 				
 				for (int i = 0; i < fileItems.size(); i++) {
-					FileItem fileitem = fileItems.get(i);
-					
+					FileItem fileitem = fileItems.get(i);//form태그에서 받아온 item들 하나씩 꺼내봐
+					Map<String, String> fileMap = new HashMap();//사진들의 정보 담을 Map(PictureDTO요소)
 					
 					//텍스트 데이터가 아닌 경우 == 파일 데이터인 경우
 					if(!fileitem.isFormField()) {
@@ -113,7 +121,7 @@ public class CommunityInsertServlet extends HttpServlet {
 							fileitem.write(storeFile.toPath());//저장
 							
 							//하나씩 Map형식으로 만든 후 모든 파일을 다 만들었으면 리스트에 넣어준다
-							Map<String, String> fileMap = new HashMap();
+							
 							fileMap.put("originalName", originalName);
 							fileMap.put("inputTagname", inputTagname);
 							fileMap.put("saveName", randomFileName);
@@ -139,15 +147,16 @@ public class CommunityInsertServlet extends HttpServlet {
 							}
 							
 							// 썸네일로 변환 후 저장한다.
-							Thumbnails.of(fileUploadDirectory+randomFileName)
-										.size(width, height)
-										.toFile(thumbnailDirectory + "thumbnail_"+randomFileName);
+							Thumbnails.of(fileUploadDirectory+randomFileName)//해당 파일을
+										.size(width, height)//사이즈를 변경해서
+										.toFile(thumbnailDirectory + "thumbnail_"+randomFileName);//해당 이름으로 저장해줌
 							
 							// 웹서버에서 접근 가능한 경로 형태로 썸네일의 저장 경로도 함께 저장한다.
 							fileMap.put("thumbnailPath", "/resources/upload/thumbnail/thumbnail_"+randomFileName);
 							
 							fileList.add(fileMap);
 							
+							countPicture++;
 							
 						}
 					}else {
@@ -159,7 +168,9 @@ public class CommunityInsertServlet extends HttpServlet {
 						parameter.put(fileitem.getFieldName(), new String(fileitem.getString().getBytes("ISO-8859-1"),"UTF-8"));
 						
 					}
+					
 				}
+				
 				
 				System.out.println("fileList : "+fileList);
 				System.out.println("parameter: "+parameter);
@@ -232,70 +243,8 @@ public class CommunityInsertServlet extends HttpServlet {
 				}
 			}
 			
-			
-			
-			
-			
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		/*
-		 * String communityTitle = request.getParameter("communityTitle"); String
-		 * communityBody = request.getParameter("communityBody"); int userNo =
-		 * Integer.valueOf(request.getParameter("userNo"));
-		 * 
-		 * String path = "";
-		 * 
-		 * System.out.println(communityTitle.length()==0);
-		 * 
-		 * 
-		 * //제목과 내용 둘 중에 하나만 비어도 등록이 안되게하기(둘다 작성해야 넘어갈 수 있음) if
-		 * (communityTitle.length()==0|| communityBody.length()==0) { path =
-		 * "/WEB-INF/views/common/fail.jsp"; request.setAttribute("message",
-		 * "제목이나 내용이 비어있습니다!!"); request.setAttribute("code", "emptyTitleorBody"); }
-		 * else { CommunityDTO community = new CommunityDTO();
-		 * community.setCommunityTitle(communityTitle);
-		 * community.setCommunityBody(communityBody); community.setUserNo(userNo);
-		 * 
-		 * int result = new CommunityService().insertCommunity(community);
-		 * 
-		 * 
-		 * 
-		 * if(result>0) { path = "/WEB-INF/views/common/success.jsp";
-		 * request.setAttribute("successCode", "communityInsert");
-		 * request.setAttribute("message", "등록되었습니다!! :)");
-		 * 
-		 * }else { path = "/WEB-INF/views/common/fail.jsp";
-		 * request.setAttribute("message", "게시판 작성에 실패하셨습니다.");
-		 * request.setAttribute("code", "communityInsert");
-		 * 
-		 * } }
-		 * 
-		 * request.getRequestDispatcher(path).forward(request, response);
-		 */
-
-	
 	}
 
 }

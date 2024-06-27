@@ -18,7 +18,12 @@ public class CommunityDetailServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int communityNo = Integer.valueOf(request.getParameter("communityNo"));
-		CommunityDTO community = new CommunityService().selectOneCommunity(communityNo);
+		
+		System.out.println(communityNo);
+
+		CommunityDTO community = new CommunityService().selectOneThumbnailList(communityNo);
+		
+		System.out.println(community);
 		
 		request.setAttribute("community", community);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/community/detail.jsp");
