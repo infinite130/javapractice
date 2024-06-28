@@ -1,13 +1,11 @@
 package com.javanos.project.report.model.dto;
 
 import java.sql.Date;
-
 import com.javanos.project.community.model.dto.CommunityDTO;
 import com.javanos.project.user.model.dto.UserDTO;
 
 public class ReportDTO {
-	
-	
+
 	private int reportNo;
 	private UserDTO reporter;
 	private Date reportDate;
@@ -15,7 +13,7 @@ public class ReportDTO {
 	private String reportStatus;
 	private UserDTO reported;
 	private CommunityDTO communityNo;
-	
+
 	public ReportDTO() {
 		super();
 	}
@@ -94,9 +92,4 @@ public class ReportDTO {
 				+ ", reportReason=" + reportReason + ", reportStatus=" + reportStatus + ", reported=" + reported
 				+ ", communityNo=" + communityNo + "]";
 	}
-	
-	
-	
-	
-	
 }

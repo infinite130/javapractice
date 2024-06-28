@@ -1,0 +1,192 @@
+@charset "UTF-8";
+
+body  {
+	font-family: Arial, sans-serif;
+	line-height: 1.6;
+	background-color: #f5f5f5;
+	margin: 0;
+	padding: 0;
+}
+
+.community-list-area {
+	display: flex; /*Flexbox 설정*/
+    flex-direction: column; /*수직 정렬 설정*/
+    align-items: center; /*수직 정렬 시 가운데 정렬 (옵션)*/
+    gap: 10px; /*요소 간격 설정 (옵션)*/
+    padding: 20px;
+    background-color: #f9f9f9;
+    max-width:1000px;
+    margin: 0 auto;
+}
+
+/* .community-list-area button {
+    padding: 10px 20px; 버튼 내부 여백 설정
+    font-size: 18px; 글꼴 크기 설정
+    border: solid;
+    background-color:LightGreen; 배경색 설정
+    color: #635DDA; 글자색 설정
+    font-weight: bold;
+    border-radius: 5px; 테두리 둥글기 설정
+    cursor: pointer; 포인터 커서 설정
+    margin-left: auto; 
+    margin-right: 0px;
+} */
+
+.button-area {
+    padding: 10px;
+    background-color: #f9f9f9;
+    max-width:1000px;
+    margin: 0 auto;
+}
+
+.table-area {
+	padding: 0 10px;
+    background-color: #f9f9f9;
+    max-width:1000px;
+    margin: 0 auto;
+}
+
+.button-area button {
+    font-size: 14px; /* 글꼴 크기 설정 */
+    border: solid;
+    background-color: LightGreen; /* 배경색 설정 */
+    color: #635DDA; /* 글자색 설정 */
+    font-weight: bold;
+    border-radius: 5px; /* 테두리 둥글기 설정 */
+    cursor: pointer; /* 포인터 커서 설정 */
+ 	margin-left: auto; 
+    margin-right: 0px;
+ }
+
+ .list-bar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 900px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+.list-bar:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.title-img-area {
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    margin-right: 20px;
+}
+
+
+.title-img-area img {
+    width: 100%;
+    height: auto; /* 이미지 반응형 크기 */
+    max-width: 100px; /* 최대 너비 설정 */
+    height: 100px; /* 고정 높이 설정 */
+    object-fit: cover; /* 이미지 커버 모드 설정 */
+}
+
+img {
+    width: 100%;
+    height: auto; /* 이미지 반응형 크기 */
+    max-width:200px; /* 최대 너비 설정 */
+    height: 150px; /* 고정 높이 설정 */
+    object-fit: cover; /* 이미지 커버 모드 설정 */
+}
+
+
+#communityTitleArea {
+	color: black;
+    font-size: 25px;
+    margin-top: 8px;
+}
+
+
+
+.list-bar p {
+    margin: 0;
+    padding: 0 10px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+	align-items: end;
+}
+
+
+.list-bar p label {
+    color: #888;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.list-bar p c\\:out {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
+table {
+    width: 100%;
+    max-width: 1000px; /* 최대 너비 설정 */
+    margin: 20px auto;
+    border-collapse: collapse; /* 테이블 테두리 겹침 설정 */
+    background-color: #fff; /* 테이블 배경색 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 설정 */
+    border-radius: 8px; /* 테두리 둥글기 설정 */
+    overflow: hidden; /* 넘침 내용 숨김 */
+}
+
+td {
+    border: 1px solid #ddd; /* 셀 테두리 설정 */
+    padding: 10px; /* 셀 내부 여백 */
+    text-align: left; /* 텍스트 정렬 */
+}
+
+@media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+        display: block; /* 테이블을 블록 레이아웃으로 변경 */
+        width: 100%; /* 블록 너비 100% */
+    }
+
+    td, th {
+        text-align: right; /* 텍스트 오른쪽 정렬 */
+        padding-left: 50%; /* 왼쪽 여백 50% */
+        position: relative; /* 상대 위치 설정 */
+    }
+
+    td:before, th:before {
+        content: attr(data-label); /* 데이터 레이블 추가 */
+        position: absolute; /* 절대 위치 설정 */
+        left: 0; /* 왼쪽 0 */
+        width: 50%; /* 너비 50% */
+        padding-left: 10px; /* 왼쪽 여백 10px */
+        text-align: left; /* 텍스트 왼쪽 정렬 */
+        font-weight: bold; /* 굵은 글꼴 */
+    }
+
+    tr {
+        margin-bottom: 10px; /* 행 간 간격 */
+    }
+
+    td:last-child {
+        margin-bottom: 20px; /* 마지막 셀 아래 간격 */
+    }
+
+    img {
+        width: 100%; /* 이미지 너비 100% */
+        height: auto; /* 높이 자동 */
+    }
+}
+
+/* .title-img-area img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+} */

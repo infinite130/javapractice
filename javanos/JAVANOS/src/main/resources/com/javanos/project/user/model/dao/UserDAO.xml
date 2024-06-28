@@ -63,7 +63,6 @@
 			FROM TBL_USER
 		WHERE USER_STATUS = 'Y'
 			AND USER_ID = #{ userId }
-			AND (USER_STOP_DATE IS NULL OR CURDATE() > USER_STOP_DATE)
 	</select>
 	
 	<select id="selectLoginUser" resultMap="userResultMap">
@@ -81,7 +80,6 @@
 		FROM TBL_USER
 	 	WHERE USER_ID = #{ userId }
 	 		AND USER_STATUS = 'Y'
-	 		AND (USER_STOP_DATE IS NULL OR CURDATE() > USER_STOP_DATE)
 	</select>
 	
 	<update id="updateUser" parameterType="com.javanos.project.user.model.dto.UserDTO">

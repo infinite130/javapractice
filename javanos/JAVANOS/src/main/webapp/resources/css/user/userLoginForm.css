@@ -5,8 +5,8 @@ body {
     font-family: Arial, sans-serif; /* 글꼴 설정 */
     margin: 0;
     padding: 0;
-    background-color: #f2f2f2; /* 배경색 */
-}
+/*     background-color: #f2f2f2; 배경색
+ */}
 
 /* 로그인 폼 설정 */
 .login-wrapper {

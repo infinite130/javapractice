@@ -1,0 +1,90 @@
+@charset "UTF-8";
+
+/* 전체 페이지 설정 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+/*     background-color: #f2f2f2;
+ */}
+
+/* 마이페이지 설정 */
+.mypage-wrapper {
+	max-width: 500px; 
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 마이페이지 제목 설정 */
+.mypage-wrapper h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* 마이페이지 폼 안의 input 설정 */
+.mypage-wrapper input[type="text"],
+.mypage-wrapper input[type="password"],
+.mypage-wrapper input[type="email"],
+.mypage-wrapper input[type="button"],
+.mypage-wrapper input[type="submit"] {
+    width: calc(100% - 20px);
+    margin-top: 7px;
+    margin-bottom: 7px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* 마이페이지 버튼 설정 */
+.mypage-wrapper input[type="button"],
+.mypage-wrapper input[type="submit"] {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 12px 0;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 16px;
+}
+
+/* 수정, 취소, 회원탈퇴 버튼 스타일 */
+#updateBtn,
+#cancelBtn,
+#deleteBtn {
+    margin-top: 15px; /* 원하는 만큼의 여백을 추가합니다 */
+}
+
+/* 마이페이지 버튼 호버 설정 */
+.mypage-wrapper input[type="button"]:hover,
+.mypage-wrapper input[type="submit"]:hover {
+    background-color: #575757;
+}
+
+/* 에러 메시지 설정 */
+.mypage-wrapper .message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* 성공 메시지 설정 */
+.message.valid {
+    color: green; /* 성공 메시지 글자색 */
+    font-size: 14px; /* 글꼴 크기 */
+    margin-top: 5px; /* 위쪽 여백 추가 */
+}
+
+/* 마이페이지 폼 안의 테이블 설정 */
+.mypage-wrapper table {
+    width: 100%; /* 테이블 너비를 100%로 설정 */
+    max-width: 500px; /* 테이블의 최대 너비 설정 */
+    margin-top: 20px; /* 위 여백 */
+/*     margin-bottom: 20px; 아래 여백
+ */    border-collapse: collapse; /* 테이블 셀 경계 통합 */
+}

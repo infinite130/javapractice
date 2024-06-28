@@ -6,29 +6,32 @@
 <head>
 <meta charset="UTF-8">
 <title>분실물 게시판</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 	
 	<jsp:include page="../../common/menubar.jsp"/>
 	
 	<!-- 게시글 출력할 것 -->
-	<h2>분실물 게시판</h2>
-	<div>
+	<h2 align = "center">분실물 게시판</h2>
+	<div align = "center">
 		<table>
 			<tr>
 				<th>#</th>
-<!-- 				<th>습득 호선</th>
-				<th>습득 역</th> -->
+				<th>습득 호선</th>
+				<th>습득 역</th>
 				<th>분실 품목</th>
 				<th>등록일</th>
 				<th>발견일</th>
 			</tr>
-			<c:forEach var="lnfBoard" items="${ requestScope.lnfBoardList }">
+			<c:forEach items="${ boardList }" var="lnfBoard">
 			<tr>
 				<td><c:out value="${ lnfBoard.lnfNo }"/></td>
-				<td><c:out value="${ lnfBoard.missing }"/></td>
-				<td><c:out value="${ lnfBoard.enroll.date }"/></td>
-				<td><c:out value="${ lnfBoard.find.date }"/></td>
+				<td><c:out value="${ lnfBoard.staNo.staLine }"/></td> <!-- 습득 호선 -->
+				<td><c:out value="${ lnfBoard.staNo.staName }"/></td> <!-- 습득 역 -->
+				<td><c:out value="${ lnfBoard.missing }"/></td> <!-- 분실 품목 -->
+				<td><c:out value="${ lnfBoard.enrollDate }"/></td> <!-- 등록일 -->
+				<td><c:out value="${ lnfBoard.findDate }"/></td> <!-- 발견일 -->
 			</tr>
 			</c:forEach>
 		</table>
@@ -50,6 +53,32 @@
 				<button type="submit">검색하기</button>
 			</form>
 	</div>
+	
+	<script>
+		if(document.getElementsByTagName("td")) {
+			const $tds = document.getElementsByTagName("td");
+			for(let i = 0; i < $tds.length; i++) {
+				
+				/* $tds[i].onmouseenter = function() {
+					this.parentNode.style.backgroundColor = "orangered";
+					this.parentNode.style.cursor = "pointer";
+				}
+				
+				$tds[i].onmouseout = function() {
+					this.parentNode.style.backgroundColor = "black";
+				} */
+				
+				$tds[i].onclick = function() {
+					/* 게시물 번호까지 알아왔으니 이제 상세보기는 할 수 있겠지? */
+					const no = this.parentNode.children[0].innerText;
+					location.href = "${ pageContext.servletContext.contextPath }/lnf/detail?no=" + no;
+				}
+				
+			}
+			
+		}
+
+	</script>
 
 </body>
 </html>

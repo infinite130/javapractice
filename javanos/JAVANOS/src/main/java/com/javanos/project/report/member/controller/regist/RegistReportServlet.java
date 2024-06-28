@@ -41,14 +41,6 @@ public class RegistReportServlet extends HttpServlet {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String currentDate = formatter.format(new Date());
 
-        // 수신받은 데이터를 콘솔에 출력
-        System.out.println("신고한 회원: " + userId);
-        System.out.println("신고당한 회원: " + reportedUserId);
-        System.out.println("신고 내용: " + check1);
-        if (additionalText != null && !additionalText.isEmpty()) {
-            System.out.println("기타 내용: " + additionalText);
-        }
-        System.out.println("등록일: " + currentDate);
 
         // 수신받은 데이터를 리스트에 저장
         synchronized (getServletContext()) {

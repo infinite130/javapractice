@@ -44,10 +44,11 @@ public class EnrollBoardServlet extends HttpServlet {
 		String description = request.getParameter("description");
 //		int writerMemberNo = ((UserDTO) request.getSession().getAttribute("loginMember")).getUserNo();
 		
-		LnfBoardDTO newBoard = new LnfBoardDTO();
 		StationDTO newStaBoard = new StationDTO();
 		newStaBoard.setStaLine(StaLine);
-		newStaBoard.setStaName(staName);	
+		newStaBoard.setStaName(staName);
+		
+		LnfBoardDTO newBoard = new LnfBoardDTO();
 		newBoard.setMissing(missing);
 		newBoard.setKeep(keep);
 		newBoard.setDescription(description);

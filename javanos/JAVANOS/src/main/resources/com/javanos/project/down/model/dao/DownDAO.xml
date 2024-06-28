@@ -1,61 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="com.javanos.project.down.model.dao.DownDAO">
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.javanos.project.down.model.dao.DownDAO">
+	<resultMap type="com.javanos.project.down.model.dto.DownDTO" id="downResultMap">
+		<id property="downNo" column="DOWN_NO" />
+		<result property="downRoom" column="DOWN_ROOM" />
+		<result property="downFull" column="DOWN_FULL" />
+		<result property="downEnrollDate" column="DOWN_ENROLL_DATE" />
+		<result property="downModifyDate" column="DOWN_MODIFY_DATE" />
+		<result property="downStatus" column="DOWN_BOARD_STATUS" />
+		<result property="userNo" column="DOWN_USER_NO" />
+		<result property="downStationNo" column="DOWN_STA_NO" />
+		<result property="inStationNo" column="IN_STA_NO" />
+		<association property="user" resultMap="UserResultMap" />
+		<association property="inStation" javaType="com.javanos.project.lnf.model.dto.StationDTO">
+			<id property="staNo" column="STA_NO" />
+			<result property="staCode" column="STA_CODE" />
+			<result property="staName" column="IN_STA_NAME" />
+			<result property="staLine" column="IN_STA_LINE" />
+		</association>
+		<association property="downStation" javaType="com.javanos.project.lnf.model.dto.StationDTO">
+			<id property="staNo" column="STA_NO" />
+			<result property="staCode" column="STA_CODE" />
+			<result property="staName" column="DOWN_STA_NAME" />
+			<result property="staLine" column="DOWN_STA_LINE" />
+		</association>
+	</resultMap>
+	
 
-<!-- 	<resultMap type="com.javanos.project.down.model.dto.DownDTO" id="downResultMap">
-		<id property="downno" column="DOWN_NO"/>
-		<result property="downroom" column="DOWN_ROOM"/>
-		<result property="downfull" column="DOWN_FULL"/>
-		<result property="downenrolldate" column="DOWN_ENROLL_DATE"/>
-		<result property="downmodifydate" column="DOWN_MODIFY_DATE"/>
-		<result property="downboardstatus" column="DOWN_BOARD_STATUS"/>
-		<result property="downuserno" column="DOWN_USER_NO"/>
-		<result property="downstano" column="DOWN_STA_NO"/>
-		<result property="instano" column="IN_STA_NO"/>
-<association property="user" resultMap="UserResultMap"></association>
-<association property="station" resultMap="stationResultMap"></association>
-	</resultMap>
-	
 	<resultMap type="com.javanos.project.user.model.dto.UserDTO" id="UserResultMap">
-		<id property="userNo" column="USER_NO"/>
-		<result property="userId" column="USER_ID"/>
-		<result property="userPwd" column="USER_PWD"/>
-		<result property="userName" column="USER_NAME"/>
-		<result property="userNickname" column="USER_NICKNAME"/>
-		<result property="userEmail" column="USER_EMAIL"/>
-		<result property="userRole" column="USER_ROLE"/>
-		<result property="userEnrollDate" column="USER_ENROLL_DATE"/>
-		<result property="userStatus" column="USER_STATUS"/>
-		<result property="userStopDate" column="USER_STOP_DATE"/>
+		<id property="userNo" column="USER_NO" />
+		<result property="userId" column="USER_ID" />
+		<result property="userPwd" column="USER_PWD" />
+		<result property="userName" column="USER_NAME" />
+		<result property="userNickname" column="USER_NICKNAME" />
+		<result property="userEmail" column="USER_EMAIL" />
+		<result property="userRole" column="USER_ROLE" />
+		<result property="userEnrollDate" column="USER_ENROLL_DATE" />
+		<result property="userStatus" column="USER_STATUS" />
+		<result property="userStopDate" column="USER_STOP_DATE" />
 	</resultMap>
 	
-	<resultMap type="com.javanos.project.lnf.model.dto.StationDTO" id="stationResultMap">
-		<id property="userNo" column="STA_NO"/>
-		<result property="userId" column="STA_CODE"/>
-		<result property="userPwd" column="STA_NAME"/>
-		<result property="userName" column="STA_LINE"/>		
-	</resultMap> -->
-	
-		<insert id="insertDown" parameterType="com.javanos.project.down.model.dto.DownDTO">
-         insert INTO TBL_DOWN
-        (
-         IN_STA_NO,
-         DOWN_STA_NO,
-         DOWN_USER_NO,
-         DOWN_ROOM,
-         DOWN_FULL
-        )
-        VALUES
-        (
-          #{ inStationNo },
-         #{downStationNo },
-         #{ userNo },
-         #{downRoom},
-         #{ downFull}
-        )
-	</insert>
+	<select id="selectTotalCount" resultType="_int">
+		select count(*) 
+		from tbl_down A
+		<if test="searchCondition == 'line'"> 
+		JOIN TBL_STATION C ON(A.DOWN_STA_NO = C.STA_NO) where
+			sta_line = #{searchValue} </if>
+	</select>
 	
 	
-</mapper>	
+	<select id="selectDownList" resultMap="downResultMap">
+		SELECT A.DOWN_NO 
+		, A.DOWN_ROOM 
+		, A.DOWN_FULL 
+		, A.DOWN_ENROLL_DATE 
+		, A.DOWN_MODIFY_DATE 
+		, A.DOWN_BOARD_STATUS 
+		, B.USER_NICKNAME 
+		, B.USER_ID
+		, A.IN_STA_NO 
+		, A.DOWN_STA_NO
+		, C.STA_NAME DOWN_STA_NAME
+	    , C.STA_LINE DOWN_STA_LINE 
+	    , D.STA_NAME IN_STA_NAME 
+	    , D.STA_LINE IN_STA_LINE FROM
+		TBL_DOWN A JOIN TBL_USER B ON(A.DOWN_USER_NO = B.USER_NO) JOIN
+		TBL_STATION C ON(A.DOWN_STA_NO = C.STA_NO) JOIN TBL_STATION D ON(A.IN_STA_NO = D.STA_NO)
+		<if test="searchCondition == 'line'"> 
+		where c.sta_line = #{searchValue} </if>
+		ORDER BY A.DOWN_NO DESC LIMIT #{ startRow }, #{ limit }
+	</select>
+	
+	
+	<insert id="insertDown" parameterType="com.javanos.project.down.model.dto.DownDTO">
+	 insert INTO TBL_DOWN 
+	 (   IN_STA_NO,
+	     DOWN_STA_NO,
+		 DOWN_USER_NO,
+		 DOWN_ROOM, 
+		 DOWN_FULL )
+		  VALUES (
+		  #{ inStationNo },
+	      #{downStationNo },
+		  #{ userNo },
+		  #{downRoom}, 
+		  #{ downFull} ) 
+		</insert>
+</mapper>

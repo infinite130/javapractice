@@ -12,7 +12,7 @@
  	<jsp:include page="../common/menubar.jsp"/> 
 
 	<div class="join-wrapper">
-		<h2>회원가입</h2>
+		<h2>Sign Up</h2>
 		<form action="${ pageContext.servletContext.contextPath }/user/join" method="post" id="join-form">
 			<input type="text" name="userId" id="userId" placeholder="*아이디" ><br>
 			<span id="userIdType" class="message"></span><br>
@@ -32,7 +32,7 @@
 			<input type="email" name="userEmail" id="userEmail" placeholder="*이메일" ><br>
 			<span id="userEmailType" class="message"></span><br>
 			
-			<label for="agreeTerms">
+			<label for="agreeTerms" class="agree-container">
 				<input type="checkbox" id="agreeTerms" name="agreeTerms" >
 				이용약관과 개인정보 수집 및 정보이용에 동의합니다
 			</label><br>
@@ -140,6 +140,7 @@
 		    }
 
 		    // 비밀번호 유효성 검사 함수
+		    // 특수문자(!@#$%^&*?_) 가능
 		    function validateUserPwd() {
 		        let userPwdPattern = /^(?=.*[A-Za-z])(?=.*\d)|(?=.*[A-Za-z])(?=.*[!@#$%^&*?_])|(?=.*\d)(?=.*[!@#$%^&*?_])[A-Za-z\d!@#$%^&*?_]{8,16}$/;
 		        let userPwd = $("#userPwd").val().trim();
@@ -149,7 +150,7 @@
 		        } else if (userPwdPattern.test(userPwd)) {
 		            $("#userPwdType").text("사용할 수 있는 비밀번호 형식입니다.").removeClass('invalid').addClass('valid');
 		        } else {
-		            $("#userPwdType").text("비밀번호는 8~16자의 영문자, 숫자, 특수문자(!@#$%^&*?_) 중 2가지 이상을 사용해야 합니다.").removeClass('valid').addClass('invalid');
+		            $("#userPwdType").text("비밀번호는 8~16자의 영문자, 숫자, 특수문자 중 2가지 이상을 사용해야 합니다.").removeClass('valid').addClass('invalid');
 		        }
 		    }
 
@@ -260,6 +261,5 @@
 		});
 		
 	</script>
-	
 </body>
 </html>

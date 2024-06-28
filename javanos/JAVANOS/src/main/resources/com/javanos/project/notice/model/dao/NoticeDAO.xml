@@ -16,7 +16,8 @@
 		<result property="noticeEnrollDate" column="NOTICE_ENROLL_DATE" />
 		<result property="noticeModifyDate" column="NOTICE_MODIFY_DATE" />
 		<result property="noticeCount" column="NOTICE_COUNT" />
-		<result property="noticeBoardStatus" column="NOTICE_BOARD_STATUS" />
+		<result property="noticeBoardStatus"
+			column="NOTICE_BOARD_STATUS" />
 		<result property="noticeUserno" column="NOTICE_USER_NO" />
 		<association property="noticeWriter"
 			resultMap="userResultMap" />
@@ -24,10 +25,10 @@
 	</resultMap>
 
 
-	<resultMap
-		type="com.javanos.project.user.model.dto.UserDTO" id="userResultMap">
+	<resultMap type="com.javanos.project.user.model.dto.UserDTO"
+		id="userResultMap">
 
-		<!--  property(DTO 필드 이름) - column(DB테이블의 열 이름) 둘이를 매핑한거임 -->
+		<!-- property(DTO 필드 이름) - column(DB테이블의 열 이름) 둘이를 매핑한거임 -->
 		<id property="userNo" column="USER_NO" />
 		<result property="userId" column="USER_ID" />
 		<result property="userPwd" column="USER_PWD" />
@@ -56,14 +57,167 @@
 		A.NOTICE_ENROLL_DATE,
 		A.NOTICE_COUNT
 
-
 		FROM TBL_NOTICE A
 		<!-- 공지사항작성자 회원번호 = 로그인회원번호 : 공지사항 작성자 닉네임 가져옴 -->
 		JOIN TBL_USER B ON (A.NOTICE_USER_NO = B.USER_NO)
 
-		WHERE A.NOTICE_BOARD_STATUS = "Y"   <!-- 공지사항 상태 'Y'일때만 조회함 -->
+		WHERE
+		A.NOTICE_BOARD_STATUS = "Y"   <!-- 공지사항 상태 'Y'일때만 조회함 -->
 
 		ORDER BY A.NOTICE_NO DESC  <!-- 공지사항 정렬 최신순 -->
 	</select>
+
+	<!-- insert: 새로운 데이터 db에 삽입 / id: 호출될때 사용될 식별자 -->
+	<insert id="insertNotice">
+		<!-- 이 쿼리 DAO클래스의 insertNotice() 메소드에서 호출됨을 의미 -->
+		INSERT /* com.javanos.project.model.dao.NoticeDAO#insertNotice() */
+
+		<!-- into: tbl_notice에 데이터 삽입할거임 -->
+		INTO TBL_NOTICE
+		( NOTICE_TITLE,
+		NOTICE_BODY,
+		NOTICE_USER_NO )
+
+		VALUES
+		( #{
+		noticeTitle }, #{ noticeBody }, #{ noticeUserno } )
+	</insert>
+
+
+	<!-- update: 변경 / id: 이 쿼리 호출될때 사용되는 식별자 지정 -->
+	<update id="incrementNoticeCount">
+		<!-- update: 기존 데이터 변경 / 이 쿼리는 NoticeDAO 클래스의 incrementNoticeCount() 메소드에서 
+			호출됨을 의미 -->
+		UPDATE /*
+		com.ohgiraffers.project.notice.model.dao.NoticeDAO#incrementNoticeCount()
+		*/
+		<!-- tbl_notice: 업데이트할 테이블의 이름 -->
+		TBL_NOTICE
+		<!-- set: 업데이트할 열, 값을 지정 -->
+		SET NOTICE_COUNT = (SELECT A.COUNT
+		FROM (
+		<!-- 서브쿼리: 특정 공지사항의 현재 조회수를 가져옴 -->
+		SELECT NOTICE_COUNT COUNT
+		FROM TBL_NOTICE
+		WHERE NOTICE_NO = #{ noticeNo
+		}
+		) A
+		) + 1
+		WHERE NOTICE_NO = #{ noticeNo }
+	</update>
+
+	<!-- 공지사항 상세정보 조회 -->
+	<!-- select / id: 쿼리 호출될때 사용된느 식별자 / resultMap: 쿼리 결과 매핑할 식별자 -->
+	<select id="selectNoticeDetail" resultMap="noticeResultMap">
+		SELECT
+		A.NOTICE_NO
+		,
+		A.NOTICE_TITLE
+		, A.NOTICE_BODY
+		, A.NOTICE_USER_NO
+		, B.USER_NICKNAME
+		,
+		A.NOTICE_COUNT
+		, A.NOTICE_ENROLL_DATE
+		FROM TBL_NOTICE A
+		JOIN TBL_USER B
+		ON (A.NOTICE_USER_NO = B.USER_NO)
+		WHERE A.NOTICE_BOARD_STATUS = 'Y'
+		AND
+		A.NOTICE_NO = #{ noticeNo }
+	</select>
+
+
+	<!-- 공지사항 수정 쿼리 -->
+	<!-- <update id="updateNotice"> UPDATE/* com.javanos.project.notice.model.dao.NoticeDAO#updateNotice() 
+		*/ TBL_NOTICE SET NOTICE_TITLE = #{noticeTitle}, NOTICE_BODY = #{noticeBody}, 
+		NOTICE_USER_NO = #{noticeUserno} WHERE NOTICE_NO = #{noticeNo} </update> -->
+
+	<update id="updateNotice"
+		parameterType="com.javanos.project.notice.model.dto.NoticeDTO">
+		<!-- com.javanos.project.notice.model.dao.NoticeDAO#updateNotice() 메소드에서 
+			호출됨을 의미 -->
+		UPDATE TBL_NOTICE
+		SET
+		NOTICE_TITLE = #{noticeTitle},
+		NOTICE_BODY =
+		#{noticeBody},
+		NOTICE_USER_NO = #{noticeUserno}
+		WHERE
+		NOTICE_NO =
+		#{noticeNo}
+	</update>
+
+
+	<!-- 삭제 쿼리 -->
+	<delete id="deleteNotice" parameterType="int">
+		<!-- com.javanos.project.notice.model.dao.NoticeDAO#deleteNotice() 메소드에서 
+			호출됨을 의미 -->
+		DELETE FROM TBL_NOTICE
+		WHERE NOTICE_NO = #{noticeNo}
+	</delete>
+
+
+	<select id="searchNoticeByTitle" resultMap="noticeResultMap"
+		parameterType="String">
+		SELECT
+		A.NOTICE_NO,
+		A.NOTICE_TITLE,
+		A.NOTICE_BODY,
+		A.NOTICE_USER_NO,
+		B.USER_NICKNAME,
+		A.NOTICE_ENROLL_DATE,
+		A.NOTICE_COUNT
+		FROM TBL_NOTICE A
+		JOIN TBL_USER B ON (A.NOTICE_USER_NO = B.USER_NO)
+		WHERE
+		A.NOTICE_BOARD_STATUS = 'Y' <!-- 공지사항 상태 'Y'일때만 조회함 -->
+		AND A.NOTICE_TITLE LIKE CONCAT('%', #{keyword}, '%')
+		ORDER BY
+		A.NOTICE_NO DESC <!-- 공지사항 정렬 최신순 -->
+	</select>
+
+	<select id="searchNoticeByBody" resultMap="noticeResultMap"
+		parameterType="String">
+		SELECT
+		A.NOTICE_NO,
+		A.NOTICE_TITLE,
+		A.NOTICE_BODY,
+		A.NOTICE_USER_NO,
+		B.USER_NICKNAME,
+		A.NOTICE_ENROLL_DATE,
+		A.NOTICE_COUNT
+		FROM TBL_NOTICE A
+		JOIN TBL_USER B ON (A.NOTICE_USER_NO = B.USER_NO)
+		WHERE
+		A.NOTICE_BOARD_STATUS = 'Y' <!-- 공지사항 상태 'Y'일때만 조회함 -->
+		AND A.NOTICE_BODY LIKE CONCAT('%', #{keyword}, '%')
+		ORDER BY
+		A.NOTICE_NO DESC <!-- 공지사항 정렬 최신순 -->
+	</select>
+
+
+	<select id="searchNoticeByTitleAndBody" resultMap="noticeResultMap"
+		parameterType="String">
+		SELECT
+		A.NOTICE_NO,
+		A.NOTICE_TITLE,
+		A.NOTICE_BODY,
+		A.NOTICE_USER_NO,
+		B.USER_NICKNAME,
+		A.NOTICE_ENROLL_DATE,
+		A.NOTICE_COUNT
+		FROM TBL_NOTICE A
+		JOIN TBL_USER B ON (A.NOTICE_USER_NO = B.USER_NO)
+		WHERE A.NOTICE_BOARD_STATUS = 'Y'
+		AND (
+		A.NOTICE_TITLE LIKE CONCAT('%', #{keyword}, '%')
+		OR A.NOTICE_BODY LIKE CONCAT('%', #{keyword}, '%')
+		)
+		ORDER BY A.NOTICE_NO DESC
+	</select>
+
+
+
 
 </mapper>

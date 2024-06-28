@@ -83,6 +83,7 @@ public class AuthenticationFilter implements Filter {
 		allPermitList.add("/user/check-id");
 		allPermitList.add("/user/check-nickname");
 		allPermitList.add("/user/check-email");
+		allPermitList.add("/user/check-pwd");
 		allPermitList.add("/user/join");
 		allPermitList.add("/user/login");
 		allPermitList.add("/user/logout");

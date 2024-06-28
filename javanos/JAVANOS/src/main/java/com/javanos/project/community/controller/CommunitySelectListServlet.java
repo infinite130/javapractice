@@ -21,7 +21,7 @@ public class CommunitySelectListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//CommunityDTO를 list로 구성해서 forward시키기
 
-		
+		System.out.println("hereR???");
 		List<CommunityDTO> communityList = new CommunityService().selectThumbnailList();
 		
 		for (Iterator iterator = communityList.iterator(); iterator.hasNext();) {

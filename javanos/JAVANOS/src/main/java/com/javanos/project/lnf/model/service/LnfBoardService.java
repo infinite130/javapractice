@@ -8,7 +8,6 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.javanos.project.lnf.model.dao.LnfDAO;
 import com.javanos.project.lnf.model.dto.LnfBoardDTO;
-import com.javanos.project.lnf.model.dto.StationDTO;
 
 public class LnfBoardService {
 	
@@ -87,16 +86,16 @@ public class LnfBoardService {
 	}
 		
 	// 게시글 상세 보기 조회
-	public List<LnfBoardDTO> selectBoardDetail(int no) {
+	public LnfBoardDTO selectBoardDetail(int no) {
 			
 		SqlSession session = getSqlSession();
 		lnfDAO = session.getMapper(LnfDAO.class);
 			
-		List<LnfBoardDTO> detailBoardList = lnfDAO.selectBoardDetail();
-			
+		LnfBoardDTO lnfDetail = lnfDAO.selectBoardDetail(no);
+		
 		session.close();
-					
-		return detailBoardList;
+		
+		return lnfDetail;
 	}
 		
 	// 첫화면 

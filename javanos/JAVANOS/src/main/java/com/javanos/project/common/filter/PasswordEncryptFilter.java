@@ -30,7 +30,7 @@ public class PasswordEncryptFilter implements Filter {
 		String intent = uri.substring(uri.lastIndexOf("/"));
 		
 		// 로그인 요청이 아닌 경우에만 암호화
-		if(!"/login".equals(intent) && !"/update".equals(intent)) {
+		if(!"/login".equals(intent) && !"/mypage".equals(intent) && !"/check-pwd".equals(intent)) {
 			EncryptRequestWrapper wrapper = new EncryptRequestWrapper(hrequest);
 			chain.doFilter(wrapper, response);
 		} else {

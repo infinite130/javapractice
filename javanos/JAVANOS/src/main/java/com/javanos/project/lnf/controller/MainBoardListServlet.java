@@ -18,9 +18,10 @@ public class MainBoardListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// 게시글 조회
 		List<LnfBoardDTO> boardList = new LnfBoardService().selectAllBoardList();
 		
-		System.out.println(boardList);
+//		System.out.println(boardList);
 		
 		String path = "";
 		if(boardList != null) {

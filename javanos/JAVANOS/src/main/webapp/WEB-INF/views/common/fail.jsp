@@ -27,6 +27,9 @@
 				break;
 		}
 	</script>
+	
+	<h1 align="center">${ requestScope.message }</h1>
+
 
 </body>
 </html>

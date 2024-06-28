@@ -1,6 +1,8 @@
 package com.javanos.project.community.controller;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.javanos.project.community.model.dto.CommunityDTO;
 import com.javanos.project.community.model.service.CommunityService;
@@ -25,6 +27,18 @@ public class CommunityDetailServlet extends HttpServlet {
 		
 		System.out.println(community);
 		
+		
+		
+		  LocalDateTime enrollDate = community.getCommunityEnrollDate();
+		  
+		  DateTimeFormatter formatter =
+		  DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초"); String
+		  formattedDateTime = enrollDate.format(formatter);
+		  
+		  System.out.println(formattedDateTime);
+		  
+		  request.setAttribute("formattedDateTime", formattedDateTime);
+		 
 		request.setAttribute("community", community);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/community/detail.jsp");
 		rd.forward(request, response);

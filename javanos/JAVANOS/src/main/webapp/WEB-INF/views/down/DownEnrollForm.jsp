@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -107,20 +108,19 @@
                 </select>
             </div>
         </div>
-        
-        <%-- <c:forEach var="down" items="${ requestScope.downList }">
-			<tr>
-				<td><c:out value="${ down.downStationNo }"/></td>
-				<td><c:out value="${ down.inStationNo }"/></td>
-				<td><c:out value="${ down.downRoom }"/></td>
-				<td><c:out value="${ down.downFull}"/></td>
-				<td><c:out value="${ down.downEnrollDate}"/></td>
-				<td><c:out value="${ down.user.userNickname}"/></td>
-				
-			</tr>
-			</c:forEach>
-				<jsp:include page="../common/paging.jsp"/> --%>
     </form>
-    
+             <c:forEach var="down" items="${ requestScope.downList }">
+			<div>
+				<span><c:out value="${ down.downStation.staName }"/></span>
+				<span><c:out value="${ down.inStation.staName }"/></span>
+				<span><c:out value="${ down.downRoom }"/></span>
+				<span><c:out value="${ down.downFull}"/></span>
+				<span><c:out value="${ down.downEnrollDate}"/></span>
+				<span><c:out value="${ down.user.userNickname}"/></span>
+				<span><button>삭제</button></span>
+			</div>
+			</c:forEach>
+			  
+				<jsp:include page="../common/paging.jsp"/> 
 </body>
 </html>

@@ -40,7 +40,7 @@ public class NoticeSelectListServlet extends HttpServlet {
 			request.setAttribute("noticeList", noticeList);
 		} else {
 //			공지사항 목록 없으면 실패 메시지 요청 속성에 넣음
-			path = "/WEB-INF/views/common/failed.jsp";
+			path = "/WEB-INF/views/common/fail.jsp";
 			request.setAttribute("message", "공지사항 조회 실패!");
 		}
 

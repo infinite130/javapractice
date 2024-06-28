@@ -6,26 +6,45 @@
 <head>
 <meta charset="UTF-8">
 <title>커뮤니티</title>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script></head>
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/community/communityList.css">
 <body>	
 	<jsp:include page="../common/menubar.jsp"/>
 	
-	<c:if test="${ sessionScope.loginUser.userRole eq 'ROLE_USER' }">
-		<button onclick="insertcommunity()">등록</button>
-	</c:if>
-	
-	<c:forEach items="${ communityList }" var="community">
-		<div onclick="showCommunityDeatil(${community.communityNo})">
-			<div class="title-img-area" id="titleImgArea">
-				<img id="titleImgView" onerror="setDefaultImage(this);" width="350" height="200" src="${pageContext.servletContext.contextPath }${ community.pictureList[0].thumbnailPath }">
-			</div>
-			<p>
-				<c:out value="${community.communityTitle}"></c:out>
-				<label>조회수 </label><c:out value="${community.communityCount }"></c:out>
-			</p>
-
+	<div class="outer-community-list">
+		<br>
+		<h2 align="center">커뮤니티 게시판</h2>
+		<br>
+		<div class="community-list-area" >
+			<c:if test="${ sessionScope.loginUser.userRole eq 'ROLE_USER' }">
+				<button onclick="insertcommunity()">등록</button>
+			</c:if>
+			<c:forEach items="${ communityList }" var="community">
+				<div class= "list-bar" onclick="showCommunityDeatil(${community.communityNo})">
+					<div class="title-img-area" id="titleImgArea">
+						<img id="titleImgView" onerror="setDefaultImage(this);" src="${pageContext.servletContext.contextPath }${ community.pictureList[0].thumbnailPath }">
+					</div>
+					
+					<div id="communityTitleArea">
+						<c:out value="${community.communityTitle}"></c:out>
+					</div>
+					
+					<p>
+						<label>조회수 </label>
+						<c:out value="${community.communityCount }"></c:out>
+					</p>
+				</div>
+			</c:forEach>
+		
+		
+		
 		</div>
-	</c:forEach>
+	
+	
+	
+	
+	
+	</div>
+	
 	
 	
 	<script>
@@ -41,10 +60,10 @@
 	</script>
 	
 	<script>
-		function setDefaultImage(_img) {
+		function setDefaultImage(img) {
 			console.log("파일을 등록하지 않았거나 파일의 경로를 찾을 수 없습니다.");
-           $(_img).onerror = null;
-           $(_img).attr('src','${pageContext.servletContext.contextPath}/resources/image/community/basicImage.png');
+			img.onerror = null;
+			img.src ='${pageContext.servletContext.contextPath}/resources/image/community/basicImage.png';
 		};
     </script>
 	

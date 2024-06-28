@@ -4,9 +4,9 @@ body {
   
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 50vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background-color: #f2f2f2;
 }
 
 #report-form-container {
@@ -15,7 +15,7 @@ body {
     margin: 0;
     align-items: center;
     background-color: #f0f0f0;
-    padding-top: 150px; 
+    padding-top: 50px; 
     width: 100%;
 }
 
