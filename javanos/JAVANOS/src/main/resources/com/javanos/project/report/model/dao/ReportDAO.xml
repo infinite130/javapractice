@@ -1,83 +1,57 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.javanos.project.report.model.dao.ReportDAO">
+    <resultMap type="com.javanos.project.report.model.dto.ReportDTO" id="reportResultMap">
+        <id property="reportNo" column="REPORT_NO"/>
+        <result property="reportReason" column="REPORT_REASON"/>
+        <result property="reportDate" column="REPORT_DATE"/>
+        <result property="reportStatus" column="REPORT_STATUS"/>
+        <association property="reportUser" javaType="com.javanos.project.user.model.dto.UserDTO">
+            <id property="userNo" column="REPORT_USER_NO"/>
+            <result property="userId" column="REPORT_USER_ID"/>
+        </association>
+        <association property="reportedUser" javaType="com.javanos.project.user.model.dto.UserDTO">
+            <id property="userNo" column="REPORTED_USER_NO"/>
+            <result property="userId" column="REPORTED_USER_ID"/>
+        </association>
+    </resultMap>
 
-  <!-- ReportDTO를 매핑하는 resultMap -->
-  <resultMap id="reportResultMap" type="com.javanos.project.report.model.dto.ReportDTO">
-    <id property="reportNo" column="REPORT_NO" />
-    <result property="reportReason" column="REPORT_REASON" />
-    <result property="reportDate" column="REPORT_DATE" />
-    <result property="reportStatus" column="REPORT_STATUS" />
-    <result property="reporter.userNo" column="REPORT_USER_NO" />
-    <result property="reported.userNo" column="REPORTED_USER_NO" />
-    <result property="communityNo.communityNo" column="COMMUNITY_NO" />
-  </resultMap>
+    <select id="selectAllReports" resultMap="reportResultMap">
+        SELECT 
+            R.REPORT_NO, R.REPORT_REASON, R.REPORT_DATE, R.REPORT_STATUS, 
+            R.REPORT_USER_NO, RU.USER_ID AS REPORT_USER_ID,
+            R.REPORTED_USER_NO, RE.USER_ID AS REPORTED_USER_ID
+        FROM 
+            TBL_REPORT R
+        LEFT JOIN TBL_USER RU ON R.REPORT_USER_NO = RU.USER_NO
+        LEFT JOIN TBL_USER RE ON R.REPORTED_USER_NO = RE.USER_NO
+        WHERE
+            R.REPORT_STATUS = 'Y'
+    </select>
 
-  <!-- 모든 신고를 조회하는 SQL -->
-  <select id="getAllReports" resultMap="reportResultMap">
-    SELECT
-      REPORT_NO,
-      REPORT_REASON,
-      REPORT_DATE,
-      REPORT_STATUS,
-      REPORT_USER_NO,
-      REPORTED_USER_NO,
-      COMMUNITY_NO
-    FROM TBL_REPORT
-  </select>
+    <insert id="insertReport" parameterType="com.javanos.project.report.model.dto.ReportDTO">
+        INSERT INTO TBL_REPORT (REPORT_REASON, REPORT_DATE, REPORT_STATUS, REPORT_USER_NO, REPORTED_USER_NO)
+        VALUES (#{reportReason}, NOW(), 'Y', #{reportUser.userNo}, #{reportedUser.userNo})
+    </insert>
 
-  <!-- 특정 ID로 신고를 조회하는 SQL -->
-  <select id="getReportById" parameterType="int" resultMap="reportResultMap">
-    SELECT
-      REPORT_NO,
-      REPORT_REASON,
-      REPORT_DATE,
-      REPORT_STATUS,
-      REPORT_USER_NO,
-      REPORTED_USER_NO,
-      COMMUNITY_NO
-    FROM TBL_REPORT
-    WHERE REPORT_NO = #{reportId}
-  </select>
+    <select id="selectReportByNo" parameterType="int" resultMap="reportResultMap">
+        SELECT
+            R.REPORT_NO, R.REPORT_REASON, R.REPORT_DATE, R.REPORT_STATUS, 
+            R.REPORT_USER_NO, RU.USER_ID AS REPORT_USER_ID,
+            R.REPORTED_USER_NO, RE.USER_ID AS REPORTED_USER_ID
+        FROM 
+            TBL_REPORT R
+        LEFT JOIN TBL_USER RU ON R.REPORT_USER_NO = RU.USER_NO
+        LEFT JOIN TBL_USER RE ON R.REPORTED_USER_NO = RE.USER_NO
+        WHERE R.REPORT_NO = #{reportNo}
+    </select>
 
-  <!-- 새로운 신고를 추가하는 SQL -->
-  <insert id="addReport" parameterType="com.javanos.project.report.model.dto.ReportDTO">
-    INSERT INTO TBL_REPORT (
-      REPORT_REASON,
-      REPORT_DATE,
-      REPORT_STATUS,
-      REPORT_USER_NO,
-      REPORTED_USER_NO,
-      COMMUNITY_NO
-    ) VALUES (
-      #{reportReason},
-      #{reportDate},
-      #{reportStatus},
-      #{reporter.userNo},
-      #{reported.userNo},
-      #{communityNo.communityNo}
-    )
-  </insert>
-
-  <!-- 신고 정보를 업데이트하는 SQL -->
-  <update id="updateReport" parameterType="com.javanos.project.report.model.dto.ReportDTO">
-    UPDATE TBL_REPORT
-    SET
-      REPORT_REASON = #{reportReason},
-      REPORT_DATE = #{reportDate},
-      REPORT_STATUS = #{reportStatus},
-      REPORT_USER_NO = #{reporter.userNo},
-      REPORTED_USER_NO = #{reported.userNo},
-      COMMUNITY_NO = #{communityNo.communityNo}
-    WHERE REPORT_NO = #{reportNo}
-  </update>
-
-  <!-- 특정 ID의 신고를 삭제하는 SQL -->
-  <delete id="deleteReport" parameterType="int">
-    DELETE FROM TBL_REPORT
-    WHERE REPORT_NO = #{reportId}
-  </delete>
-
+    <select id="selectUserByUserId" parameterType="string" resultType="com.javanos.project.user.model.dto.UserDTO">
+        SELECT 
+            USER_NO, USER_ID, USER_PWD, USER_NAME, USER_NICKNAME, USER_EMAIL, USER_ROLE, USER_ENROLL_DATE, USER_STATUS, USER_STOP_DATE 
+        FROM 
+            TBL_USER 
+        WHERE 
+            USER_ID = #{userId}
+    </select>
 </mapper>

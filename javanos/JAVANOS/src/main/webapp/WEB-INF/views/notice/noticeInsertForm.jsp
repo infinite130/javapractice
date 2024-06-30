@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>공지사항 신규 작성</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/notice/noticeInsertForm.css">
 <script>
 	// 취소 버튼 클릭 시 초기화 및 이동 처리
@@ -32,10 +32,8 @@
 </head>
 <body>
 
-	<!-- 새로운 공지사항 작성 화면 폼 -->
+	<!-- 신규 공지사항 작성 화면 폼 -->
 	<jsp:include page="../common/menubar.jsp" />
-
-	<button onclick="moveLocation('insertNotice')">작성 페이지로 이동</button>
 
 	<div class="outer outer-notice-insert">
 		<br>
@@ -73,9 +71,9 @@
 				<br>
 				<div align="center">
 					<!-- 취소 버튼 -->
-					<button type="button" onclick="cancelAndMoveToList()">취소</button>
+					<button id="cancleButton" type="button" onclick="cancelAndMoveToList()">취소</button>
 					<!-- 등록하기(submit)되면 form action 속성의 url로 데이터가 전송됨 -->
-					<button type="submit">등록</button>
+					<button id="insertButton" type="submit">등록</button>
 				</div>
 			</form>
 		</div>

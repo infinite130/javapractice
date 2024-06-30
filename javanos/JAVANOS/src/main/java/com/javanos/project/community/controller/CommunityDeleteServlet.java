@@ -15,8 +15,10 @@ public class CommunityDeleteServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int communityNo = Integer.valueOf(request.getParameter("communityNo"));
+		System.out.println(communityNo);
 		
-		int result = new CommunityService().deleteCommunity(communityNo);
+		int result = new CommunityService().deleteCommunityWithPic(communityNo);
+		System.out.println(result);
 		
 		String path = "";
 		
@@ -34,9 +36,6 @@ public class CommunityDeleteServlet extends HttpServlet {
 		  request.getRequestDispatcher(path).forward(request, response);
 
 	
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}
 
 }

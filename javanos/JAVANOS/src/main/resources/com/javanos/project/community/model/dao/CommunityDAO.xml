@@ -125,21 +125,29 @@
 		WHERE A.COMMUNITY_NO = 13;
 	</update> -->
 	
+	<!--게시글 삭제 버튼을 누르면 행해지는 태그들  -->
 	<update id="deleteCommunity" parameterType="int">
-		UPDATE TBL_COMMUNITY A, TBL_PIC B
+		UPDATE TBL_COMMUNITY
 		SET
-			A.COMMUNITY_BOARD_STATUS = 'N',
-            B.PIC_BOARD_STATUS = 'N'
-		WHERE A.COMMUNITY_NO = B.COMMUNITY_NO
-        AND A.COMMUNITY_NO = #{communityNo}
+			COMMUNITY_BOARD_STATUS = 'N'
+		WHERE COMMUNITY_NO = #{communityNo}
 	</update>
 	
-	<delete id="deletePicture" parameterType="int">
-		DELETE FROM TBL_PIC
+	<update id="deletePicture" parameterType="int">
+		UPDATE TBL_PIC
+		SET
+			PIC_BOARD_STATUS = 'N'
 		WHERE COMMUNITY_NO = #{communityNo}
-	</delete>
+	</update>
 	
+	<!--수정할 때 행해지는 태그들 -->
+	<delete id="deletePictures" parameterType="int">
+		DELETE FROM TBL_PIC
+		WHERE PIC_NO=#{picNo}
+	</delete>
 
+
+	<!--조회수 증가를 위한 태그  -->
 	<update id="incrementCommunityCount">
 		UPDATE TBL_COMMUNITY
 		SET COMMUNITY_COUNT = COMMUNITY_COUNT + 1
@@ -173,6 +181,7 @@
 				A.COMMUNITY_BOARD_STATUS,
 				A.USER_NO,
 				B.USER_NICKNAME,
+				C.PIC_NO,
 				C.ORIGINAL_NAME,
 				C.FILE_TYPE,
 				C.THUMBNAIL_PATH
@@ -180,6 +189,12 @@
 		JOIN TBL_USER B ON (A.USER_NO = B.USER_NO)
 		LEFT JOIN TBL_PIC C ON (A.COMMUNITY_NO = C.COMMUNITY_NO AND A.COMMUNITY_BOARD_STATUS = 'Y')
 		WHERE A.COMMUNITY_NO = #{communityNo}
+	</select>
+	
+	<select id="selectCountPicture" resultType="int">
+		SELECT COUNT(*)
+		FROM TBL_PIC
+		WHERE COMMUNITY_NO = #{communityNo}
 	</select>
 	
 	<insert id="insertCommunityTitleAndBody" parameterType="com.javanos.project.community.model.dto.CommunityDTO">

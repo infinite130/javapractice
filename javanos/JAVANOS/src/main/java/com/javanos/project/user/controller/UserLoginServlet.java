@@ -45,7 +45,6 @@ public class UserLoginServlet extends HttpServlet {
 
 		if (loginUser != null) {
 			Date stopDate = loginUser.getUserStopDate();
-			System.out.println(stopDate);
 			if(stopDate == null || stopDate.before(new Date())) {
 				HttpSession session = request.getSession();
 				session.setAttribute("loginUser", loginUser);

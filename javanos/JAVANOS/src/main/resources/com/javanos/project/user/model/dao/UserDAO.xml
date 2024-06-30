@@ -85,7 +85,8 @@
 	<update id="updateUser" parameterType="com.javanos.project.user.model.dto.UserDTO">
 		UPDATE 
 			TBL_USER
-		SET USER_NICKNAME = #{ userNickname },
+		SET USER_PWD = #{ userPwd },
+			USER_NICKNAME = #{ userNickname },
 			USER_EMAIL = #{ userEmail }
 		WHERE USER_NO = #{ userNo }
 	 		AND USER_STATUS = 'Y'
@@ -100,5 +101,6 @@
 	 		AND USER_STATUS = 'Y'
 	 		AND (USER_STOP_DATE IS NULL OR CURDATE() > USER_STOP_DATE) 
 	</update>
+	
 	
 </mapper>

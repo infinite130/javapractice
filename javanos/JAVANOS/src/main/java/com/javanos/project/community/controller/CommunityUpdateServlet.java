@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -43,12 +44,8 @@ public class CommunityUpdateServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		if (request.getParameter("communityNo") == null) {
-            System.out.println("Insert 처리 중입니다.");
-        } else {
+		
             System.out.println("Update 처리 중입니다.");
-        }
 
         if (JakartaServletFileUpload.isMultipartContent(request)) {
             processMultipartRequest(request, response);
@@ -56,12 +53,14 @@ public class CommunityUpdateServlet extends HttpServlet {
     }
 
 	private void processMultipartRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
         String rootLocation = getServletContext().getRealPath("/");
         String fileUploadDirectory = rootLocation + "/resources/upload/original/";
         String thumbnailDirectory = rootLocation + "/resources/upload/thumbnail/";
-
+        
         List<Map<String, String>> fileList = new ArrayList<>();
         Map<String, String> parameter = new HashMap<>();
+        List<Integer> removedPicNos = new ArrayList<>();
 
         DiskFileItemFactory.Builder fileItemFactory = new DiskFileItemFactory.Builder();
         fileItemFactory.setPath(fileUploadDirectory);
@@ -71,21 +70,33 @@ public class CommunityUpdateServlet extends HttpServlet {
 
         try {
             List<FileItem> fileItems = fileUpload.parseRequest(request);
-            int countPicture = 0;
 
+            for (Iterator iterator = fileItems.iterator(); iterator.hasNext();) {
+				FileItem fileItem = (FileItem) iterator.next();
+				System.out.println(fileItem);
+				
+			}
+            
+            
+            
             for (FileItem fileItem : fileItems) {
                 if (!fileItem.isFormField() && fileItem.getSize() > 0) {
                     processFileItem(fileItem, fileList, fileUploadDirectory, thumbnailDirectory);
-                    countPicture++;
-                } else {
-                    parameter.put(fileItem.getFieldName(), new String(fileItem.getString().getBytes("ISO-8859-1"), "UTF-8"));
-                }
+                } else if(fileItem.getFieldName().equals("remove_images")){
+                	removedPicNos.add(Integer.valueOf(fileItem.getString()));
+                	System.out.println(Integer.valueOf(fileItem.getString()));
+                	
+                }else {
+                	parameter.put(fileItem.getFieldName(), new String(fileItem.getString().getBytes("ISO-8859-1"), "UTF-8"));
+					
+				}
             }
 
-            CommunityDTO community = createCommunityDTO(parameter, fileList, request);
-            int result = new CommunityService().updateCommunityWithPic(community);;
+            CommunityDTO community = createCommunityDTO(parameter, fileList,request);
+            int result = new CommunityService().updateCommunityWithPic(community,removedPicNos);
             
-            forwardResult(request, response, result);
+            int communityNo = Integer.parseInt(parameter.get("communityNo"));
+            forwardResult(request, response, result,communityNo);
         } catch (Exception e) {
             handleException(fileList, fileUploadDirectory, e);
         }
@@ -122,7 +133,7 @@ public class CommunityUpdateServlet extends HttpServlet {
         fileList.add(fileMap);
     }
 
-    private CommunityDTO createCommunityDTO(Map<String, String> parameter, List<Map<String, String>> fileList, HttpServletRequest request) {
+    private CommunityDTO createCommunityDTO(Map<String, String> parameter, List<Map<String, String>> fileList,HttpServletRequest request) {
         CommunityDTO community = new CommunityDTO();
         
         community.setCommunityNo(Integer.parseInt(parameter.get("communityNo")));
@@ -148,14 +159,16 @@ public class CommunityUpdateServlet extends HttpServlet {
     }
     
 
-    private void forwardResult(HttpServletRequest request, HttpServletResponse response, int result) throws ServletException, IOException {
+    private void forwardResult(HttpServletRequest request, HttpServletResponse response, int result, int communityNo) throws ServletException, IOException {
         String path;
         if (result > 0) {
             path = "/WEB-INF/views/common/success.jsp";
+            request.setAttribute("communityNo", communityNo);
             request.setAttribute("successCode", "communityInsert");
             request.setAttribute("message", "게시글이 등록되었습니다!");
         } else {
             path = "/WEB-INF/views/common/fail.jsp";
+            request.setAttribute("communityNo", communityNo);
             request.setAttribute("code", "communityInsert");
             request.setAttribute("message", "게시글 등록에 실패했습니다");
         }

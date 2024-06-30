@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>공지사항 수정</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/notice/noticeUpdateForm.css">
 <script>
@@ -61,8 +61,8 @@
 				</table>
 				<br>
 				<div align="center">
-					<button type="button" onclick="cancelAndMoveToList()">취소</button>
-					<button type="submit">수정</button>
+					<button id="cancleButton" type="button" onclick="cancelAndMoveToList()">취소</button>
+					<button id="updateButton" type="submit">수정</button>
 				</div>
 			</form>
 		</div>

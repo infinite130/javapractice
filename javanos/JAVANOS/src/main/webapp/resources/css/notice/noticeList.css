@@ -23,12 +23,14 @@ body {
 
 .table-area {
     margin-bottom: 20px;
+    text-align: center;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 table th, table td {
@@ -39,6 +41,10 @@ table th, table td {
 
 table th {
     background-color: #f2f2f2;
+}
+
+.hidden {
+    display: none;
 }
 
 .search-area {
@@ -100,5 +106,20 @@ button#writeNotice:hover {
     background-color: #218838;
 }
 
+
+/* Change cursor to pointer when hovering over table rows or cells */
+table tr:hover, table td:hover {
+    cursor: pointer;
+}
+
+/* Change background color when hovering over table rows */
+table tr:hover {
+    background-color: #dbe6ff;
+}
+
+/* Change background color when not hovering over table rows */
+table tr {
+    transition: background-color -0.3s;
+}
  
  

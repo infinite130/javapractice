@@ -68,7 +68,7 @@ public class DownEnrollServlet extends HttpServlet {
 		/* 조회해온다 */
 		List<DownDTO> downList = downService.selectDownList(selectCriteria);
 
-		System.out.println("boardList : " + downList);
+		System.out.println("downList : " + downList);
 
 		String path = "";
 		if (downList != null) {

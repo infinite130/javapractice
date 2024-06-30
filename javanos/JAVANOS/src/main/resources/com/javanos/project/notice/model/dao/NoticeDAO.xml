@@ -5,6 +5,7 @@
 <mapper
 	namespace="com.javanos.project.notice.model.dao.NoticeDAO">
 
+
 	<resultMap
 		type="com.javanos.project.notice.model.dto.NoticeDTO"
 		id="noticeResultMap">
@@ -21,13 +22,11 @@
 		<result property="noticeUserno" column="NOTICE_USER_NO" />
 		<association property="noticeWriter"
 			resultMap="userResultMap" />
-
 	</resultMap>
 
 
 	<resultMap type="com.javanos.project.user.model.dto.UserDTO"
 		id="userResultMap">
-
 		<!-- property(DTO 필드 이름) - column(DB테이블의 열 이름) 둘이를 매핑한거임 -->
 		<id property="userNo" column="USER_NO" />
 		<result property="userId" column="USER_ID" />
@@ -39,11 +38,11 @@
 		<result property="userEnrollDate" column="USER_ENROLL_DATE" />
 		<result property="userStatus" column="USER_STATUS" />
 		<result property="userStopDate" column="USER_STOP_DATE" />
-
 	</resultMap>
 
 
-	<!-- 쿼리로 공지사항 목록 조회하는 매핑 정의 -->
+
+	<!-- 공지사항 전체목록 조회 -->
 	<select id="selectAllNoticeList" resultMap="noticeResultMap">
 
 		SELECT /*
@@ -67,7 +66,9 @@
 		ORDER BY A.NOTICE_NO DESC  <!-- 공지사항 정렬 최신순 -->
 	</select>
 
-	<!-- insert: 새로운 데이터 db에 삽입 / id: 호출될때 사용될 식별자 -->
+
+
+	<!-- 공지사항 신규 작성 -->
 	<insert id="insertNotice">
 		<!-- 이 쿼리 DAO클래스의 insertNotice() 메소드에서 호출됨을 의미 -->
 		INSERT /* com.javanos.project.model.dao.NoticeDAO#insertNotice() */
@@ -84,7 +85,8 @@
 	</insert>
 
 
-	<!-- update: 변경 / id: 이 쿼리 호출될때 사용되는 식별자 지정 -->
+
+	<!-- 공지사항 조회수 증가 update -->
 	<update id="incrementNoticeCount">
 		<!-- update: 기존 데이터 변경 / 이 쿼리는 NoticeDAO 클래스의 incrementNoticeCount() 메소드에서 
 			호출됨을 의미 -->
@@ -105,6 +107,8 @@
 		) + 1
 		WHERE NOTICE_NO = #{ noticeNo }
 	</update>
+
+
 
 	<!-- 공지사항 상세정보 조회 -->
 	<!-- select / id: 쿼리 호출될때 사용된느 식별자 / resultMap: 쿼리 결과 매핑할 식별자 -->
@@ -128,15 +132,10 @@
 	</select>
 
 
-	<!-- 공지사항 수정 쿼리 -->
-	<!-- <update id="updateNotice"> UPDATE/* com.javanos.project.notice.model.dao.NoticeDAO#updateNotice() 
-		*/ TBL_NOTICE SET NOTICE_TITLE = #{noticeTitle}, NOTICE_BODY = #{noticeBody}, 
-		NOTICE_USER_NO = #{noticeUserno} WHERE NOTICE_NO = #{noticeNo} </update> -->
 
+	<!-- 공지사항 수정 쿼리 -->
 	<update id="updateNotice"
 		parameterType="com.javanos.project.notice.model.dto.NoticeDTO">
-		<!-- com.javanos.project.notice.model.dao.NoticeDAO#updateNotice() 메소드에서 
-			호출됨을 의미 -->
 		UPDATE TBL_NOTICE
 		SET
 		NOTICE_TITLE = #{noticeTitle},
@@ -149,6 +148,7 @@
 	</update>
 
 
+
 	<!-- 삭제 쿼리 -->
 	<delete id="deleteNotice" parameterType="int">
 		<!-- com.javanos.project.notice.model.dao.NoticeDAO#deleteNotice() 메소드에서 
@@ -158,6 +158,8 @@
 	</delete>
 
 
+
+	<!-- 제목 검색 -->
 	<select id="searchNoticeByTitle" resultMap="noticeResultMap"
 		parameterType="String">
 		SELECT
@@ -177,6 +179,9 @@
 		A.NOTICE_NO DESC <!-- 공지사항 정렬 최신순 -->
 	</select>
 
+
+
+	<!-- 내용 검색 -->
 	<select id="searchNoticeByBody" resultMap="noticeResultMap"
 		parameterType="String">
 		SELECT
@@ -197,6 +202,8 @@
 	</select>
 
 
+
+	<!-- 제목+내용 검색 -->
 	<select id="searchNoticeByTitleAndBody" resultMap="noticeResultMap"
 		parameterType="String">
 		SELECT

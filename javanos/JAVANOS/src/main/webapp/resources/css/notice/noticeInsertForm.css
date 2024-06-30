@@ -64,18 +64,18 @@ form button {
 	border-radius: 5px; /* 버튼 테두리 둥글게 설정 */
 }
 
-form button[type=submit] {
-	background-color: #28a745;
-}
-
-form button[type=submit]:hover {
-	background-color: #218838;
-}
-
-form button[type=button] {
+button#cancleButton {
 	background-color: #dc3545;
 }
 
-form button[type=button]:hover {
+button#cancleButton:hover {
 	background-color: #c82333;
+}
+
+button#insertButton {
+	background-color: #007bff;
+}
+
+button#insertButton:hover {
+	background-color: #0056b3;
 }

@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -9,9 +8,12 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항 목록</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/notice/noticeList.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/notice/event.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/notice/noticeList.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/notice/event.js"></script>
 
 <script>
 	// JavaScript로 작성 버튼 클릭 이벤트 처리
@@ -29,7 +31,7 @@
 		noticeRows
 				.forEach(function(row) {
 					row.onclick = function() {
-						const noticeNo = this.cells[0].innerText.trim(); // 첫 번째 셀의 텍스트(공지번호)
+						const noticeNo = this.cells[1].innerText.trim(); // 두 번째 셀의 텍스트(공지번호)
 						location.href = "${pageContext.servletContext.contextPath}/notice/detail?no="
 								+ noticeNo;
 					};
@@ -101,16 +103,18 @@
 		<h2 align="center">공지사항</h2>
 		<div class="table-area">
 			<table align="center" id="listArea">
-				<tr>
+				<tr align="center">
 					<th>번호</th>
+					<th class="hidden number-cell">pk번호</th>
 					<th width="300px">제목</th>
 					<th width="100px">작성자</th>
 					<th width="100px">작성일</th>
 					<th>조회수</th>
 				</tr>
-				<c:forEach items="${ noticeList }" var="notice">
+				<c:forEach items="${ noticeList }" var="notice" varStatus="loop">
 					<tr>
-						<td><c:out value="${ notice.noticeNo }" /></td>
+						<td>${loop.index + 1}</td>
+						<td class="hidden number-cell"><c:out value="${ notice.noticeNo }" /></td>
 						<td><c:out value="${ notice.noticeTitle }" /></td>
 						<td><c:out value="${ notice.noticeWriter.userNickname }" /></td>
 						<td><c:out value="${ notice.noticeEnrollDate }" /></td>
@@ -134,8 +138,8 @@
 
 			<!-- 목록 버튼 추가 -->
 			<button id="listButton">목록</button>
-			
-			
+
+
 			<!-- 관리자인 경우에만 작성 버튼이 보여집니다. -->
 			<c:if test="${ sessionScope.loginUser.userRole eq 'ROLE_ADMIN' }">
 				<button id="writeNotice">작성</button>
@@ -147,3 +151,5 @@
 
 </body>
 </html>
+
+ 

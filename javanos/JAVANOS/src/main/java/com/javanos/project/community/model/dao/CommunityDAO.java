@@ -7,18 +7,14 @@ import com.javanos.project.community.model.dto.PictureDTO;
 
 public interface CommunityDAO {
 
-	
-	/*
-	 * List<CommunityDTO> selectAllCommunityList();
-	 * 
-	 * CommunityDTO selectOneCommunity(int communityNo);
-		int updateCommunity(CommunityDTO updateCommunity);
-	 */
 	List<CommunityDTO> selectThumbnailList();
 	
 	CommunityDTO selectOneThumbnailList(int communityNo);
 
 	int deleteCommunity(int communityNo);
+	int deletePicture(int communityNo);
+	
+	int deletePictures(int removedPicNo);
 
 	int insertCommunityTitleAndBody(CommunityDTO community);
 
@@ -30,7 +26,8 @@ public interface CommunityDAO {
 
 	int updatePicture(PictureDTO pictureDTO);
 
-	int deletePicture(int communityNo);
+	int selectCountPicture(int communityNo);
+
 
 
 

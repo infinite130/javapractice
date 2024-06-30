@@ -16,7 +16,7 @@ public class EncryptRequestWrapper extends HttpServletRequestWrapper {
 	public String getParameter(String key) {
 		
 		String value = "";
-		if("userPwd".equals(key)) {
+		if("userPwd".equals(key) || "newPwd".equals(key)) {
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			value = passwordEncoder.encode(super.getParameter(key));
 		} else {

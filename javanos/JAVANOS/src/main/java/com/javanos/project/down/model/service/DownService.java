@@ -9,10 +9,12 @@ import java.util.Map;
 import com.javanos.project.common.paging.SelectCriteria;
 import com.javanos.project.down.model.dao.DownDAO;
 import com.javanos.project.down.model.dto.DownDTO;
+import com.javanos.project.notice.model.dao.NoticeDAO;
 
 public class DownService {
 
 	private DownDAO downDAO;
+	
 
 	/* 페이징 처리를 위한 전체 게시물 수 조회용 메소드 */
 	public int selectTotalCount(Map<String, String> searchMap) {
@@ -28,8 +30,7 @@ public class DownService {
 	}
 
 	/* 게시물 전체 조회용 메소드 */ 
-	public List<DownDTO> selectDownList(SelectCriteria selectCriteria) {
-		/* 데이터베이스 쿼리에 필요한 조건들을 캡슐화 */ 
+	public List<DownDTO> selectDownList(SelectCriteria selectCriteria) { 
 		SqlSession session = getSqlSession();
 		downDAO = session.getMapper(DownDAO.class);
 
@@ -50,6 +51,25 @@ public class DownService {
 		downDAO = session.getMapper(DownDAO.class);
 
 		int result = downDAO.insertDown(newDown);
+
+		if (result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+
+		session.close();
+
+		return result;
+	}
+	
+	/* 내려요 게시물 삭제 메소드 */
+	public int deleteDown(int deletedw) {
+
+		SqlSession session = getSqlSession();
+		downDAO = session.getMapper(DownDAO.class);
+
+		int result = downDAO.deleteDown(deletedw);
 
 		if (result > 0) {
 			session.commit();

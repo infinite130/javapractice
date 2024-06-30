@@ -46,7 +46,6 @@ public class NoticeInsertServlet extends HttpServlet {
 		int result = noticeService.insertNotice(newNotice); // 성공 여부 숫자로 받기위해
 		
 		// 새 공지 삽입 성공 실패 여부에 따른 결과
-		// 페이지 만들기? alert 처리?
 		String path = "";
 		if(result > 0 ) {
 			path = "/WEB-INF/views/common/success.jsp";

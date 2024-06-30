@@ -9,7 +9,10 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import com.javanos.project.user.model.dto.UserDTO;
+import com.javanos.project.user.model.service.UserService;
 @WebServlet("/user/check-pwd")
 public class UserPwdCheckServlet extends HttpServlet {
 
@@ -18,12 +21,17 @@ public class UserPwdCheckServlet extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
 		
+		UserDTO loginUser = new UserDTO();
+		loginUser.setUserId(userId);
+		loginUser.setUserPwd(userPwd);
 		
-		HttpSession session = request.getSession();
-		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
-		System.out.println(userId);
-		System.out.println(userPwd);
-		System.out.println(loginUser);
+		String storedPwd = new UserService().checkPwd(loginUser);
+		
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		if (passwordEncoder.matches(userPwd, storedPwd)) {
+			response.getWriter().write("pass");
+		}  else {
+			response.getWriter().write("pass");
+		}
 	}
-
 }

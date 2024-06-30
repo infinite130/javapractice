@@ -59,24 +59,27 @@ form button {
 	color: #fff;
 	border: none;
 	cursor: pointer;
-	border-radius: 20px; /* 버튼을 둥글게 만들기 */
+	border-radius: 5px; /* 버튼을 둥글게 만들기 */
 }
 
-form button[type=reset] {
+button#cancleButton {
 	background-color: #dc3545;
 }
 
-form button[type=reset]:hover {
+button#cancleButton:hover {
 	background-color: #c82333;
 }
 
-form button[type=submit] {
+
+button#updateButton {
 	background-color: #28a745;
 }
 
-form button[type=submit]:hover {
+button#updateButton:hover {
 	background-color: #218838;
 }
+
+
 
 /* 버튼 테두리 선 없애기 */
 form button:focus, form button:hover {

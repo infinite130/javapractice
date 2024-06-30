@@ -6,148 +6,136 @@
 <head>
 <meta charset="UTF-8">
 <title>커뮤니티 게시글 수정</title>
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/community/communityList.css">
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
-		<h2>커뮤니티 게시글 작성</h2>
-			<br>
-			<form action="${pageContext.servletContext.contextPath}/community/update" method="post" enctype="multipart/form-data">
+		<h2>커뮤니티 게시글 수정</h2>
+			<form id="edit-post-form" action="${pageContext.servletContext.contextPath}/community/update" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="communityNo" value="${ community.communityNo }">
+				<div class="thumbnail-update-area">
 					<table>
 							<tr>
-								<td>제목</td>
-								<td>
+								<td data-label="제목">제목</td>
+								<td colspan="1" data-label="제목 내용 입력 칸">
 									<input type="text" name="communityTitle" id="communityTitle" value="${ community.communityTitle }">
 								</td>
 							</tr>
 							
 							<tr>
 								<td>작성자: </td>
-								<td>${ community.user.userNickname }<input type="hidden" name="communityNo" value="${ community.communityNo }"></td>
+								<td>${ community.user.userNickname }</td>
 							</tr>
 							
 							<tr>
-								<td>대표 이미지</td>
-								<td>대표 이미지는 한 장만 선택이 가능합니다.</td>
-							</tr>
-							
-							<tr>
+								<td data-label="썸네일 사진">썸네일 사진</td>
 								<td>
 									<div class="title-img-area" id="titleImgArea">
-										<img id="titleImgView" class="thumbnailImg" width="350" height="200" src="${pageContext.servletContext.contextPath }${picture.thumbnailPath }">
+										<img id="titleImgView" class="thumbnailImg" width="200" height="150" src="${pageContext.servletContext.contextPath }${community.pictureList[0].thumbnailPath }">
+										<button type="button" class="remove-image-btn" data-image-id="${community.pictureList[0].picNo}">삭제</button>
 									</div>
-								</td>
-								<td>						
-									<input type="file" id="thumbnailImg" name="thumbnailImg" onchange="loadImg(this)">
+									<input type="file" id="thumbnailImg" name="thumbnailImg">
 								</td>
 							</tr>
 							
-							
-							
 							<tr>
-								<td>내용 이미지</td>
-								<td>내용 이미지는 다중 선택이 가능합니다.</td>
-								<td>
-									<div id="img-insert-area">
+								<td data-label="내용 사진">내용 사진</td>
+								<td data-label="내용 사진 선택 칸" colspan="3">
+									<div id="img-container">
 											<c:forEach items="${community.pictureList}" var="picture" begin="1">
 												<div class="body-img-area" id="bodyImgArea">
-													<img id="imgView" class="imgView" width="350" height="200" src="${pageContext.servletContext.contextPath }${picture.thumbnailPath }">
+													<img id="bodyImgView" class="imgView" src="${pageContext.servletContext.contextPath }${picture.thumbnailPath }">
+													<button type="button" class="remove-image-btn" data-image-id="${picture.picNo}">삭제</button>
 												</div>
 											</c:forEach>
 									</div>
-								</td>
-								<td>
-									<input type="file" id="bodyImg" name="bodyImg" onchange="loadImg(this)" multiple>
+									<input type="file" id="bodyImg" name="bodyImg" multiple>
 								</td>
 							</tr>
 							
 							<tr>
-								<td>내용</td>
+								<td data-label="내용">내용</td>
 								<td>
 									<textarea name="communityBody" id="communityBody" rows="5" cols="50" style="resize:none;">${ community.communityBody }</textarea>
 								</td>
 							</tr>
 						</table>
-				<br>
-				<div>
+					</div>
+				<div class="button-area">
 					<button type="submit" id="submitBtn">등록</button>
-					<button onclick="gobackdetail()">취소</button>
 				</div>
 			</form>
+					<button onclick="gobackdetail()">취소</button>
+			
+			
+			
 	<script>
-/* 	function loadImg(input) {
- 		const files = input.files;
-	    const imgArea = document.getElementById('imgArea');
-	    imgArea.innerHTML = ''; // 기존 이미지를 모두 지움
+		document.addEventListener('DOMContentLoaded', () => {
+		    document.querySelectorAll('.remove-image-btn').forEach(button => {
+		        button.addEventListener('click', () => {
+		        	const imgElement = button.previousElementSibling;
+                    imgElement.src = ''; // 이미지 태그 비우기
+                    imgElement.alt = '이미지 없음'; // ALT 텍스트 설정
+
+		            const picNo = button.getAttribute('data-image-id');
+		            const hiddenInput = document.createElement('input');
+		            hiddenInput.type = 'hidden';
+		            hiddenInput.name = 'remove_images';
+		            hiddenInput.value = picNo;
+		            console.log('Appending hidden input for image ID:', picNo);
+		
+		            document.getElementById('edit-post-form').appendChild(hiddenInput);
+		            
+		            button.style.display = 'none';
+		
+		            console.log(`Image with ID ${picNo} marked for removal.`);
+		        });
+		    });
+		});
+		
+		
+		document.getElementById('thumbnailImg').addEventListener('change', (event) => {
+            const files = event.target.files;
+            const imgPreview = document.getElementById('titleImgView');
+            if (files && files[0]) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imgPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(files[0]);
+            }
+        });
+		
+		document.addEventListener('DOMContentLoaded', () => {
+			document.getElementById('bodyImg').addEventListener('change', function(event) {
+		           const files = event.target.files;
+		           const imgElements = document.querySelectorAll('.imgView');
 	
-	    for (let i = 0; i < files.length; i++) {
-	        const reader = new FileReader();
-	        reader.onload = function(e) {
-	            const newImgDiv = document.createElement('div');
-	            newImgDiv.classList.add('img-sub-area');
-	            newImgDiv.innerHTML = `<img width="350" height="200" src="${e.target.result}">`;
-	            imgArea.appendChild(newImgDiv);
-	        }
-	        reader.readAsDataURL(files[i]);
-	    	}
-		} */
-		// 파일을 읽고, 결과를 데이터 url형식으로 반환
-		// 반환된 결과는 reader.onload 이벤트 핸들러에서 처리됨
-		
-		
-		//classname으로 해야할 듯??
-		const $titleImgArea = document.getElementById("titleImgArea");
-		const $bodyImgArea = document.getElementById("bodyImgArea");
-		
-		$titleImgArea.onclick = function() { 
-			document.getElementById("thumbnailImg").click(); 
-		}
-		
-		$bodyImgArea.onclick = function() {
-			document.getElementById("bodyImg1").click();
-		}
-		
-		$bodyImgArea2.onclick = function() {
-			document.getElementById("bodyImg2").click();
-		}
-		
-		$bodyImgArea3.onclick = function() {
-			document.getElementById("bodyImg3").click();
-		}
-		
-		 function loadImg(value, num) {
-			if (value.files && value.files[0]) {
-				//파일 입력 요소에서 선택된 파일 리스트/ 그 중 첫번재 파일
-				const reader = new FileReader();
-				reader.onload = function(e) {
-					switch(num){
-					case 1:
-						document.getElementById("titleImgView").src = e.target.result;//파일의 데이터 url, 이미지 소스로 설정되어 브라우저에 이미지 표시
-						break;
-					case 2:
-						document.getElementById("bodyImgView1").src = e.target.result;
-						break;
-					case 3:
-						document.getElementById("bodyImgView2").src = e.target.result;
-						break;
-					case 4:
-						document.getElementById("bodyImgView3").src = e.target.result;
-						break;
-					}
-				}
-				reader.readAsDataURL(value.files[0]);
-				// 파일을 읽고, 결과를 데이터 url형식으로 반환
-				// 반환된 결과는 reader.onload 이벤트 핸들러에서 처리됨
-			}
-		}
+		           //이미지가 선택되었다가 다시 선택할 수 있으니까
+		           imgElements.forEach(img => {
+		               img.src = '';
+		           });
 	
-	
-	
-	
+		           Array.from(files).forEach((file, index) => {
+		               if (index < imgElements.length) { 
+		                   const reader = new FileReader();
+		                   reader.onload = function(e) {
+		                       imgElements[index].src = e.target.result;
+		                   };
+		                   reader.readAsDataURL(file);
+		               }
+		           });
+		       });
+		});
+		
+		
+		
+		
+		
+		
+		
 		function gobackdetail() {
 			window.history.back();
-			//혹시 모르니까
-	/* 		let communityNo = ${ community.communityNo }
-			location.href="${pageContext.servletContext.contextPath}/community/detail?communityNo="+ communityNo;  */
 		};
 		
 		

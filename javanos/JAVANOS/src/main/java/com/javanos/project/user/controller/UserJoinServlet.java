@@ -35,7 +35,7 @@ public class UserJoinServlet extends HttpServlet {
 		String userName = request.getParameter("userName");
 		String userNickname = request.getParameter("userNickname");
 		String userEmail = request.getParameter("userEmail");
-
+		
 		UserDTO requestUser = new UserDTO();
 		requestUser.setUserId(userId);
 		requestUser.setUserPwd(userPwd);

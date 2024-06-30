@@ -6,19 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>커뮤니티 게시글 작성</title>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script></head>
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/community/communityList.css">
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
-	<div>
-		<h2>커뮤니티 게시글 작성</h2>
-			<br>
+		<h2 align="center">커뮤니티 게시글 작성</h2>
 			<form action="${pageContext.servletContext.contextPath}/community/insert" method="post" enctype="multipart/form-data">
 				<div class="thumbnail-insert-area">
 					<table>
 							<tr>
-								<td>제목</td>
-								<td>
+								<td data-label="제목">제목</td>
+								<td colspan="1" data-label="제목 내용 입력 칸">
 									<input type="text" name="communityTitle" id="communityTitle">
 								</td>
 							</tr>
@@ -26,137 +24,89 @@
 
 
 							<tr>
-								<td>
+								<td data-label="썸네일 사진">썸네일 사진</td>
+								<td colspan="2">
 									<div class="title-img-area" id="titleImgArea">
 										<img id="titleImgView" width="350" height="200">
 									</div>
-								</td>
-								<td>
-									<input type="file" id="Images" name="thumbnailImg" onchange="loadImg(this,1)">
+									<input type="file" id="thumbnailImg" name="thumbnailImg">
 								</td>
 							</tr>
 							
 							
 							<tr>
-								<td>내용 사진</td>
-								<td>
-									<div class="body-img-area1" id="bodyImgArea1">
-										<img id="bodyImgView1"  width="120" height="100">
-									</div>	
+								<td data-label="내용 사진">내용 사진</td>
+								<td data-label="내용 사진 선택 칸" colspan="3">
+									<div id="img-container">
+							            <img id="bodyImgView-1" class="imgView">
+							            <img id="bodyImgView-2" class="imgView">
+							            <img id="bodyImgView-3" class="imgView">
+							        </div>
+										<input type="file" id="bodyImg" name="bodyImg" multiple>
 								</td>
-								<td>
-									<input type="file" id="bodyImg1" name="bodyImg1" onchange="loadImg(this,2)" multiple>
-								</td>
-								<td>
-									<div class="body-img-area2" id="bodyImgArea2">
-										<img id="bodyImgView2" width="120" height="100">
-									</div>	
-								</td>
-								<td>
-<!-- 									<input type="file" id="bodyImg2" name="bodyImg2" onchange="loadImg(this,3)">
- -->								</td>
-								<td>
-									<div class="body-img-area3" id="bodyImgArea3">
-<!-- 										<img id="bodyImgView3" width="120" height="100">
- -->									</div>	
-								</td>
-								<td>
-<!-- 									<input type="file" id="bodyImg3" name="bodyImg3" onchange="loadImg(this,4)">
- -->								</td>
-							</tr>
 							<tr>
-								<td>내용</td>
+								<td data-label="내용">내용</td>
 								<td>
 									<textarea name="communityBody" id="communityBody" rows="5" cols="50" style="resize:none;"></textarea>
 								</td>
 							</tr>
 						</table>
 				</div>
-				<br>
-				<div>
+				<div class="button-area">
 					<button type="submit" id="submitBtn">등록</button>
-					<button onclick="goBackList()">취소</button>
 				</div>
 			</form>
+					<button id="cancel">취소</button>
 			
-			<script>
-				const $titleImgArea = document.getElementById("titleImgArea");
-				const $bodyImgArea1 = document.getElementById("bodyImgArea1");
-				const $bodyImgArea2 = document.getElementById("bodyImgArea2");
-				const $bodyImgArea3 = document.getElementById("bodyImgArea3");
-				
-				$titleImgArea.onclick = function() { 
-					document.getElementById("thumbnailImg").click(); 
-				}
-				
-				$bodyImgArea1.onclick = function() {
-					document.getElementById("bodyImg1").click();
-				}
-				
-				$bodyImgArea2.onclick = function() {
-					document.getElementById("bodyImg2").click();
-				}
-				
-				$bodyImgArea3.onclick = function() {
-					document.getElementById("bodyImg3").click();
-				}
-				
-				function loadImg(value, num) {
-					if (value.files && value.files[0]) {
-						//파일 입력 요소에서 선택된 파일 리스트/ 그 중 첫번재 파일
-						const reader = new FileReader();
-						reader.onload = function(e) {
-							switch(num){
-							case 1:
-								document.getElementById("titleImgView").src = e.target.result;//파일의 데이터 url, 이미지 소스로 설정되어 브라우저에 이미지 표시
-								break;
-							case 2:
-								document.getElementById("bodyImgView1").src = e.target.result;
-								break;
-							case 3:
-								document.getElementById("bodyImgView2").src = e.target.result;
-								break;
-							case 4:
-								document.getElementById("bodyImgView3").src = e.target.result;
-								break;
-							}
-						}
-						reader.readAsDataURL(value.files[0]);
-						// 파일을 읽고, 결과를 데이터 url형식으로 반환
-						// 반환된 결과는 reader.onload 이벤트 핸들러에서 처리됨
-					}
-				}
-				/* 
-					파일 입력 요소에서 파일이 입력되면, 해당 파일을 읽고 데이터  url 형식으로 변환하여 지정된 이미지 요소에 미리보기를 표시
-					'num' 매개변수를 사용하여 어떤 이미지 요소에 이미지를 표시할지를 결정
-					사용자는 파일 선택시 즉시 미리보기 가능
-				*/
-				
-				
-				
-				/* 만약 한 input태그로 파일을 여러개 선택한다면??
-				//<input type="file" multiple">
-				*/
-			
-			
-				function goBackList() {
-					window.history.back();
-					//혹시 모르니까
-					/* location.href="${pageContext.servletContext.contextPath}/community/list";  */
-				}
-				
-				
-				document.querySelector('#submitBtn').addEventListener('click',function(e){
-					if(document.querySelector('#communityTitle').value==''){
-						e.preventDefault()//폼 전송을 막는다.
-						alert('제목이 비어있습니다!!')
-					}else if(document.querySelector('#communityBody').value==''){
-						e.preventDefault()//폼 전송을 막는다.
-						alert('내용이 비어있습니다!!')
-					}
-				})
-			</script>
-		</div>
+	<script>
+		document.getElementById('thumbnailImg').addEventListener('change', (event) => {
+           const files = event.target.files;
+           const imgPreview = document.getElementById('titleImgView');
+           if (files && files[0]) {
+               const reader = new FileReader();
+               reader.onload = (e) => {
+                   imgPreview.src = e.target.result;
+               };
+               reader.readAsDataURL(files[0]);
+           }
+       }); 
+	
+       document.getElementById('bodyImg').addEventListener('change', function(event) {
+           const files = event.target.files;
+           const imgElements = document.querySelectorAll('.imgView');
+
+           //이미지가 선택되었다가 다시 선택할 수 있으니까
+           imgElements.forEach(img => {
+               img.src = '';
+           });
+
+           Array.from(files).forEach((file, index) => {
+               if (index < imgElements.length) {
+                   const reader = new FileReader();
+                   reader.onload = function(e) {
+                       imgElements[index].src = e.target.result;
+                   };
+                   reader.readAsDataURL(file);
+               }
+           });
+       });
+
+		document.querySelector('#cancel').addEventListener('click',function(e){
+			window.location.replace('${pageContext.servletContext.contextPath}/community/list');
+		})
+		
+		
+		
+		document.querySelector('#submitBtn').addEventListener('click',function(e){
+			if(document.querySelector('#communityTitle').value==''){
+				e.preventDefault()//폼 전송을 막는다.
+				alert('제목이 비어있습니다!!')
+			}else if(document.querySelector('#communityBody').value==''){
+				e.preventDefault()//폼 전송을 막는다.
+				alert('내용이 비어있습니다!!')
+			}
+		})
+	</script>
 
 </body>
 </html>

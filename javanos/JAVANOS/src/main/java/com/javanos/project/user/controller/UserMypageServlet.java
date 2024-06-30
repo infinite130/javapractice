@@ -22,9 +22,11 @@ public class UserMypageServlet extends HttpServlet {
 		
 		UserDTO originUser = (UserDTO) request.getSession().getAttribute("loginUser");
 		
+		String pwd = request.getParameter("newPwd");
 		String nickname = request.getParameter("userNickname");
 		String email = request.getParameter("userEmail");
-		
+				
+		originUser.setUserPwd(pwd);
 		originUser.setUserNickname(nickname);
 		originUser.setUserEmail(email);
 		

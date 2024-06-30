@@ -71,54 +71,6 @@
 	</div>
     
 	
-	
-<%-- 	            <c:if test="${ not empty community.pictureList[0].thumbnailPath }">
-	                 <td data-label="사진 내용" colspan="5">
-			                <c:forEach items="${ community.pictureList }" var="picture">
-			                        <img id="image" onerror="setDefaultImage(this);" src="${pageContext.servletContext.contextPath }${ picture.thumbnailPath }">
-			                </c:forEach>
-	                 </td>
-	            </c:if> --%>
-	
-<%-- 	<c:if test="${ sessionScope.loginUser.userNo eq community.userNo }">
-		<button onclick="gomModifypage()">수정</button>
-			<button onclick="deletecommunity()">삭제</button>
-	</c:if>
-	
-	<table>
-		<tr>
-			<td>제목</td>
-			<td colspan="3">${ community.communityTitle }</td>
-			<td>조회수</td>
-			<td>${ community.communityCount }</td>
-		</tr>
-		
-		<tr>
-			<td>작성일</td>
-			<td colspan="3">${ formattedDateTime }</td>
-			<td>작성자</td>
-			<td>${ community.user.userNickname }</td>
-		</tr>
-		
-		<tr>
-			<td>사진</td>
-			<c:if test="${ not empty community.pictureList[0].thumbnailPath }">
-				<c:forEach items="${ community.pictureList }" var = "picture">
-					<td>
-						<img id="image" onerror="setDefaultImage(this);" width="250" height="180" src="${pageContext.servletContext.contextPath }${ picture.thumbnailPath }">
-					</td>
-				</c:forEach>
-			</c:if>
-		</tr>
-		
-		<tr>
-			<td>내용</td>
-			<td colspan="5">${ community.communityBody }</td>
-		</tr>
-	</table> --%>
-	
-	
-	
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
 		    // 여기서 클릭 이벤트 설정

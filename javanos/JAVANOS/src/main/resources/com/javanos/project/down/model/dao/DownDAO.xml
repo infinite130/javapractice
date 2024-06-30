@@ -5,6 +5,7 @@
   
 <mapper namespace="com.javanos.project.down.model.dao.DownDAO">
 	<resultMap type="com.javanos.project.down.model.dto.DownDTO" id="downResultMap">
+                   <!--     dto		       db-colum -->
 		<id property="downNo" column="DOWN_NO" />
 		<result property="downRoom" column="DOWN_ROOM" />
 		<result property="downFull" column="DOWN_FULL" />
@@ -47,8 +48,12 @@
 		select count(*) 
 		from tbl_down A
 		<if test="searchCondition == 'line'"> 
-		JOIN TBL_STATION C ON(A.DOWN_STA_NO = C.STA_NO) where
-			sta_line = #{searchValue} </if>
+		JOIN TBL_STATION C ON(A.DOWN_STA_NO = C.STA_NO)
+		</if>
+		 where DOWN_ENROLL_DATE >= NOW() - INTERVAL 2 HOUR and down_board_status = 'Y'
+		 <if test="searchCondition == 'line'"> 
+			AND sta_line = #{searchValue} 
+			</if>
 	</select>
 	
 	
@@ -60,6 +65,7 @@
 		, A.DOWN_MODIFY_DATE 
 		, A.DOWN_BOARD_STATUS 
 		, B.USER_NICKNAME 
+		, B.USER_NO
 		, B.USER_ID
 		, A.IN_STA_NO 
 		, A.DOWN_STA_NO
@@ -69,11 +75,11 @@
 	    , D.STA_LINE IN_STA_LINE FROM
 		TBL_DOWN A JOIN TBL_USER B ON(A.DOWN_USER_NO = B.USER_NO) JOIN
 		TBL_STATION C ON(A.DOWN_STA_NO = C.STA_NO) JOIN TBL_STATION D ON(A.IN_STA_NO = D.STA_NO)
+		where DOWN_ENROLL_DATE >= NOW() - INTERVAL 2 HOUR and down_board_status = 'Y'
 		<if test="searchCondition == 'line'"> 
-		where c.sta_line = #{searchValue} </if>
+		and c.sta_line = #{searchValue} </if>
 		ORDER BY A.DOWN_NO DESC LIMIT #{ startRow }, #{ limit }
 	</select>
-	
 	
 	<insert id="insertDown" parameterType="com.javanos.project.down.model.dto.DownDTO">
 	 insert INTO TBL_DOWN 
@@ -89,4 +95,11 @@
 		  #{downRoom}, 
 		  #{ downFull} ) 
 		</insert>
+	
+		<update id="deleteDown" parameterType="int">
+	       UPDATE TBL_DOWN
+	        SET DOWN_BOARD_STATUS ='N'
+	       WHERE DOWN_NO=#{downNo}
+	                 
+		</update>
 </mapper>

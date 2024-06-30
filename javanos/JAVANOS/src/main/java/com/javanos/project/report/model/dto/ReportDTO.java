@@ -1,95 +1,84 @@
 package com.javanos.project.report.model.dto;
 
 import java.sql.Date;
-import com.javanos.project.community.model.dto.CommunityDTO;
 import com.javanos.project.user.model.dto.UserDTO;
 
-public class ReportDTO {
+public class ReportDTO implements java.io.Serializable {
 
-	private int reportNo;
-	private UserDTO reporter;
-	private Date reportDate;
-	private String reportReason;
-	private String reportStatus;
-	private UserDTO reported;
-	private CommunityDTO communityNo;
+    private int reportNo;
+    private String reportReason;
+    private Date reportDate;
+    private String reportStatus;
+    private UserDTO reportUser;  // 신고자
+    private UserDTO reportedUser;  // 신고당한 회원
 
-	public ReportDTO() {
-		super();
-	}
+    // 기본 생성자
+    public ReportDTO() {
+        super();
+    }
 
-	public ReportDTO(int reportNo, UserDTO reporter, Date reportDate, String reportReason, String reportStatus,
-			UserDTO reported, CommunityDTO communityNo) {
-		super();
-		this.reportNo = reportNo;
-		this.reporter = reporter;
-		this.reportDate = reportDate;
-		this.reportReason = reportReason;
-		this.reportStatus = reportStatus;
-		this.reported = reported;
-		this.communityNo = communityNo;
-	}
+    // 모든 필드를 포함한 생성자
+    public ReportDTO(int reportNo, String reportReason, Date reportDate, String reportStatus, UserDTO reportUser, UserDTO reportedUser) {
+        super();
+        this.reportNo = reportNo;
+        this.reportReason = reportReason;
+        this.reportDate = reportDate;
+        this.reportStatus = reportStatus;
+        this.reportUser = reportUser;
+        this.reportedUser = reportedUser;
+    }
 
-	public int getReportNo() {
-		return reportNo;
-	}
+    // Getters and Setters
+    public int getReportNo() {
+        return reportNo;
+    }
 
-	public void setReportNo(int reportNo) {
-		this.reportNo = reportNo;
-	}
+    public void setReportNo(int reportNo) {
+        this.reportNo = reportNo;
+    }
 
-	public UserDTO getReporter() {
-		return reporter;
-	}
+    public String getReportReason() {
+        return reportReason;
+    }
 
-	public void setReporter(UserDTO reporter) {
-		this.reporter = reporter;
-	}
+    public void setReportReason(String reportReason) {
+        this.reportReason = reportReason;
+    }
 
-	public Date getReportDate() {
-		return reportDate;
-	}
+    public Date getReportDate() {
+        return reportDate;
+    }
 
-	public void setReportDate(Date reportDate) {
-		this.reportDate = reportDate;
-	}
+    public void setReportDate(Date reportDate) {
+        this.reportDate = reportDate;
+    }
 
-	public String getReportReason() {
-		return reportReason;
-	}
+    public String getReportStatus() {
+        return reportStatus;
+    }
 
-	public void setReportReason(String reportReason) {
-		this.reportReason = reportReason;
-	}
+    public void setReportStatus(String reportStatus) {
+        this.reportStatus = reportStatus;
+    }
 
-	public String getReportStatus() {
-		return reportStatus;
-	}
+    public UserDTO getReportUser() {
+        return reportUser;
+    }
 
-	public void setReportStatus(String reportStatus) {
-		this.reportStatus = reportStatus;
-	}
+    public void setReportUser(UserDTO reportUser) {
+        this.reportUser = reportUser;
+    }
 
-	public UserDTO getReported() {
-		return reported;
-	}
+    public UserDTO getReportedUser() {
+        return reportedUser;
+    }
 
-	public void setReported(UserDTO reported) {
-		this.reported = reported;
-	}
+    public void setReportedUser(UserDTO reportedUser) {
+        this.reportedUser = reportedUser;
+    }
 
-	public CommunityDTO getCommunityNo() {
-		return communityNo;
-	}
-
-	public void setCommunityNo(CommunityDTO communityNo) {
-		this.communityNo = communityNo;
-	}
-
-	@Override
-	public String toString() {
-		return "ReportDTO [reportNo=" + reportNo + ", reporter=" + reporter + ", reportDate=" + reportDate
-				+ ", reportReason=" + reportReason + ", reportStatus=" + reportStatus + ", reported=" + reported
-				+ ", communityNo=" + communityNo + "]";
-	}
+    @Override
+    public String toString() {
+        return "ReportDTO [reportNo=" + reportNo + ", reportReason=" + reportReason + ", reportDate=" + reportDate + ", reportStatus=" + reportStatus + ", reportUser=" + reportUser + ", reportedUser=" + reportedUser + "]";
+    }
 }

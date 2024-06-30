@@ -20,4 +20,6 @@ public interface UserDAO {
 
 	int deleteUser(UserDTO loginUser);
 
+	
+
 }

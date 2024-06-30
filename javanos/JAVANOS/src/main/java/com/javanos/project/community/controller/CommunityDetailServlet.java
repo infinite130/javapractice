@@ -31,8 +31,7 @@ public class CommunityDetailServlet extends HttpServlet {
 		
 		  LocalDateTime enrollDate = community.getCommunityEnrollDate();
 		  
-		  DateTimeFormatter formatter =
-		  DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초"); String
+		  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초"); String
 		  formattedDateTime = enrollDate.format(formatter);
 		  
 		  System.out.println(formattedDateTime);

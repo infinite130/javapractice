@@ -50,7 +50,7 @@
                 </tr>
                 <tr>
                     <td><label for="userNickname">닉네임</label></td>
-                    <td colspan="2"><input type="text" name="userNickname" id="userNickname" value="${ sessionScope.loginUser.userNickname }" required readonly></td>
+                    <td colspan="2"><input type="text" name="userNickname" id="userNickname" value="${ sessionScope.loginUser.userNickname }" readonly></td>
                     <td><input type="button" id="changeNicknameBtn" value="변경"></td>
                 </tr>
                 <tr>
@@ -59,7 +59,7 @@
                 </tr>
                 <tr>
                     <td><label for="userEmail">이메일</label></td>
-                    <td colspan="2"><input type="email" name="userEmail" id="userEmail" value="${ sessionScope.loginUser.userEmail }" required readonly></td>
+                    <td colspan="2"><input type="email" name="userEmail" id="userEmail" value="${ sessionScope.loginUser.userEmail }" readonly></td>
                     <td><input type="button" id="changeEmailBtn" value="변경"></td>
                 </tr>
                 <tr>
@@ -102,53 +102,64 @@
             }
         });
         
-        // 비밀번호 변경 버튼 클릭 시 동작
+     	// 비밀번호 변경 버튼 클릭 시 동작
         $('#changePwdBtn').click(function(){
-        	if($(this).val() === '변경') {	// 변경 버튼 클릭 시
-        		$('#currentPwd, #newPwd, #confirmPwd').prop('disabled', false);
-        		$('#currentPwd').focus();
-        		$(this).val('검사');
-        	} else {	// 검사 버튼 클릭 시
-        		validateNewPwd();	// 비밀번호 유효성 검사
-        	}
+            if ($(this).val() === '변경') {   // 변경 버튼 클릭 시
+                $('#currentPwd, #newPwd, #confirmPwd').prop('disabled', false).prop('readonly', false);
+                $('#currentPwd').focus();
+                $(this).val('검사');
+            } else {    // 검사 버튼 클릭 시
+                validateNewPwd();   // 비밀번호 유효성 검사
+            }
         });
         
      	// 비밀번호 유효성 검사 함수
      	// 특수문자(!@#$%^&*?_) 가능
-        function validateNewPwd() {
-     		let currentPwd = $("#currentPwd").val().trim();
-            let newPwd = $("#newPwd").val().trim();
-            let confirmPwd = $("#confirmPwd").val().trim();
-
-            let userPwdPattern = /^(?=.*[A-Za-z])(?=.*\d)|(?=.*[A-Za-z])(?=.*[!@#$%^&*?_])|(?=.*\d)(?=.*[!@#$%^&*?_])[A-Za-z\d!@#$%^&*?_]{8,16}$/;
-            
-            if( currentPwd === "") {
-                $("#userPwd").text("현재 비밀번호는 필수입니다.").removeClass('valid').addClass('invalid');
-            } else {
-            	let userId = '${ sessionScope.loginUser.userId }';
-            	$.ajax({
-                    url: "${pageContext.servletContext.contextPath}/user/check-pwd",
-                    type: "post",
-                    data: {userId: userId,
-                    		userPwd: currentPwd
-                    		},
-                    success: function(data) {
-                        if (data.trim() === 'valid') {
-                            $("#userPwd").text("현재 비밀번호가 일치합니다.").removeClass('invalid').addClass('valid');
-                        } else {
-                            $("#userPwd").text("현재 비밀번호가 일치하지 않습니다.").removeClass('valid').addClass('invalid');
-                        }
-                    },
-                    error: function(error) {
-                        $("#userPwd").text("비밀번호 확인 중 오류가 발생하였습니다.").removeClass('valid').addClass('invalid');
-                    }
-                });
-            }
+        // 비밀번호 유효성 검사 함수
+		function validateNewPwd() {
+    		let currentPwd = $("#currentPwd").val().trim();
+    		let newPwd = $("#newPwd").val().trim();
+    		let confirmPwd = $("#confirmPwd").val().trim();
+    
+    		let userPwdPattern = /^(?=.*[A-Za-z])(?=.*\d)|(?=.*[A-Za-z])(?=.*[!@#$%^&*?_])|(?=.*\d)(?=.*[!@#$%^&*?_])[A-Za-z\d!@#$%^&*?_]{8,16}$/;
+    		let isValid = true;
+    		if( currentPwd === "") {
+    			$("#userPwd").text("현재 비밀번호는 필수입니다.").removeClass('valid').addClass('invalid');
+    			isValid = false;
+    		} else {
+    			let userId = '${ sessionScope.loginUser.userId }';
+    			$.ajax({
+    				url: "${pageContext.servletContext.contextPath}/user/check-pwd",
+    				type: "post",
+    				data: {
+    					userId: userId,
+    					userPwd: currentPwd
+    				},
+    				success: function(data) {
+    					if (data.trim() === 'pass') {
+    						$("#userPwd").text("현재 비밀번호가 일치합니다.").removeClass('invalid').addClass('valid');
+    						// 비밀번호 변경 처리
+    						$('#newPwd').prop('disabled', false).prop('readonly', false); // 새 비밀번호 입력 활성화
+    						$('#confirmPwd').prop('disabled', false).prop('readonly', false); // 새 비밀번호 확인 입력 활성화
+    						$('#changePwdBtn').val('변경');
+    					} else {
+    						$("#userPwd").text("현재 비밀번호가 일치하지 않습니다.").removeClass('valid').addClass('invalid');
+    						isValid = false;
+    					}
+    				},
+    				error: function(error) {
+    					$("#userPwd").text("비밀번호 확인 중 오류가 발생하였습니다.").removeClass('valid').addClass('invalid');
+    					isValid = false;
+    				}
+    			});
+    		}
 
             if (newPwd === "") {
                 $("#userPwdType").text("새 비밀번호는 필수입니다.").removeClass('valid').addClass('invalid');
+                isValid = false;
             } else if (!userPwdPattern.test(newPwd)) {
                 $("#userPwdType").text("비밀번호는 8~16자의 영문자, 숫자, 특수문자 중 2가지 이상을 사용해야 합니다.").removeClass('valid').addClass('invalid');
+                isValid = false;
             } else {
                 $("#userPwdType").text("사용할 수 있는 비밀번호 형식입니다.").removeClass('invalid').addClass('valid');
             }
@@ -157,8 +168,16 @@
                 $("#userPwdCheckType").text("비밀번호가 일치합니다.").removeClass('invalid').addClass('valid');
             } else if (confirmPwd !== "" && newPwd !== confirmPwd) {
                 $("#userPwdCheckType").text("비밀번호가 일치하지 않습니다.").removeClass('valid').addClass('invalid');
+                isValid = false;
             } else {
                 $("#userPwdCheckType").text("새 비밀번호 확인은 필수입니다.").removeClass('valid').addClass('invalid');
+                isValid = false;
+            }
+            
+            if(isValid) {
+                // 비밀번호 변경 처리
+                $('#currentPwd, #newPwd, #confirmPwd').prop('disabled', true).prop('readonly', true); // 입력 필드 비활성화
+                $('#changePwdBtn').val('변경'); // 버튼 텍스트 원래대로 변경
             }
         }
 

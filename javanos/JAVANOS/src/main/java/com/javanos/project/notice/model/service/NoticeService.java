@@ -110,6 +110,7 @@ public class NoticeService {
 		noticeDAO = session.getMapper(NoticeDAO.class);
 
 		int result = noticeDAO.deleteNotice(no);
+		System.out.println("dao.xml result : " + result);
 
 		if (result > 0) {
 			session.commit();

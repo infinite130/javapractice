@@ -193,6 +193,8 @@ public class CommunityInsertServlet extends HttpServlet {
 
     private void forwardResult(HttpServletRequest request, HttpServletResponse response, int result) throws ServletException, IOException {
         String path;
+        
+        System.out.println(result);
         if (result > 0) {
             path = "/WEB-INF/views/common/success.jsp";
             request.setAttribute("successCode", "communityInsert");

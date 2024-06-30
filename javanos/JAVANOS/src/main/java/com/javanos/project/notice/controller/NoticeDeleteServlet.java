@@ -17,12 +17,13 @@ public class NoticeDeleteServlet extends HttpServlet {
 		
 		NoticeService noticeService = new NoticeService();
 		int result = noticeService.deleteNotice(noticeNo);
+		System.out.println("service result : " + result);
 		
 		if(result > 0) {
 			response.sendRedirect(request.getContextPath() + "/notice/list");
 		} else {
 			request.setAttribute("message", "공지사항 삭제에 실패했습니다.");
-			request.getRequestDispatcher("/WEB-INF/views/common/failed.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/views/common/fail.jsp").forward(request, response);
 		}
 	}
 }

@@ -47,62 +47,52 @@ table textarea {
     resize: vertical;
 }
 
-button {
-    padding: 10px 20px;
-    margin: 10px;
-    background-color: #007bff;
+
+button#listButton {
+    background-color: #6c757d;
     color: #fff;
     border: none;
+    padding: 5px 10px;
+    margin-left: 10px;
     cursor: pointer;
     border-radius: 5px;
 }
 
-button:hover {
-    background-color: #0056b3;
+button#listButton:hover {
+    background-color: #5a6268;
 }
 
-.button-group {
-    text-align: center;
-}
 
-/* 다양한 버튼 스타일 */
-button.secondary {
-    background-color: #dc3545;
-}
-
-button.secondary:hover {
-    background-color: #bd2130;
-}
-
-button.warning {
-    background-color: #ffc107;
-    color: #212529;
-}
-
-button.warning:hover {
-    background-color: #e0a800;
-}
-
-button.success {
+button#updateButton {
     background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
-button.success:hover {
+button#updateButton:hover {
     background-color: #218838;
 }
 
-button.info {
-    background-color: #17a2b8;
-}
 
-button.info:hover {
-    background-color: #138496;
-}
-
-button.danger {
+button#deleteButton {
     background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
-button.danger:hover {
+button#deleteButton:hover {
     background-color: #c82333;
+}
+
+
+.button-group {
+    text-align: center;
 }

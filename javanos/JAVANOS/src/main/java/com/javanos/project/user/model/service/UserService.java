@@ -118,4 +118,13 @@ public class UserService {
 		return result;
 	}
 
+	public String checkPwd(UserDTO loginUser) {
+		SqlSession session = getSqlSession();
+		userDAO = session.getMapper(UserDAO.class);
+		
+		String userPwd = userDAO.selectPwd(loginUser);
+		
+		return userPwd;
+	}
+
 }

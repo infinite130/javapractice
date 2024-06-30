@@ -20,7 +20,8 @@ public interface DownDAO {
 	/* 내려요 게시글 테이블 삽입용 메소드 */
 	public int insertDown(DownDTO newDown);
 
-
+	/* 내려요 게시글 삭제 메소드 */
+   public int deleteDown(int deletedw);
 	
 
 }
