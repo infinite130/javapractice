@@ -126,26 +126,5 @@ public class UserService {
 		
 		return userPwd;
 	}
-	
-	public void suspendUserAccount(String userId) throws Exception {
-        SqlSession session = getSqlSession();
-        userDAO = session.getMapper(UserDAO.class);
-
-        try {
-            // 사용자 상태를 '정지'로 변경하는 예시 코드
-            UserDTO user = userDAO.selectUserById(userId);
-            user.setUserStatus("SUSPENDED"); // 사용자 상태를 정지로 변경
-            int result = userDAO.updateUser(user); // 사용자 정보 업데이트
-
-            if (result > 0) {
-                session.commit();
-            } else {
-                session.rollback();
-                throw new Exception("Failed to suspend user account.");
-            }
-        } finally {
-            session.close();
-        }
-    }
 
 }

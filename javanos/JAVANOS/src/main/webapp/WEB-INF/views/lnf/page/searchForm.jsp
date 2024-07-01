@@ -38,8 +38,8 @@
             padding: 10px;
         }
         th {
-            background-color: #f2f2f2; /* 밝은 회색 배경 */
-            color: #333; /* 검은색 글자 */
+            background-color: #f2f2f2;
+            color: #333;
         }
         .search-area {
             text-align: center;
@@ -86,36 +86,39 @@
         </thead>
         <tbody>
             <c:forEach items="${boardList}" var="lnfBoard">
-                <tr>
+                <tr style="cursor: pointer;">
                     <td>${lnfBoard.lnfNo}</td>
                     <td>${lnfBoard.lnfStaLine}</td> <!-- 습득 호선 -->
                     <td>${lnfBoard.lnfStaName}</td> <!-- 습득 역 -->
                     <td>${lnfBoard.missing}</td> <!-- 분실 품목 -->
                     <td>${lnfBoard.enrollDate}</td> 
                     <td>${lnfBoard.findDate}</td> 
-<!--                     <td><script>document.write(new Date('${lnfBoard.enrollDate}').toLocaleDateString('ko-KR'))</script></td> 등록일
-        			<td><script>document.write(new Date('${lnfBoard.findDate}').toLocaleDateString('ko-KR'))</script></td> 발견일 -->
                 </tr>
             </c:forEach>
+            <c:if test="${empty boardList}">
+                <tr>
+                    <td colspan="6" align="center">게시글이 없습니다.</td>
+                </tr>
+            </c:if>
         </tbody>
     </table>
 
     <!-- 검색 -->
     <div class="search-area">
-        <form id="loginForm" action="${pageContext.servletContext.contextPath}/lnf/search" method="get">		
+        <form id="searchForm" action="${pageContext.servletContext.contextPath}/lnf/search" method="get">		
             <input type="hidden" name="currentPage" value="1">
             <select id="searchCondition" name="searchCondition">
-                <option value="missing" ${requestScope.selectCriteria.searchCondition eq "missing"? "selected": ""}>분실 품목</option>
-                <option value="staLine" ${requestScope.selectCriteria.searchCondition eq "staLine"? "selected": ""}>역</option>
-                <option value="staName" ${requestScope.selectCriteria.searchCondition eq "staName"? "selected": ""}>호선</option>
+                <option value="missing">분실 품목</option>
+                <option value="staLine">습득 호선</option>
+                <option value="staName">습득 역</option>
             </select>
-            <input type="search" id="searchValue" name="searchValue" value="<c:out value="${requestScope.selectCriteria.searchValue}"/>">
+            <input type="search" id="searchValue" name="keyword">
             <button type="submit">검색하기</button>
         </form>
     </div>
 </div>
 <%-- <jsp:include page="../../common/paging/jsp" flush="false">
-	<jsp:param value="lnf/main" name="link"/>
+	<jsp:param value="lnf/search" name="link"/>
 </jsp:include> --%>
 </section>
 </div>

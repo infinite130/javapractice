@@ -9,12 +9,25 @@ import java.util.Map;
 import com.javanos.project.common.paging.SelectCriteria;
 import com.javanos.project.down.model.dao.DownDAO;
 import com.javanos.project.down.model.dto.DownDTO;
+import com.javanos.project.lnf.model.dto.StationDTO;
 import com.javanos.project.notice.model.dao.NoticeDAO;
 
 public class DownService {
 
 	private DownDAO downDAO;
 	
+	/* 역 정보 조회 메소드*/
+	 public List<StationDTO> selectStationList(){
+		 SqlSession session = getSqlSession();
+			downDAO = session.getMapper(DownDAO.class);
+			                              
+			List<StationDTO> stationList = downDAO.selectStationList();
+			                                         // xml id
+			session.close();
+
+			return stationList;
+	 }
+
 
 	/* 페이징 처리를 위한 전체 게시물 수 조회용 메소드 */
 	public int selectTotalCount(Map<String, String> searchMap) {

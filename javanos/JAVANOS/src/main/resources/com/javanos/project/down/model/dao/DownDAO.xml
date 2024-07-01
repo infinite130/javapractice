@@ -44,7 +44,14 @@
 		<result property="userStopDate" column="USER_STOP_DATE" />
 	</resultMap>
 	
-
+	<resultMap type="com.javanos.project.lnf.model.dto.StationDTO" id="stationResultMap">
+		<id property="staNo" column="STA_NO"/>
+		<result property="staCode" column="STA_CODE"/>
+		<result property="staName" column="STA_NAME"/>
+		<result property="staLine" column="STA_LINE"/>
+	</resultMap>
+	
+     <!-- 필터로 조회하기-->
 	<select id="selectTotalCount" resultType="_int">
 		select count(*) 
 		from tbl_down A
@@ -57,7 +64,7 @@
 			</if>
 	</select>
 	
-
+     <!-- 게시글 조회 -->
 	<select id="selectDownList" resultMap="downResultMap">
 		SELECT A.DOWN_NO 
 		, A.DOWN_ROOM 
@@ -82,6 +89,14 @@
 		ORDER BY A.DOWN_NO DESC LIMIT #{ startRow }, #{ limit }
 	</select>
 	
+	<!--역 정보 조회  -->
+	<select id="selectStationList" resultMap="stationResultMap">
+	  SELECT STA_NO,  
+	     STA_NAME
+	     FROM TBL_STATION
+	     ORDER BY STA_NAME;
+	    </select>
+	     
 	<insert id="insertDown" parameterType="com.javanos.project.down.model.dto.DownDTO">
 	 insert INTO TBL_DOWN 
 	 (   IN_STA_NO,

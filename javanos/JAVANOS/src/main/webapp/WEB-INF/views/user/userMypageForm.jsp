@@ -11,7 +11,8 @@
 </head>
 <body>
     <%@ include file="../common/menubar.jsp" %>
-
+    <div id="wrap">
+	<section>
     <div class="mypage-wrapper">
         <h2>마이페이지</h2>
         <form action="${ pageContext.servletContext.contextPath }/user/mypage" method="post" id="mypage-form">
@@ -77,6 +78,9 @@
             </div>
         </form>
     </div>
+    </section>
+	</div>
+	<jsp:include page="../common/footer.jsp"/>
     
     <script>
     $(document).ready(function() {
