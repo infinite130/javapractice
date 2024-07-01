@@ -30,13 +30,13 @@
 							<tr>
 								<td data-label="썸네일 사진">썸네일 사진</td>
 								<td>
-									<label>섬네일은 1개만 선택이 가능합니다.</label>
+									<label>섬네일은 1개만 선택이 가능합니다. 수정을 원하시면 삭제 후 사진을 선택해주세요. </label>
 									<c:choose>
 										<c:when test="${ not empty community.pictureList }">
 											<div class="title-img-area" id="titleImgArea">
 												<img id="titleImgView" class="thumbnailImg" onerror="setDefaultImage(this);" src="${pageContext.servletContext.contextPath }${community.pictureList[0].thumbnailPath }">
-											</div>
 												<button type="button" class="remove-image-btn" data-image-id="${community.pictureList[0].picNo}">삭제</button>
+											</div>
 										</c:when>
 										<c:when test="${ empty community.pictureList }">
 					            			<label>첨부한 사진이 없습니다.</label>
@@ -50,26 +50,38 @@
 							<tr>
 								<td data-label="내용 사진">내용 사진</td>
 								<td data-label="내용 사진 선택 칸" colspan="3">
-									<label>내용사진은 3개까지 선택이 가능합니다.</label>
+									<label>내용사진은 3개까지 선택이 가능합니다. 수정을 원하시면 삭제 후 사진을 선택해주세요.</label>
 									<div id="img-container">
 									<c:choose>
 							            	<c:when test="${ not empty community.pictureList }">
 							            		<div class="body-img-area" id="bodyImgArea">
+							            			<c:set var="imageCount" value="0" />
 									                <c:forEach items="${ community.pictureList }" var="picture" begin="1">
 									                        <img class="imgView" onerror="setDefaultImage(this);" src="${pageContext.servletContext.contextPath }${ picture.thumbnailPath }">
 															<button type="button" class="remove-image-btn" data-image-id="${picture.picNo}">삭제</button>
+															<c:set var="imageCount" value="${imageCount + 1}" />
 									                </c:forEach>
+									                
+													<%-- 출력된 이미지 개수 계산 --%>
+													<c:set var="remainingImages" value="${3 - imageCount}" />
+													
+													<%-- 부족한 이미지 채우기 --%>
+													<c:forEach var="i" begin="1" end="${remainingImages}">
+													    <img class="imgView" onerror="setDefaultImage(this);">
+													    <button type="button" class="remove-image-btn" data-image-id="${picture.picNo}">삭제</button>
+														<div id="imageContainer">
+														        <img class="imgView" src=""  style="display: none;">
+														        <img class="imgView" src=""  style="display: none;">
+														        <img class="imgView" src=""  style="display: none;">
+												    	</div>
+													</c:forEach>
 									             </div>
 							            	</c:when>
-							            	<c:when test="${ empty community.pictureList }">
-							            			<label>첨부한 사진이 없습니다.</label>
-							            			<img class="imgView" onerror="setDefaultImage(this);">
-							            			<img class="imgView" onerror="setDefaultImage(this);">
-							            			<img class="imgView" onerror="setDefaultImage(this);">
-							            	</c:when>
 							         </c:choose>
+							            	
 									</div>
 									<input type="file" id="bodyImg" name="bodyImg" multiple>
+									<span id="fileLimitMessage" style="color: red; display: none;">파일은 최대 3개까지 업로드할 수 있습니다.</span>
 								</td>
 							</tr>
 							
@@ -113,7 +125,7 @@
 		    });
 		});
 		
-		
+		//첨부하기 버튼 선택하면 미리보기 이미지 태그에 띄워주기
 		document.getElementById('thumbnailImg').addEventListener('change', (event) => {
             const files = event.target.files;
             const imgPreview = document.getElementById('titleImgView');
@@ -127,7 +139,55 @@
         });
 		
 		document.addEventListener('DOMContentLoaded', () => {
+		    const maxFiles = 3;
+		    const input = document.getElementById('bodyImg');
+		    const message = document.getElementById('fileLimitMessage');
+		    const imgElements = document.querySelectorAll('.imgView');
+
+		    input.addEventListener('change', function(event) {
+		        const files = event.target.files;
+		        
+		        if (files.length > maxFiles) {
+		            message.style.display = 'inline';
+		            input.value = ''; // 파일 선택 초기화
+		            imgElements.forEach(img => {
+		                img.style.display = 'none';
+		                img.src = '';
+		            });
+		        } else {
+		            message.style.display = 'none';
+
+		            // 모든 이미지 요소 숨기기 및 src 초기화
+		            imgElements.forEach(img => {
+		                img.style.display = 'none';
+		                img.src = '';
+		            });
+
+		            // 선택된 파일을 이미지로 표시
+		            Array.from(files).forEach((file, index) => {
+		                if (index < imgElements.length) {
+		                    const reader = new FileReader();
+		                    reader.onload = function(e) {
+		                        imgElements[index].src = e.target.result;
+		                        imgElements[index].style.display = 'block';
+		                    };
+		                    reader.readAsDataURL(file);
+		                }
+		            });
+		        }
+		    });
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+		/* document.addEventListener('DOMContentLoaded', () => {
 			document.getElementById('bodyImg').addEventListener('change', function(event) {
+					
 		           const files = event.target.files;
 		           const imgElements = document.querySelectorAll('.imgView');
 	
@@ -146,7 +206,7 @@
 		           });
 		       });
 		});
-		
+		 */
 	
 		
 		function setDefaultImage(img) {
@@ -169,6 +229,9 @@
 			}else if(document.querySelector('#communityBody').value==''){
 				e.preventDefault()//폼 전송을 막는다.
 				alert('내용이 비어있습니다!!')
+			}else if(document.querySelector('.imgView').src!=''){
+				e.preventDefault()//폼 전송을 막는다.
+				alert('내용사진이 있을 경우 썸네일은 필수로 선택해주세요!')
 			}
 		})
 	</script>

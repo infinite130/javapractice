@@ -34,77 +34,135 @@
 		<result property="enrollDate" column="LNF_ENROLL_DATE"/>
 		<result property="modifyDate" column="LNF_MODIFY_DATE"/>
 		<result property="boardStatus" column="LNF_BOARD_STATUS"/>
-		<result property="boardStatus" column="LNF_BOARD_STATUS"/>
+		<result property="lnfStaLine" column="LNF_STA_LINE"/>
+		<result property="lnfStaName" column="LNF_STA_NAME"/>
+		<result property="writerNo" column="USER_NO"/>
 		<association property="userNo" resultMap="userResultMap"/>
-		<association property="staNo" resultMap="stationResultMap"/>
 	</resultMap>
 	
+
 	<!-- 게시글 삽입 -->
 	<insert id="enrollBoard">
-    	INSERT INTO TBL_LNF (LNF_MISSING, LNF_FIND_DATE, LNF_FIND_TIME, LNF_KEEP, LNF_DESCRIPTION, LNF_ENROLL_DATE, LNF_WRITER_NO, LNF_STA_NO)
-    	SELECT 
+    	INSERT INTO TBL_LNF 
+    	(
+    		LNF_MISSING, 
+    		LNF_FIND_DATE, 
+    		LNF_FIND_TIME, 
+    		LNF_KEEP, 
+    		LNF_DESCRIPTION,
+    		LNF_STA_LINE,
+    		LNF_STA_NAME,
+    		USER_NO
+    	) VALUES (
     		#{missing}, 
     		#{findDate}, 
     		#{findTime}, 
     		#{keep}, 
-    		#{description}, 
-    		#{enrollDate}, 
-    		#{userNo.userNo}, 
-    		s.STA_NO
-    	FROM TBL_STATION s
-    	WHERE s.STA_NAME = #{staNo.staName} AND s.STA_LINE = #{staNo.staLine};
+    		#{description},
+    		#{lnfStaLine},
+    		#{lnfStaName},
+    		#{writerNo}
+    	);
+   
 	</insert>
 		
 	<!-- 게시판 목록 조회 -->
 	<select id="selectAllBoardList" resultMap="lnfResultMap">
-		SELECT * FROM TBL_LNF;
+		SELECT * FROM TBL_LNF
+		WHERE LNF_BOARD_STATUS ='Y';
 	</select>
-	
-	<!-- 게시글 수정 -->
-	<update id="modifyBoard">
-		UPDATE TBL_LNF
-			SET
-				LNF_FIND_DATE = '#{findDate}',
-				LNF_MISSING = '#{missing}',
-				LNF_KEEP = '#{keep}',
-				LNF_DESCRIPTION = '#{description}'
-			WHERE 
-				LNF_NO = '#{lnfNo}';
-	</update>
-	
-	<!-- 게시글 삭제 -->
-	<update id="deleteBoard">
-		UPDATE TBL_LNF
-			SET LNF_BOARD_STATUS = 'N',
-				MODIFIED_DATE = current_date
-			WHERE LNF_NO='{lnfNo}';
-	</update>
 	
 	<!-- 게시글 상세 보기 조회 -->
 	<select id="selectBoardDetail" resultMap="lnfResultMap">
-	SELECT
-        L.LNF_NO,
-        L.LNF_MISSING,
-        L.LNF_FIND_DATE,
-        L.LNF_FIND_TIME,
-        L.LNF_KEEP,
-        L.LNF_DESCRIPTION,
-        L.LNF_ENROLL_DATE,
-        S.STA_NAME AS STA_NAME,
-        S.STA_LINE AS STA_LINE
-    FROM
-        TBL_LNF L
-    JOIN
-        TBL_STATION S ON (L.LNF_STA_NO = S.STA_NO)
-    WHERE 
-    	L.LNF_NO = #{lnfNo};
+		SELECT
+			LNF_NO,
+			LNF_FIND_DATE,
+        	LNF_FIND_TIME,
+        	LNF_ENROLL_DATE,
+        	LNF_MISSING,
+        	LNF_KEEP,
+        	LNF_DESCRIPTION,
+        	LNF_MODIFY_DATE,
+        	LNF_STA_LINE,
+        	LNF_STA_NAME
+    	FROM
+        	TBL_LNF
+    	WHERE 
+    		LNF_NO = #{lnfNo};
 	</select>
 	
-	<!-- 첫 화면 -->
-	
-	<select id="selectStaLine" resultMap="stationResultMap">
-		SELECT * FROM TBL_STATION;
+	<!-- 검색 -->
+	<select id="searchByLine" resultMap="lnfResultMap" parameterType="String">
+		SELECT
+        	LNF_NO,
+        	LNF_STA_LINE,
+        	LNF_STA_NAME,
+        	LNF_MISSING,
+        	LNF_ENROLL_DATE,
+        	LNF_FIND_DATE
+    	 FROM TBL_LNF 
+    	 WHERE
+        	LNF_BOARD_STATUS = 'Y' 
+         	AND LNF_STA_LINE LIKE CONCAT('%', #{keyword}, '%')
 	</select>
+	
+	<!-- 검색 -->
+	<select id="searchByStation" resultMap="lnfResultMap" parameterType="String">
+		SELECT
+			LNF_NO,
+			LNF_STA_LINE,
+			LNF_STA_NAME,
+			LNF_MISSING,
+			LNF_ENROLL_DATE,
+			LNF_FIND_DATE
+		 FROM TBL_LNF 
+    	 WHERE
+        	LNF_BOARD_STATUS = 'Y' 
+         	AND LNF_STA_NAME LIKE CONCAT('%', #{keyword}, '%')
+	</select>
+	
+	<!-- 검색 -->
+	<select id="searchByMissing" resultMap="lnfResultMap" parameterType="String">
+		SELECT
+			LNF_NO,
+			LNF_STA_LINE,
+			LNF_STA_NAME,
+			LNF_MISSING,
+			LNF_ENROLL_DATE,
+			LNF_FIND_DATE
+		 FROM TBL_LNF 
+    	 WHERE
+        	LNF_BOARD_STATUS = 'Y' 
+         	AND LNF_MISSING LIKE CONCAT('%', #{keyword}, '%')
+	</select>
+	
+	<!-- 게시글 수정 -->
+	<update id="modifyBoard" parameterType="com.javanos.project.lnf.model.dto.LnfBoardDTO">
+    UPDATE TBL_LNF
+    	SET
+        	LNF_FIND_DATE = #{findDate},
+        	LNF_FIND_TIME = #{findTime},
+        	LNF_MISSING = #{missing},
+        	LNF_KEEP = #{keep},
+        	LNF_DESCRIPTION = #{description},
+        	LNF_MODIFY_DATE = CURRENT_TIMESTAMP,
+        	LNF_STA_LINE = #{staLine},
+        	LNF_STA_NAME = #{staName}
+        	USER_NO = #{writerNo}
+    	WHERE 
+        	LNF_NO = #{lnfNo}
+	</update>
+
+	
+	<!-- 게시글 삭제 -->
+	<update id="deleteBoard" parameterType="com.javanos.project.lnf.model.dto.LnfBoardDTO">
+		UPDATE TBL_LNF
+			SET LNF_BOARD_STATUS = 'N',
+				LNF_MODIFY_DATE = current_date
+			WHERE LNF_NO= #{lnfNo};
+	</update>
+	
+	
 		
 	
 </mapper>

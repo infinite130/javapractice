@@ -16,30 +16,41 @@
         <div class="down-enroll">
             <div class="label-below">
                 <label for="inStationNo">승차해 있는 역</label>
-                <span><select name="inStationNo">
-                 <option selected>(승차역)</option>
-                    <option value="1">가락시장</option>
-                    <option value="2">천호</option>
+                <span>
+                <select name="inStationNo" id="inStationNo">
+                 <option selected>(승차역)</option>  
+                <c:forEach var="station" items="${ requestScope.stationList }"> 
+                 <option value="${ station.staNo }">${station.staName}</option>          			                
+                 </c:forEach>		
+              <!--    <option value="2">서울역</option>			
+                 <option value="3">영등포</option>			
+                 <option value="4">온양온천</option>			
+                 <option value="5">두정</option>			
+                 <option value="6">진위</option>	 -->		
+	
               
                 </select></span>
             </div>
             <div class="label-below">
                 <label for="downStationNo">하차 할 역 이름</label>
-                <span><select name="downStationNo">
-                 <option selected>(하차역)</option>
-                    <option value="1">가락시장</option>
-                    <option value="2">천호</option>
-                 
+                <span><select name="downStationNo" id="downStationNo">
+                 <option selected>(하차역)</option>        			
+                 <option value="1">석계</option>			
+                 <option value="2">서울역</option>			
+                 <option value="3">영등포</option>			
+                 <option value="4">온양온천</option>			
+                 <option value="5">두정</option>			
+                 <option value="6">진위</option>	
                 </select></span>
             </div>
             <div class="label-below">
                 <label for="downRoom">칸 번호</label>
-                <span><select name="downRoom" >
+                <span><select name="downRoom" id="downRoom" >
                 <option selected>(칸번호)</option>
                     <option value="1-1칸">1-1</option>
                     <option value="1-2칸">1-2</option>
                     <option value="1-3칸">1-3</option>
-                    <option>2-1</option>
+                    <option value="2-1칸">2-1</option>
                     <option>2-2</option>
                     <option>3-1</option>
                     <option>3-2</option>
@@ -55,13 +66,13 @@
             <div class="label-below">
                 <label>혼잡도</label>
                 <div class="radio-group">
-                    <input type="radio" name="downFull" value="상" ><label for="fullHigh">상</label>
-                    <input type="radio" name="downFull" value="중" ><label for="fullMedium">중</label>
-                    <input type="radio" name="downFull" value="하" ><label for="fullLow">하</label>
+                    <input type="radio" name="downFull" value="상" id="downFull" required><label for="fullHigh">상</label>
+                    <input type="radio" name="downFull" value="중" id="downFull"><label for="fullMedium">중</label>
+                    <input type="radio" name="downFull" value="하" id="downFull"><label for="fullLow">하</label>
                 </div>
             </div>
             <div class="submit-button">
-                <button type="submit">등록</button>
+                <button type="submit" id="submitBtn">등록</button>
             </div>
         </div>
 
@@ -69,6 +80,7 @@
             <div class="search">
                 <select name="stationsearch" onchange="filterStations(this)">
                     <option value="" selected>호선검색 필터</option>
+                    <option value="1호선" ${ requestScope.selectCriteria.searchValue eq "1호선"? "selected": "" }>1호선</option>
                     <option value="2호선" ${ requestScope.selectCriteria.searchValue eq "2호선"? "selected": "" }>2호선</option>
                     <option value="3호선" ${ requestScope.selectCriteria.searchValue eq "3호선"? "selected": "" }>3호선</option>
                     <option value="4호선" ${ requestScope.selectCriteria.searchValue eq "4호선"? "selected": "" }>4호선</option>
@@ -94,12 +106,12 @@
             <c:forEach var="down" items="${ requestScope.downList }">
                 <div class="label-below">
                     <label>승차해 있는 역</label>         
-                    <span><div class="box"><c:out value="${ down.downStation.staName }"/></div></span>
+                    <span><div class="box"><c:out value="${ down.inStation.staName }"/></div></span>
                 </div>
                 
                 <div class="label-below">
                     <label>하차 할 역 이름</label>     
-                    <span><div class="box"><c:out value="${ down.inStation.staName }"/></div></span>
+                    <span><div class="box"><c:out value="${ down.downStation.staName }"/></div></span>
                 </div>
                 
                 <div class="label-below">
@@ -115,7 +127,7 @@
                <label style="position: absolute; top: 5px; right: 30px; font-size: 12px;">(등록자)</label>
                 <span class="nickname"><c:out value="${ down.user.userNickname}"/></span></lable>
                  
-                <span class="date"><c:out value="${ down.downEnrollDate}"/></span>
+                <span class="date"><c:out value="${ down.getFormattedDownEnrollDate() }"/></span>
                 
                  <div class="submit-button">
                 <c:if test="${ sessionScope.loginUser.userNo eq down.user.userNo }">
@@ -162,9 +174,23 @@
 		<button id="maxPage">>></button> 
 	</div>
 	
-	
-	
 	<script>
+	  /* 등록 유효성 검사 */                      //등록버튼 id                    
+	document.querySelector('#submitBtn').addEventListener('click',function(e){
+        if(document.querySelector('#inStationNo').value==='(승차역)'){
+        	                       // #id                  // 기본값 
+            e.preventDefault()//폼 전송을 막는다.
+           alert('승차역을 입력해주세요')
+        }else if(document.querySelector('#downStationNo').value=='(하차역)'){
+           e.preventDefault()//폼 전송을 막는다.
+           alert('하차역을 입력해주세요')
+        }else if(document.querySelector('#downRoom').value=='(칸번호)'){
+           e.preventDefault()//폼 전송을 막는다.
+           alert('칸번호를 입력해주세요')
+        }
+	 })    
+	
+	 
 	  //삭제버튼 클릭시 적용되는 함수 
 		function deleteDown(downNo) {
 			location.href="${pageContext.servletContext.contextPath}/down/delete?downNo="+ downNo;

@@ -33,7 +33,9 @@
 			</c:forEach>
 		</div>
 	</div>
-	<jsp:include page="../common/paging.jsp"/>
+	<jsp:include page="../common/paging.jsp" flush="false">
+	<jsp:param value="/community/list" name="link"/>
+	</jsp:include>
 	</section>
 	</div>
 	<jsp:include page="../common/footer.jsp"/>

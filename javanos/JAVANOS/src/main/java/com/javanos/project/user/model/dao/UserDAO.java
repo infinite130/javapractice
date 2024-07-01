@@ -19,9 +19,5 @@ public interface UserDAO {
 	int updateUser(UserDTO originUser);
 
 	int deleteUser(UserDTO loginUser);
-	
-    UserDTO selectUserById(String userId);
-
-    int updateUserStatus(UserDTO user);
 
 }

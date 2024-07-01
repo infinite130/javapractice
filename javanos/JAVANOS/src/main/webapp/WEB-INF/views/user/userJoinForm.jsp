@@ -10,6 +10,8 @@
 </head>
 <body>
  	<jsp:include page="../common/menubar.jsp"/> 
+ 	<div id="wrap">
+	<section>
 
 	<div class="join-wrapper">
 		<h2>Sign Up</h2>
@@ -41,6 +43,9 @@
 			<input type="submit" id="joinBtn" value="회원가입"><br>
 		</form>
 	</div>
+	</section>
+	</div>
+	<jsp:include page="../common/footer.jsp"/>
 	
 	<script>
 		$(document).ready(function() {

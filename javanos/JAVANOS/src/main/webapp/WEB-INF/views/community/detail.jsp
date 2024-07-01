@@ -83,9 +83,9 @@
 		    let button = document.getElementById('reportBtn');
 		    button.addEventListener('click', function() {
 			    let communityNo = ${ community.communityNo };
-			    let reportedUserId = ${ community.userNo };
+			    let reportedUserNo = ${ community.userNo };
 			    
-			    location.href = "${pageContext.servletContext.contextPath}/reportmain?communityNo=" + communityNo + "&reportedUserId=" + reportedUserId;
+			    location.href = "${pageContext.servletContext.contextPath}/reportmain?communityNo=" + communityNo + "&reportedUserNo=" + reportedUserNo;
 		    });
 		});
 		

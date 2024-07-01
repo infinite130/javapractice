@@ -66,15 +66,6 @@
             background-color: #388e3c;
         }
     </style>
-    <script>
-        window.onload = function() {
-            // 세션에 message가 있는 경우 alert 창으로 표시
-            <c:if test="${not empty sessionScope.message}">
-                alert('${sessionScope.message}');
-                <c:remove var="message" scope="session"/>
-            </c:if>
-        };
-    </script>
 </head>
 <body>
 <jsp:include page="../common/menubar.jsp"/>

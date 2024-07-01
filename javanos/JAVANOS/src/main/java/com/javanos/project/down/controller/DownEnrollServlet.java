@@ -9,6 +9,7 @@ import com.javanos.project.common.paging.Pagenation;
 import com.javanos.project.common.paging.SelectCriteria;
 import com.javanos.project.down.model.dto.DownDTO;
 import com.javanos.project.down.model.service.DownService;
+import com.javanos.project.lnf.model.dto.StationDTO;
 import com.javanos.project.user.model.dto.UserDTO;
 
 import jakarta.servlet.ServletException;
@@ -22,6 +23,21 @@ public class DownEnrollServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		DownService downService = new DownService();
+		
+		/* 역 정보 조회 */
+	
+		List<StationDTO> stationList = downService.selectStationList();
+
+		System.out.println("stationList : " + stationList);
+
+		if (stationList != null) {
+			request.setAttribute("stationList", stationList);		
+		}
+
+		
+		
 
 		/* 내려요 게시글 조회 */
 		String currentPage = request.getParameter("currentPage");
@@ -42,13 +58,13 @@ public class DownEnrollServlet extends HttpServlet {
 		searchMap.put("searchCondition", searchCondition);
 		searchMap.put("searchValue", searchValue);
 
-		DownService downService = new DownService();
+		
 		int totalCount = downService.selectTotalCount(searchMap);
 
 		System.out.println("totaldownCount : " + totalCount);
 
 		/* 한 페이지에 보여 줄 게시물 수 */ 
-		int limit = 1;
+		int limit = 7;
 		
 		/* 한 번에 보여질 페이징 버튼의 갯수 */ 
 		int buttonAmount = 5;
@@ -74,7 +90,7 @@ public class DownEnrollServlet extends HttpServlet {
 		if (downList != null) {
 			path = "/WEB-INF/views/down/DownEnrollForm.jsp";
 			request.setAttribute("downList", downList);
-			request.setAttribute("selectCriteria", selectCriteria);
+			request.setAttribute("selectCriteria", selectCriteria);			
 		}
 
 		
@@ -101,7 +117,16 @@ public class DownEnrollServlet extends HttpServlet {
 
 		DownService DownService = new DownService();
 		int result = DownService.insertDown(newDown);
-
+		String path = "";
+		if(result > 0 ) {
+			path = "/WEB-INF/views/common/success.jsp";
+			request.setAttribute("successCode", "downEnroll");
+		}else {
+			path = "/WEB-INF/views/common/fail.jsp";
+			request.setAttribute("message", "게시물을 작성해 주세요");
+		}
+		
+		//등록 후 새로운 페이지가 아닌, 기존 등록페이지 창으로 돌아오기 
 		response.sendRedirect(request.getContextPath() + "/down/enroll");
 
 	}

@@ -21,7 +21,7 @@ public class BoardDetailServlet extends HttpServlet {
 		LnfBoardService lnfBoardService = new LnfBoardService();
 		LnfBoardDTO lnfDetail = lnfBoardService.selectBoardDetail(no);
 		
-		System.out.println("lnfDetail : " + lnfDetail);
+		System.out.println(lnfDetail);
 		
 		String path = "";
 		if(lnfDetail != null) {

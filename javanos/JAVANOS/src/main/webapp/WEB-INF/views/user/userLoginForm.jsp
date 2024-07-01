@@ -10,6 +10,8 @@
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
+	<div id="wrap">
+	<section>
 
 	<div class="login-wrapper">
 		<h2>Login</h2>
@@ -25,6 +27,9 @@
 		<p>아직 회원이 아니신가요? <a href="${ pageContext.servletContext.contextPath }/user/join">회원가입</a>
 	
 	</div>
+	</section>
+	</div>
+	<jsp:include page="../common/footer.jsp"/>
 	
 	<script>
 		$(document).ready(function() {

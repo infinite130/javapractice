@@ -3,17 +3,13 @@
 
 
 html, body  {
-	font-family: Arial, sans-serif;
+	font-family: DungGeunMo;
 	line-height: 1.6;
 	background-color: #f5f5f5;
 	margin: 0;
 	padding: 0;
 }
-/* body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-} */
+
 header {
     background-color: #333;
     overflow: hidden;
@@ -64,7 +60,7 @@ footer {
 }
 
 
-.home-image {
+/* .home-image {
     text-align: center;
     margin-top: 20px;
 }
@@ -72,7 +68,7 @@ footer {
 .home-image img {
     max-width: 100%;
     height: auto;
-}
+} */
 .logo-container {
 	display: flex;
     justify-content: flex-end;
@@ -84,6 +80,7 @@ footer {
 	width:300px;
     max-width: 400px;
     height: 90px;
+    object-fit: cover;
 }
 .main-image-container, .home-image-container {
     text-align: center;
@@ -95,3 +92,48 @@ footer {
     height: auto;
 }
 
+#homeTextArea{
+	width: 800px;
+}
+
+
+
+#wrap{
+	min-height: 100vh;
+	position:relative;
+	width:100%
+}
+
+section{
+	padding-bottom:110px;
+}
+
+@font-face {
+     font-family: 'DungGeunMo';
+     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+}
+
+button,
+input,
+select,
+textarea
+{
+	font-family: 'DungGeunMo';
+}
+
+
+button,
+input[type="button"],
+input[type="submit"] {
+    font-size: 14px; /* 글꼴 크기 설정 */
+    border: solid;
+    background-color: LightGreen; /* 배경색 설정 */
+    color: #635DDA; /* 글자색 설정 */
+    font-weight: bold;
+    border-radius: 5px; /* 테두리 둥글기 설정 */
+    cursor: pointer; /* 포인터 커서 설정 */
+ 	margin-left: auto; 
+    margin-right: 0px;
+ }
