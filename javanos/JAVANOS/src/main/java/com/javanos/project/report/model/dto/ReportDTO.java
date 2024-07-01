@@ -5,20 +5,21 @@ import com.javanos.project.user.model.dto.UserDTO;
 
 public class ReportDTO implements java.io.Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private int reportNo;
     private String reportReason;
     private Date reportDate;
     private String reportStatus;
-    private UserDTO reportUser;  // 신고자
-    private UserDTO reportedUser;  // 신고당한 회원
+    private UserDTO reportUser;
+    private UserDTO reportedUser;
+    private int communityNo; // 커뮤니티 번호 필드 추가
 
-    // 기본 생성자
     public ReportDTO() {
         super();
     }
 
-    // 모든 필드를 포함한 생성자
-    public ReportDTO(int reportNo, String reportReason, Date reportDate, String reportStatus, UserDTO reportUser, UserDTO reportedUser) {
+    public ReportDTO(int reportNo, String reportReason, Date reportDate, String reportStatus, UserDTO reportUser, UserDTO reportedUser, int communityNo) {
         super();
         this.reportNo = reportNo;
         this.reportReason = reportReason;
@@ -26,9 +27,9 @@ public class ReportDTO implements java.io.Serializable {
         this.reportStatus = reportStatus;
         this.reportUser = reportUser;
         this.reportedUser = reportedUser;
+        this.communityNo = communityNo;
     }
 
-    // Getters and Setters
     public int getReportNo() {
         return reportNo;
     }
@@ -77,8 +78,16 @@ public class ReportDTO implements java.io.Serializable {
         this.reportedUser = reportedUser;
     }
 
+    public int getCommunityNo() {
+        return communityNo;
+    }
+
+    public void setCommunityNo(int communityNo) {
+        this.communityNo = communityNo;
+    }
+
     @Override
     public String toString() {
-        return "ReportDTO [reportNo=" + reportNo + ", reportReason=" + reportReason + ", reportDate=" + reportDate + ", reportStatus=" + reportStatus + ", reportUser=" + reportUser + ", reportedUser=" + reportedUser + "]";
+        return "ReportDTO [reportNo=" + reportNo + ", reportReason=" + reportReason + ", reportDate=" + reportDate + ", reportStatus=" + reportStatus + ", reportUser=" + reportUser + ", reportedUser=" + reportedUser + ", communityNo=" + communityNo + "]";
     }
 }

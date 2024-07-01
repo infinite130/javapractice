@@ -24,13 +24,12 @@ public class CommunityDeleteServlet extends HttpServlet {
 		
 		  if(result>0) { //성공 
 			  path = "/WEB-INF/views/common/success.jsp";
-		      request.setAttribute("successCode", "communityDelete");
-			  request.setAttribute("message", "삭제되었습니다!! :)");
+		      	  request.setAttribute("successCode", "deleteCommunity");
 		  }else { //실패 
 			  System.out.println("삭제실패");
 			  path = "/WEB-INF/views/common/fail.jsp";
 			  request.setAttribute("message", "게시판 삭제에 실패하셨습니다.");
-			  request.setAttribute("code", "communityDelete");
+			  request.setAttribute("code", "deleteCommunity");
 		  }
 		  
 		  request.getRequestDispatcher(path).forward(request, response);

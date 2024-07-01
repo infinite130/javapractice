@@ -6,9 +6,11 @@ import static com.javanos.project.common.mybatis.Template.getSqlSession;
 import com.javanos.project.report.model.dao.ReportDAO;
 import com.javanos.project.report.model.dto.ReportDTO;
 import com.javanos.project.user.model.dto.UserDTO;
+import com.javanos.project.user.model.service.UserService;
 
 public class ReportService {
     private ReportDAO reportDAO;
+    private UserService userService = new UserService();
 
     public List<ReportDTO> selectAllReports() {
         SqlSession session = getSqlSession();
@@ -39,11 +41,28 @@ public class ReportService {
         return report;
     }
 
-    public UserDTO selectUserByUserId(String userId) {
+    public UserDTO selectUserByUserNo(int userNo) {
         SqlSession session = getSqlSession();
         reportDAO = session.getMapper(ReportDAO.class);
-        UserDTO user = reportDAO.selectUserByUserId(userId);
+        UserDTO user = reportDAO.selectUserByUserNo(userNo);
         session.close();
         return user;
+    }
+
+    public int deleteReport(int reportNo) {
+        SqlSession session = getSqlSession();
+        reportDAO = session.getMapper(ReportDAO.class);
+        int result = reportDAO.deleteReport(reportNo);
+        if (result > 0) {
+            session.commit();
+        } else {
+            session.rollback();
+        }
+        session.close();
+        return result;
+    }
+    
+    public void suspendUserAccount(String userId) throws Exception {
+        userService.suspendUserAccount(userId); // UserService의 메서드 호출
     }
 }

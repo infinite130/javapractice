@@ -38,5 +38,5 @@ public interface NoticeDAO {
 
 	// 제목과 내용으로 공지사항 검색 메소드
     public List<NoticeDTO> searchNoticeByTitleAndBody(String keyword);
-
+    
 }

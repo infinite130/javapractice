@@ -15,6 +15,7 @@ public class SelectCriteria implements java.io.Serializable {
 	private String searchValue;			//검색어
 	
 	public SelectCriteria() {}
+	
 
 	public SelectCriteria(int pageNo, int totalCount, int limit, int buttonAmount, int maxPage, int startPage,
 			int endPage, int startRow, int endRow, String searchCondition, String searchValue) {
@@ -31,7 +32,8 @@ public class SelectCriteria implements java.io.Serializable {
 		this.searchCondition = searchCondition;
 		this.searchValue = searchValue;
 	}
-
+	
+ 
 	public int getPageNo() {
 		return pageNo;
 	}

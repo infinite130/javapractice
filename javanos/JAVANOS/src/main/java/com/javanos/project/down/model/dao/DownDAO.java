@@ -5,12 +5,12 @@ import java.util.Map;
 import java.util.List;
 import java.util.Map;
 
-import com.javanos.project.common.paging.SelectCriteria;
+//import com.javanos.project.common.paging.SelectCriteria;
 import com.javanos.project.down.model.dto.DownDTO;
 
 public interface DownDAO {
 	
-	public List<DownDTO> selectDownList(SelectCriteria selectCriteria); 
+//	public List<DownDTO> selectDownList(SelectCriteria selectCriteria); 
 	
 	public int selectTotalCount(Map<String, String> searchMap);
 	

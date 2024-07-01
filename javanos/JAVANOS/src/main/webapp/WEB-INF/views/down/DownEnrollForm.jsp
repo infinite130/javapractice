@@ -6,99 +6,65 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-    .container {
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .down-enroll {
-        display: flex;
-        flex-wrap: wrap;
-        border: 2px solid #000;
-        padding: 20px;
-        border-radius: 10px;
-        max-width: 800px;
-        width: 100%;
-    }
-
-    .label-below {
-        display: flex;
-        flex-direction: column;
-        width: 130px;
-        margin-bottom: 20px;
-    }
-
-    .submit-button {
-        width: 100%;
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 20px;
-    }
-    
-    .submit-button button {
-        width: 150px;
-        height: 50px;
-        font-size: 18px;
-        border-radius: 30px;
-        cursor: pointer;
-    }
-
-    .search {
-        margin-left: 20px;
-    }
-
-    .search select {
-        width: 200px; 
-        font-size: 16px; 
-        padding: 5px; 
-        text-align: center; 
-        text-align-last: center;
-    }
-
-</style>
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/down/downEnrollForm.css">
 </head>
 <body>
     <jsp:include page="../common/menubar.jsp"/>
+    <br>
     <form action="${ pageContext.servletContext.contextPath }/down/enroll" method="post">
-        <div class="container">
-            <div class="down-enroll">
-                <div class="label-below">
-                    승차해 있는 역
-                    <span><select name="inStationNo">
-                        <option value="1">잠실역 </option>
-                        <option value="2">잠실나루 </option>
-                        <option value="3"> 잠실새내</option>
-                    </select></span>
-                </div>
-                <div class="label-below">
-                    하차 할 역이름
-                    <span><select name="downStationNo">
-                        <option value="1">잠실역 </option>
-                        <option value="2">잠실나루 </option>
-                        <option value="3"> 잠실새내</option>
-                    </select></span>
-                </div>
-                <div class="label-below">
-                    칸번호
-                    <span><select name="downRoom">
-                        <option>1-1</option>
-                        <option>1-2</option>
-                        <option>2-1</option>
-                    </select></span>
-                </div>
-                <div class="label-below">
-                    혼잡도
-                    <span>
-                        <input type="radio" name="downFull" value="상">상
-                        <input type="radio" name="downFull" value="중">중
-                        <input type="radio" name="downFull" value="하">하
-                    </span>
-                </div>
-                <div class="submit-button">
-                    <button type="submit">등록</button>
+       <div class="container">
+        <div class="down-enroll">
+            <div class="label-below">
+                <label for="inStationNo">승차해 있는 역</label>
+                <span><select name="inStationNo">
+                 <option selected>(승차역)</option>
+                    <option value="1">가락시장</option>
+                    <option value="2">천호</option>
+              
+                </select></span>
+            </div>
+            <div class="label-below">
+                <label for="downStationNo">하차 할 역 이름</label>
+                <span><select name="downStationNo">
+                 <option selected>(하차역)</option>
+                    <option value="1">가락시장</option>
+                    <option value="2">천호</option>
+                 
+                </select></span>
+            </div>
+            <div class="label-below">
+                <label for="downRoom">칸 번호</label>
+                <span><select name="downRoom" >
+                <option selected>(칸번호)</option>
+                    <option value="1-1칸">1-1</option>
+                    <option value="1-2칸">1-2</option>
+                    <option value="1-3칸">1-3</option>
+                    <option>2-1</option>
+                    <option>2-2</option>
+                    <option>3-1</option>
+                    <option>3-2</option>
+                    <option>3-3</option>
+                    <option>4-1</option>
+                    <option>4-2</option>
+                    <option>4-3</option>
+                    <option>5-1</option>
+                    <option>5-2</option>
+                    <option>5-3</option>
+                </select></span>
+            </div>
+            <div class="label-below">
+                <label>혼잡도</label>
+                <div class="radio-group">
+                    <input type="radio" name="downFull" value="상" ><label for="fullHigh">상</label>
+                    <input type="radio" name="downFull" value="중" ><label for="fullMedium">중</label>
+                    <input type="radio" name="downFull" value="하" ><label for="fullLow">하</label>
                 </div>
             </div>
+            <div class="submit-button">
+                <button type="submit">등록</button>
+            </div>
+        </div>
+
             
             <div class="search">
                 <select name="stationsearch" onchange="filterStations(this)">
@@ -106,6 +72,7 @@
                     <option value="2호선" ${ requestScope.selectCriteria.searchValue eq "2호선"? "selected": "" }>2호선</option>
                     <option value="3호선" ${ requestScope.selectCriteria.searchValue eq "3호선"? "selected": "" }>3호선</option>
                     <option value="4호선" ${ requestScope.selectCriteria.searchValue eq "4호선"? "selected": "" }>4호선</option>
+                    
                     <script>
                        function filterStations(selectElement) {
                              var selectedValue = selectElement.value;
@@ -115,28 +82,51 @@
                      }
                     }
                 </script>
+                
                 </select>
             </div>
         </div>
-    </form>                 <!--dto=down  -->
-             <c:forEach var="down" items="${ requestScope.downList }">
-			<div>
-				<span><c:out value="${ down.downStation.staName }"/></span>
-				<span><c:out value="${ down.inStation.staName }"/></span>
-				<span><c:out value="${ down.downRoom }"/></span>
-				<span><c:out value="${ down.downFull}"/></span>
-				<span><c:out value="${ down.downEnrollDate}"/></span>
-				<span><c:out value="${ down.user.userNickname}"/></span>
-					<%-- <span><c:out value="${ sessionScope.loginUser.userNo}"/></span>
-					<span><c:out value="${ down.user.userNo}"/></span> --%>
-				
-				 <c:if test="${ sessionScope.loginUser.userNo eq down.user.userNo }">
-				<span><button onclick="deleteDown(${down.downNo})">삭제</button></span>
-					    </c:if>
-			</div>
-			</c:forEach>
-			
-			
+    </form>   
+               <br> <br>
+                  <!--dto=down  -->
+        <div class="container">
+        <div class="down-enroll">
+            <c:forEach var="down" items="${ requestScope.downList }">
+                <div class="label-below">
+                    <label>승차해 있는 역</label>         
+                    <span><div class="box"><c:out value="${ down.downStation.staName }"/></div></span>
+                </div>
+                
+                <div class="label-below">
+                    <label>하차 할 역 이름</label>     
+                    <span><div class="box"><c:out value="${ down.inStation.staName }"/></div></span>
+                </div>
+                
+                <div class="label-below">
+                    <label>칸번호</label>
+                    <span><div class="box"><c:out value="${ down.downRoom }"/></div></span>
+                </div>
+                
+                <div class="label-below">
+                    <label>혼잡도</label>
+                    <span><div class="box"><c:out value="${ down.downFull}"/></div></span>
+                </div>
+                
+               <label style="position: absolute; top: 5px; right: 30px; font-size: 12px;">(등록자)</label>
+                <span class="nickname"><c:out value="${ down.user.userNickname}"/></span></lable>
+                 
+                <span class="date"><c:out value="${ down.downEnrollDate}"/></span>
+                
+                 <div class="submit-button">
+                <c:if test="${ sessionScope.loginUser.userNo eq down.user.userNo }">
+                    <span><button onclick="deleteDown(${down.downNo})">삭제</button></span>
+                </c:if></div>
+                
+            </c:forEach>
+        </div>
+    </div>
+    
+	<br>		
 			<!-- 페이징 처리  -->
 			<div class="pagingArea" align="center">
 		<!-- 맨 앞으로 이동 버튼 -->
@@ -171,6 +161,8 @@
 		<!-- 마지막 페이지로 이동 버튼 -->
 		<button id="maxPage">>></button> 
 	</div>
+	
+	
 	
 	<script>
 	  //삭제버튼 클릭시 적용되는 함수 

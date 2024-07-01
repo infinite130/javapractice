@@ -10,17 +10,17 @@
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common.css">
 </head>
 <body>
+    <header>
     <!-- 로고 이미지 추가 및 링크 설정 -->
     <div class="logo-container">
         <a href="${ pageContext.servletContext.contextPath }">
             <img src="${ pageContext.servletContext.contextPath }/resources/image/common/logo.png" alt="Logo">
         </a>
     </div>
-    <div class="header">
         <div class="menu-area">
             <div class="nav-area">
                 <ul>
-                    <li><a href="${ pageContext.servletContext.contextPath }/home">home</a></li>
+                    <li><a href="${ pageContext.servletContext.contextPath }/home">소개</a></li>
                     <li><a href="${ pageContext.servletContext.contextPath }/down/enroll">내려요</a></li>
                     <li><a href="${ pageContext.servletContext.contextPath }/lnf/first">분실물</a></li>
                     <li><a href="${ pageContext.servletContext.contextPath }/community/list">커뮤니티</a></li>
@@ -41,12 +41,6 @@
                 </ul>
             </div>
         </div>
-    </div>
-
-    <!-- Footer 추가 -->
-    <div class="footer">
-        <p>© 2024 JAVANOS. All rights reserved.</p>
-    </div>
-
+    </header>
 </body>
 </html>

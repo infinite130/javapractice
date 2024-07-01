@@ -52,46 +52,6 @@
 		<result property="communityNo" column="COMMUNITY_NO"/>
 	</resultMap>
 
-<!-- 	<select id="selectAllCommunityList" resultMap="communityResultMap">
-		SELECT
-				A.COMMUNITY_NO,
-				A.COMMUNITY_TITLE,
-				A.COMMUNITY_BODY,
-				A.COMMUNITY_COUNT,
-				A.COMMUNITY_ENROLL_DATE,
-				A.COMMUNITY_BOARD_STATUS,
-				A.USER_NO,
-			B.USER_NICKNAME
-		FROM TBL_COMMUNITY A JOIN TBL_USER B ON (A.USER_NO = B.USER_NO)
-		WHERE A.COMMUNITY_BOARD_STATUS = 'Y'
-		ORDER BY A.COMMUNITY_ENROLL_DATE DESC
-	</select> -->
-
-
-<!-- 	<select id="selectOneCommunity" resultMap="communityResultMap">
-	SELECT 
-				A.COMMUNITY_NO,
-				A.COMMUNITY_TITLE,
-				A.COMMUNITY_BODY,
-				A.COMMUNITY_COUNT,
-				A.COMMUNITY_ENROLL_DATE,
-				A.COMMUNITY_BOARD_STATUS,
-				A.USER_NO,
-			B.USER_NICKNAME
-		FROM TBL_COMMUNITY A JOIN TBL_USER B ON (A.USER_NO = B.USER_NO)
-		AND A.COMMUNITY_BOARD_STATUS = 'Y'
-		WHERE A.COMMUNITY_NO = #{communityNo}
-	</select> -->
-	
-<!-- 	<update id="updateCommunity" parameterType="com.javanos.project.community.model.dto.CommunityDTO">
-		UPDATE TBL_COMMUNITY
-		SET
-			COMMUNITY_TITLE = #{communityTitle},
-			COMMUNITY_BODY = #{communityBody},
-			COMMUNITY_MODIFY_DATE = #{communityModifyDate}
-		WHERE COMMUNITY_NO = #{communityNo}
-	</update> -->
-	
 	<update id="updateCommunity" parameterType="com.javanos.project.community.model.dto.CommunityDTO">
 		UPDATE TBL_COMMUNITY
 		SET
@@ -101,29 +61,6 @@
 		WHERE COMMUNITY_NO = #{communityNo}
 	</update>
 	
-	<!-- <update id="updatePicture" parameterType="com.javanos.project.community.model.dto.PictureDTO">
-		UPDATE TBL_PIC
-		SET ORIGINAL_NAME = #{originalName},
-		    SAVED_NAME = #{saveName},
-		    SAVE_PATH = #{savePath},
-		    FILE_TYPE = #{fileType},
-		    THUMBNAIL_PATH = #{thumbnailPath}
-		WHERE COMMUNITY_NO = #{communityNo}
-	</update> -->
-	
-<!-- 	<update id="updateCommunityWithPic">
-		UPDATE TBL_COMMUNITY A 
-		LEFT JOIN TBL_PIC C ON A.COMMUNITY_NO = C.COMMUNITY_NO
-		SET A.COMMUNITY_TITLE = "수정하려고 작성",
-		    A.COMMUNITY_BODY = "수정하는 내용",
-		    A.COMMUNITY_MODIFY_DATE = NOW(),
-		    C.ORIGINAL_NAME = "",
-		    C.SAVED_NAME = "",
-		    C.SAVE_PATH = "",
-		    C.FILE_TYPE = "",
-		    C.THUMBNAIL_PATH = ""
-		WHERE A.COMMUNITY_NO = 13;
-	</update> -->
 	
 	<!--게시글 삭제 버튼을 누르면 행해지는 태그들  -->
 	<update id="deleteCommunity" parameterType="int">
@@ -154,6 +91,13 @@
 		WHERE COMMUNITY_NO = #{communityNo}
 	</update>
 	
+	<select id="selectTotalCount" resultType="_int">
+		SELECT
+               COUNT(*)
+        FROM TBL_COMMUNITY
+		WHERE COMMUNITY_BOARD_STATUS = 'Y'
+	</select>
+	
 	<select id="selectThumbnailList" resultMap="ThumbnailResultMap">
         SELECT
 	        A.COMMUNITY_NO,
@@ -168,7 +112,8 @@
 	    JOIN TBL_USER B ON (A.USER_NO = B.USER_NO)
 	    LEFT JOIN TBL_PIC C ON (A.COMMUNITY_NO = C.COMMUNITY_NO AND C.FILE_TYPE = 'TITLE') 
 	    WHERE A.COMMUNITY_BOARD_STATUS = 'Y'
-	    ORDER BY A.COMMUNITY_ENROLL_DATE DESC;
+	    ORDER BY A.COMMUNITY_ENROLL_DATE DESC
+	    LIMIT #{ startRow }, #{ limit }
 	</select>
 	
 	<select id="selectOneThumbnailList" resultMap="ThumbnailResultMap">

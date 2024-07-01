@@ -10,7 +10,7 @@
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
-		<h2>커뮤니티 게시글 수정</h2>
+		<h2 align="center">커뮤니티 게시글 수정</h2>
 			<form id="edit-post-form" action="${pageContext.servletContext.contextPath}/community/update" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="communityNo" value="${ community.communityNo }">
 				<div class="thumbnail-update-area">
@@ -30,10 +30,19 @@
 							<tr>
 								<td data-label="썸네일 사진">썸네일 사진</td>
 								<td>
-									<div class="title-img-area" id="titleImgArea">
-										<img id="titleImgView" class="thumbnailImg" width="200" height="150" src="${pageContext.servletContext.contextPath }${community.pictureList[0].thumbnailPath }">
-										<button type="button" class="remove-image-btn" data-image-id="${community.pictureList[0].picNo}">삭제</button>
-									</div>
+									<label>섬네일은 1개만 선택이 가능합니다.</label>
+									<c:choose>
+										<c:when test="${ not empty community.pictureList }">
+											<div class="title-img-area" id="titleImgArea">
+												<img id="titleImgView" class="thumbnailImg" onerror="setDefaultImage(this);" src="${pageContext.servletContext.contextPath }${community.pictureList[0].thumbnailPath }">
+											</div>
+												<button type="button" class="remove-image-btn" data-image-id="${community.pictureList[0].picNo}">삭제</button>
+										</c:when>
+										<c:when test="${ empty community.pictureList }">
+					            			<label>첨부한 사진이 없습니다.</label>
+					            			<img class="imgView" onerror="setDefaultImage(this);">
+							           </c:when>
+									</c:choose>
 									<input type="file" id="thumbnailImg" name="thumbnailImg">
 								</td>
 							</tr>
@@ -41,13 +50,24 @@
 							<tr>
 								<td data-label="내용 사진">내용 사진</td>
 								<td data-label="내용 사진 선택 칸" colspan="3">
+									<label>내용사진은 3개까지 선택이 가능합니다.</label>
 									<div id="img-container">
-											<c:forEach items="${community.pictureList}" var="picture" begin="1">
-												<div class="body-img-area" id="bodyImgArea">
-													<img id="bodyImgView" class="imgView" src="${pageContext.servletContext.contextPath }${picture.thumbnailPath }">
-													<button type="button" class="remove-image-btn" data-image-id="${picture.picNo}">삭제</button>
-												</div>
-											</c:forEach>
+									<c:choose>
+							            	<c:when test="${ not empty community.pictureList }">
+							            		<div class="body-img-area" id="bodyImgArea">
+									                <c:forEach items="${ community.pictureList }" var="picture" begin="1">
+									                        <img class="imgView" onerror="setDefaultImage(this);" src="${pageContext.servletContext.contextPath }${ picture.thumbnailPath }">
+															<button type="button" class="remove-image-btn" data-image-id="${picture.picNo}">삭제</button>
+									                </c:forEach>
+									             </div>
+							            	</c:when>
+							            	<c:when test="${ empty community.pictureList }">
+							            			<label>첨부한 사진이 없습니다.</label>
+							            			<img class="imgView" onerror="setDefaultImage(this);">
+							            			<img class="imgView" onerror="setDefaultImage(this);">
+							            			<img class="imgView" onerror="setDefaultImage(this);">
+							            	</c:when>
+							         </c:choose>
 									</div>
 									<input type="file" id="bodyImg" name="bodyImg" multiple>
 								</td>
@@ -63,9 +83,9 @@
 					</div>
 				<div class="button-area">
 					<button type="submit" id="submitBtn">등록</button>
+					<button type="button" onclick="gobackdetail()">취소</button>
 				</div>
 			</form>
-					<button onclick="gobackdetail()">취소</button>
 			
 			
 			
@@ -111,7 +131,6 @@
 		           const files = event.target.files;
 		           const imgElements = document.querySelectorAll('.imgView');
 	
-		           //이미지가 선택되었다가 다시 선택할 수 있으니까
 		           imgElements.forEach(img => {
 		               img.src = '';
 		           });
@@ -128,10 +147,14 @@
 		       });
 		});
 		
+	
 		
-		
-		
-		
+		function setDefaultImage(img) {
+			console.log("파일을 등록하지 않았거나 파일의 경로를 찾을 수 없습니다.");
+			img.onerror = null;
+			img.src ='${pageContext.servletContext.contextPath}/resources/image/community/basicImage.png';
+		};
+    
 		
 		
 		function gobackdetail() {

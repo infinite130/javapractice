@@ -10,6 +10,8 @@
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
+	<div id="wrap">
+	<section>
 		<h2 align="center">커뮤니티 게시글 작성</h2>
 			<form action="${pageContext.servletContext.contextPath}/community/insert" method="post" enctype="multipart/form-data">
 				<div class="thumbnail-insert-area">
@@ -27,7 +29,7 @@
 								<td data-label="썸네일 사진">썸네일 사진</td>
 								<td colspan="2">
 									<div class="title-img-area" id="titleImgArea">
-										<img id="titleImgView" width="350" height="200">
+										<img id="titleImgView">
 									</div>
 									<input type="file" id="thumbnailImg" name="thumbnailImg">
 								</td>
@@ -54,9 +56,13 @@
 				</div>
 				<div class="button-area">
 					<button type="submit" id="submitBtn">등록</button>
+					<button type="button" id="cancel">취소</button>
 				</div>
 			</form>
-					<button id="cancel">취소</button>
+			</section>
+			</div>
+			<jsp:include page="../common/footer.jsp"/>
+			
 			
 	<script>
 		document.getElementById('thumbnailImg').addEventListener('change', (event) => {

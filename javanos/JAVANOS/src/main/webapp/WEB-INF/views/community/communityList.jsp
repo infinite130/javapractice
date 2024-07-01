@@ -9,9 +9,9 @@
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/community/communityList.css">
 <body>	
 	<jsp:include page="../common/menubar.jsp"/>
-	
-	<div class="outer-community-list">
-		<br>
+	<div id="wrap">
+	<section>
+	<div id="outer-community-list">
 		<h2 align="center">커뮤니티 게시판</h2>
 		<br>
 		<div class="community-list-area" >
@@ -20,10 +20,7 @@
 			</c:if>
 			<c:forEach items="${ communityList }" var="community">
 				<div class= "list-bar" onclick="showCommunityDeatil(${community.communityNo})">
-					<div class="title-img-area" id="titleImgArea">
-						<img id="titleImgView" onerror="setDefaultImage(this);" src="${pageContext.servletContext.contextPath }${ community.pictureList[0].thumbnailPath }">
-					</div>
-					
+						<img id="listTitleImgView" onerror="setDefaultImage(this);" src="${pageContext.servletContext.contextPath }${ community.pictureList[0].thumbnailPath }">
 					<div id="communityTitleArea">
 						<c:out value="${community.communityTitle}"></c:out>
 					</div>
@@ -34,16 +31,12 @@
 					</p>
 				</div>
 			</c:forEach>
-		
-		
-		
 		</div>
-	
-	
-	
-	
-	
 	</div>
+	<jsp:include page="../common/paging.jsp"/>
+	</section>
+	</div>
+	<jsp:include page="../common/footer.jsp"/>
 	
 	
 	

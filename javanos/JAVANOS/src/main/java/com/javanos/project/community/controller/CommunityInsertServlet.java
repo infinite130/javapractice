@@ -197,11 +197,10 @@ public class CommunityInsertServlet extends HttpServlet {
         System.out.println(result);
         if (result > 0) {
             path = "/WEB-INF/views/common/success.jsp";
-            request.setAttribute("successCode", "communityInsert");
-            request.setAttribute("message", "게시글이 등록되었습니다!");
+            request.setAttribute("successCode", "insertCommunity");
         } else {
             path = "/WEB-INF/views/common/fail.jsp";
-            request.setAttribute("code", "communityInsert");
+            request.setAttribute("code", "insertCommunity");
             request.setAttribute("message", "게시글 등록에 실패했습니다");
         }
         request.getRequestDispatcher(path).forward(request, response);

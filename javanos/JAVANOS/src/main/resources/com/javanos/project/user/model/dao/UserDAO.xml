@@ -102,5 +102,4 @@
 	 		AND (USER_STOP_DATE IS NULL OR CURDATE() > USER_STOP_DATE) 
 	</update>
 	
-	
 </mapper>

@@ -17,6 +17,21 @@
 		// 공지사항 전체 목록 페이지로 이동
 		location.href = "${pageContext.servletContext.contextPath}/notice/list";
 	}
+	
+	
+	// 폼 제출 시 유효성 검사
+	function validateForm() {
+		var title = document.querySelector("input[name=title]").value.trim();
+		var body = document.querySelector("textarea[name=body]").value.trim();
+
+		if (title === "" || body === "") {
+			alert("제목과 내용을 모두 입력해주세요.");
+			return false; // 제출 막기
+		}
+
+		return true; // 유효성 검사 통과 시 제출 허용
+	}
+	
 </script>
 </head>
 <body>
@@ -31,7 +46,7 @@
 		<div class="table-area">
 			<form
 				action="${ pageContext.servletContext.contextPath }/notice/update"
-				method="post">
+				method="post" onsubmit="return validateForm()">
 
 				<table>
 					<tr>
@@ -54,7 +69,7 @@
 						<td>내용</td>
 					</tr>
 					<tr>
-						<td colspan="2"><textarea name="content" cols="60" rows="15"
+						<td colspan="2"><textarea name="body" cols="60" rows="15"
 								style="resize: none;"><c:out
 									value="${ requestScope.notice.noticeBody }" /></textarea></td>
 					</tr>

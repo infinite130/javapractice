@@ -204,8 +204,8 @@
 
 
 	<!-- 제목+내용 검색 -->
-	<select id="searchNoticeByTitleAndBody" resultMap="noticeResultMap"
-		parameterType="String">
+	<select id="searchNoticeByTitleAndBody"
+		resultMap="noticeResultMap" parameterType="String">
 		SELECT
 		A.NOTICE_NO,
 		A.NOTICE_TITLE,
@@ -215,15 +215,16 @@
 		A.NOTICE_ENROLL_DATE,
 		A.NOTICE_COUNT
 		FROM TBL_NOTICE A
-		JOIN TBL_USER B ON (A.NOTICE_USER_NO = B.USER_NO)
+		JOIN TBL_USER B ON
+		(A.NOTICE_USER_NO = B.USER_NO)
 		WHERE A.NOTICE_BOARD_STATUS = 'Y'
 		AND (
 		A.NOTICE_TITLE LIKE CONCAT('%', #{keyword}, '%')
-		OR A.NOTICE_BODY LIKE CONCAT('%', #{keyword}, '%')
+		OR A.NOTICE_BODY LIKE
+		CONCAT('%', #{keyword}, '%')
 		)
 		ORDER BY A.NOTICE_NO DESC
 	</select>
-
 
 
 

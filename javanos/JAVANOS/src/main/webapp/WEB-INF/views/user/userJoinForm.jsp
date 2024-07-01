@@ -253,9 +253,9 @@
 		    // 이용약관 동의 유효성 검사 함수
 		    function validateAgreeTerms() {
 		        if (!$("#agreeTerms").is(":checked")) {
-		            $("#agreeTermsType").text("이용약관에 동의해야 합니다.").addClass('invalid');
+		            $("#agreeTermsType").text("이용약관에 동의해야 합니다.").removeClass('valid').addClass('invalid');
 		        } else {
-		            $("#agreeTermsType").text("").removeClass('invalid').addClass('valid');
+		            $("#agreeTermsType").text("").removeClass('invalid')
 		        }
 		    }
 		});

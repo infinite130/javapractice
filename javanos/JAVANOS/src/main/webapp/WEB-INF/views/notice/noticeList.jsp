@@ -10,6 +10,7 @@
 <title>공지사항 목록</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/notice/noticeList.css">
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
@@ -114,7 +115,8 @@
 				<c:forEach items="${ noticeList }" var="notice" varStatus="loop">
 					<tr>
 						<td>${loop.index + 1}</td>
-						<td class="hidden number-cell"><c:out value="${ notice.noticeNo }" /></td>
+						<td class="hidden number-cell"><c:out
+								value="${ notice.noticeNo }" /></td>
 						<td><c:out value="${ notice.noticeTitle }" /></td>
 						<td><c:out value="${ notice.noticeWriter.userNickname }" /></td>
 						<td><c:out value="${ notice.noticeEnrollDate }" /></td>
@@ -135,7 +137,6 @@
 				<button type="submit">검색하기</button>
 			</form>
 
-
 			<!-- 목록 버튼 추가 -->
 			<button id="listButton">목록</button>
 
@@ -148,8 +149,6 @@
 	</div>
 
 
-
 </body>
 </html>
 
- 

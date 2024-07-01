@@ -44,6 +44,7 @@
 		<result property="userStopDate" column="USER_STOP_DATE" />
 	</resultMap>
 	
+
 	<select id="selectTotalCount" resultType="_int">
 		select count(*) 
 		from tbl_down A
@@ -56,7 +57,7 @@
 			</if>
 	</select>
 	
-	
+
 	<select id="selectDownList" resultMap="downResultMap">
 		SELECT A.DOWN_NO 
 		, A.DOWN_ROOM 
@@ -92,7 +93,7 @@
 		  #{ inStationNo },
 	      #{downStationNo },
 		  #{ userNo },
-		  #{downRoom}, 
+		  #{downRoom},  
 		  #{ downFull} ) 
 		</insert>
 	

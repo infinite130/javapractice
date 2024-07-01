@@ -88,3 +88,14 @@ body {
 /*     margin-bottom: 20px; 아래 여백
  */    border-collapse: collapse; /* 테이블 셀 경계 통합 */
 }
+
+.mypage-wrapper .button-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.mypage-wrapper .button-row input[type="button"] {
+    width: 48%; 
+    margin-top: 0; 
+    margin-bottom: 0; 
+}

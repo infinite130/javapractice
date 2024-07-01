@@ -42,6 +42,10 @@
 					successMessage = "정상적으로 수정되었습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/notice/list";
 					break;
+				case "communityUpdate" :
+					successMessage = "정상적으로 수정되었습니다."
+					movePath = "${ pageContext.servletContext.contextPath }/community/detail?communityNo=${requestScope.communityNo}";
+					break;
 			}
 
 			alert(successMessage);

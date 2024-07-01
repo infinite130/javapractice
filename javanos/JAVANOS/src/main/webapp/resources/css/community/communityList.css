@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-body  {
+html, body  {
 	font-family: Arial, sans-serif;
 	line-height: 1.6;
 	background-color: #f5f5f5;
@@ -14,23 +14,23 @@ body  {
     align-items: center; /*수직 정렬 시 가운데 정렬 (옵션)*/
     gap: 10px; /*요소 간격 설정 (옵션)*/
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #f5f5f5;
     max-width:1000px;
     margin: 0 auto;
 }
 
-/* .community-list-area button {
-    padding: 10px 20px; 버튼 내부 여백 설정
-    font-size: 18px; 글꼴 크기 설정
+.community-list-area button {
+    padding: 5px 15px; 
+    font-size: 18px;
     border: solid;
-    background-color:LightGreen; 배경색 설정
-    color: #635DDA; 글자색 설정
+    background-color:LightGreen;
+    color: #635DDA; 
     font-weight: bold;
-    border-radius: 5px; 테두리 둥글기 설정
-    cursor: pointer; 포인터 커서 설정
+    border-radius: 5px; 
+    cursor: pointer; 
     margin-left: auto; 
     margin-right: 0px;
-} */
+}
 
 .button-area {
     padding: 10px;
@@ -46,7 +46,7 @@ body  {
     margin: 0 auto;
 }
 
-.button-area button {
+button {
     font-size: 14px; /* 글꼴 크기 설정 */
     border: solid;
     background-color: LightGreen; /* 배경색 설정 */
@@ -62,7 +62,8 @@ body  {
     display: flex;
     align-items: center;
     width: 100%;
-    max-width: 900px;
+    max-width: 1000px;
+    min-width:380px;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -77,29 +78,37 @@ body  {
 
 .title-img-area {
     flex-shrink: 0;
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 150px;
     overflow: hidden;
-    margin-right: 20px;
 }
 
 
-.title-img-area img {
-    width: 100%;
-    height: auto; /* 이미지 반응형 크기 */
-    max-width: 100px; /* 최대 너비 설정 */
-    height: 100px; /* 고정 높이 설정 */
+/*리스트의 이미지  */
+#listTitleImgView{
+	width: 100%;
+    height: 100%; /* 이미지 반응형 크기 */
+    max-width: 120px; /* 최대 너비 설정 */
+    max-height: 120px;
     object-fit: cover; /* 이미지 커버 모드 설정 */
 }
 
+/* 모든 이미지에 적용  */
 img {
     width: 100%;
-    height: auto; /* 이미지 반응형 크기 */
-    max-width:200px; /* 최대 너비 설정 */
-    height: 150px; /* 고정 높이 설정 */
-    object-fit: cover; /* 이미지 커버 모드 설정 */
+    height: auto; 
+    max-width:200px;
+    height: 150px; 
+    object-fit: contain;
 }
 
+/* #titleImgView{
+	width: 100%;
+    height: 100%; 이미지 반응형 크기
+    max-width: 200px; 최대 너비 설정
+    height: 150px; 고정 높이 설정
+    object-fit: cover; 이미지 커버 모드 설정
+} */
 
 #communityTitleArea {
 	color: black;
@@ -107,7 +116,11 @@ img {
     margin-top: 8px;
 }
 
-
+#wrap{
+	min-height: 100vh;
+	position:relative;
+	width:100%
+}
 
 .list-bar p {
     margin: 0;
@@ -129,6 +142,10 @@ img {
 .list-bar p c\\:out {
     font-size: 16px;
     font-weight: bold;
+}
+
+section{
+	padding-bottom:110px;
 }
 
 
