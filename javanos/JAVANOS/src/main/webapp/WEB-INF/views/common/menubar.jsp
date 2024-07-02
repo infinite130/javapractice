@@ -14,7 +14,7 @@
     <!-- 로고 이미지 추가 및 링크 설정 -->
     <div class="logo-container">
         <a href="${ pageContext.servletContext.contextPath }">
-            <img src="${ pageContext.servletContext.contextPath }/resources/image/common/logo.png" alt="Logo">
+            <img id="logoImg" src="${ pageContext.servletContext.contextPath }/resources/image/common/logo.png" alt="Logo">
         </a>
     </div>
         <div class="menu-area">

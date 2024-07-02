@@ -17,6 +17,7 @@
 	src="${pageContext.request.contextPath}/resources/js/notice/event.js"></script>
 
 <script>
+
 	// JavaScript로 작성 버튼 클릭 이벤트 처리
 	window.onload = function() {
 		// 작성 버튼 클릭 시 작성 페이지로 이동
@@ -97,58 +98,65 @@
 </head>
 <body>
 
+
 	<jsp:include page="../common/menubar.jsp" />
+	<div id="wrap">
+		<section>
 
-	<div class="outer outer-notice-list">
-		<br>
-		<h2 align="center">공지사항</h2>
-		<div class="table-area">
-			<table align="center" id="listArea">
-				<tr align="center">
-					<th>번호</th>
-					<th class="hidden number-cell">pk번호</th>
-					<th width="300px">제목</th>
-					<th width="100px">작성자</th>
-					<th width="100px">작성일</th>
-					<th>조회수</th>
-				</tr>
-				<c:forEach items="${ noticeList }" var="notice" varStatus="loop">
-					<tr>
-						<td>${loop.index + 1}</td>
-						<td class="hidden number-cell"><c:out
-								value="${ notice.noticeNo }" /></td>
-						<td><c:out value="${ notice.noticeTitle }" /></td>
-						<td><c:out value="${ notice.noticeWriter.userNickname }" /></td>
-						<td><c:out value="${ notice.noticeEnrollDate }" /></td>
-						<td><c:out value="${ notice.noticeCount }" /></td>
-					</tr>
-				</c:forEach>
-			</table>
-		</div>
-		<div class="search-area" align="center">
-			<form
-				action="${pageContext.request.contextPath}/notice/noticeSearchList"
-				method="GET">
-				<select id="searchCondition" name="searchCondition">
-					<option value="title">제목</option>
-					<option value="body">내용</option>
-					<option value="titleAndBody">제목+내용</option>
-				</select> <input type="search" name="keyword">
-				<button type="submit">검색하기</button>
-			</form>
+			<div class="outer outer-notice-list">
+				<br>
+				<h2 align="center">공지사항</h2>
+				<div class="table-area">
+					<table align="center" id="listArea">
+						<tr align="center">
+							<th>번호</th>
+							<th class="hidden number-cell">pk번호</th>
+							<th width="300px">제목</th>
+							<th width="100px">작성자</th>
+							<th width="100px">작성일</th>
+							<th>조회수</th>
+						</tr>
+						<c:forEach items="${ noticeList }" var="notice" varStatus="loop">
+							<tr>
+								<td>${loop.index + 1}</td>
+								<td class="hidden number-cell"><c:out
+										value="${ notice.noticeNo }" /></td>
+								<td><c:out value="${ notice.noticeTitle }" /></td>
+								<td><c:out value="${ notice.noticeWriter.userNickname }" /></td>
+								<td><c:out value="${ notice.noticeEnrollDate }" /></td>
+								<td><c:out value="${ notice.noticeCount }" /></td>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
+				<div class="search-area" align="center">
+					<form
+						action="${pageContext.request.contextPath}/notice/noticeSearchList"
+						method="GET">
+						<select id="searchCondition" name="searchCondition">
+							<option value="title">제목</option>
+							<option value="body">내용</option>
+							<option value="titleAndBody">제목+내용</option>
+						</select> <input type="search" name="keyword">
+						<button type="submit">검색하기</button>
+					</form>
 
-			<!-- 목록 버튼 추가 -->
-			<button id="listButton">목록</button>
+					<!-- 목록 버튼 추가 -->
+					<button id="listButton">목록</button>
 
 
-			<!-- 관리자인 경우에만 작성 버튼이 보여집니다. -->
-			<c:if test="${ sessionScope.loginUser.userRole eq 'ROLE_ADMIN' }">
-				<button id="writeNotice">작성</button>
-			</c:if>
-		</div>
+					<!-- 관리자인 경우에만 작성 버튼이 보여집니다. -->
+					<c:if test="${ sessionScope.loginUser.userRole eq 'ROLE_ADMIN' }">
+						<button id="writeNotice">작성</button>
+					</c:if>
+				</div>
+			</div>
+			<jsp:include page="../common/paging.jsp" flush="false">
+				<jsp:param value="/notice/list" name="link"/>
+			</jsp:include>
+		</section>
 	</div>
-
-
+	<jsp:include page="../common/footer.jsp" />
 </body>
 </html>
 

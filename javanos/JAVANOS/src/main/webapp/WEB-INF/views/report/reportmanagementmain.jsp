@@ -2,17 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.List" %>
 <%@ page import="com.javanos.project.report.model.dto.ReportDTO" %>
-<%@ page import="com.javanos.project.user.model.dto.UserDTO" %>
+<%@ page import="com.javanos.project.common.paging.SelectCriteria" %>
 
 <%
     List<ReportDTO> reports = (List<ReportDTO>) request.getAttribute("reports");
-    if (reports != null) {
-        for (ReportDTO report : reports) {
-            System.out.println("Report No: " + report.getReportNo());
-            System.out.println("Report User ID: " + (report.getReportUser() != null ? report.getReportUser().getUserId() : "null"));
-            System.out.println("Reported User ID: " + (report.getReportedUser() != null ? report.getReportedUser().getUserId() : "null"));
-        }
-    }
+    SelectCriteria selectCriteria = (SelectCriteria) request.getAttribute("selectCriteria");
 %>
 
 <!DOCTYPE html>
@@ -25,6 +19,13 @@
             font-family: Arial, sans-serif;
             background-color: #e8f5e9;
             color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .content {
+            flex: 1;
         }
         table {
             width: 80%;
@@ -65,42 +66,75 @@
         .button:hover {
             background-color: #388e3c;
         }
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .pagination a {
+            margin: 0 5px;
+            text-decoration: none;
+            padding: 5px 10px;
+            color: #4caf50;
+            border: 1px solid #4caf50;
+            border-radius: 3px;
+        }
+        .pagination a.active {
+            background-color: #4caf50;
+            color: white;
+        }
+        .pagination a:hover {
+            background-color: #388e3c;
+            border-color: #388e3c;
+            color: white;
+        }
+        footer {
+            background-color: #4caf50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
     </style>
-    <script>
-        window.onload = function() {
-            // 세션에 message가 있는 경우 alert 창으로 표시
-            <c:if test="${not empty sessionScope.message}">
-                alert('${sessionScope.message}');
-                <c:remove var="message" scope="session"/>
-            </c:if>
-        };
-    </script>
 </head>
 <body>
 <jsp:include page="../common/menubar.jsp"/>
 
-<div class="container">
-    <h1>신고 관리 페이지</h1>
-    <table>
-        <tr>
-            <th>신고 번호</th>
-            <th>신고 사유</th>
-            <th>신고 날짜</th>
-            <th>신고자</th>
-            <th>신고당한 회원</th>
-            <th>상세 보기</th>
-        </tr>
-        <c:forEach var="report" items="${reports}">
+<div class="content">
+    <div class="container">
+        <h1>신고 관리 페이지</h1>
+        <table>
             <tr>
-                <td>${report.reportNo}</td>
-                <td>${report.reportReason}</td>
-                <td>${report.reportDate}</td>
-                <td><c:out value="${report.reportUser.userId}" /></td>
-                <td><c:out value="${report.reportedUser.userId}" /></td>
-                <td><a href="reportdetail?reportNo=${report.reportNo}">상세 보기</a></td>
+                <th>신고 번호</th>
+                <th>신고 사유</th>
+                <th>신고 날짜</th>
+                <th>신고자</th>
+                <th>신고당한 회원</th>
+                <th>상세 보기</th>
             </tr>
-        </c:forEach>
-    </table>
+            <c:forEach var="report" items="${reports}">
+                <tr>
+                    <td>${report.reportNo}</td>
+                    <td>${report.reportReason}</td>
+                    <td>${report.reportDate}</td>
+                    <td><c:out value="${report.reportUser.userId}" /></td>
+                    <td><c:out value="${report.reportedUser.userId}" /></td>
+                    <td><a href="reportdetail?reportNo=${report.reportNo}">상세 보기</a></td>
+                </tr>
+            </c:forEach>
+        </table>
+        
+        <div class="pagination">
+            <c:forEach begin="${selectCriteria.startPage}" end="${selectCriteria.endPage}" var="i">
+                <a href="CheckBoard?currentPage=${i}" class="${i == selectCriteria.pageNo ? 'active' : ''}">${i}</a>
+            </c:forEach>
+        </div>
+    </div>
 </div>
+
+<footer>
+    <jsp:include page="../common/footer.jsp"/>
+</footer>
 </body>
 </html>

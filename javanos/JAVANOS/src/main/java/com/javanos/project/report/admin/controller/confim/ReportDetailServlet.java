@@ -8,13 +8,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import com.javanos.project.report.model.dto.ReportDTO;
 import com.javanos.project.report.model.service.ReportService;
-import com.javanos.project.user.model.service.UserService;
 
 @WebServlet("/reportdetail")
 public class ReportDetailServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private ReportService reportService = new ReportService();
-    private UserService userService = new UserService(); // 사용자 서비스 추가
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -25,12 +23,23 @@ public class ReportDetailServlet extends HttpServlet {
             ReportDTO report = reportService.selectReportByNo(reportNo);
             request.setAttribute("report", report);
 
+            // 디버깅 로그 추가
+            System.out.println("Report: " + report);
+            if (report != null) {
+                System.out.println("Report No: " + report.getReportNo());
+                System.out.println("Report Reason: " + report.getReportReason());
+                System.out.println("Reported User ID: " + (report.getReportedUser() != null ? report.getReportedUser().getUserId() : "N/A"));
+                System.out.println("Community No: " + (report.getCommunityNo() != null ? report.getCommunityNo().getCommunityNo() : "N/A"));
+            }
+
             // JSP 페이지로 포워딩
             request.getRequestDispatcher("/WEB-INF/views/report/reportdetail.jsp").forward(request, response);
         } catch (NumberFormatException e) {
+            e.printStackTrace();
             // 잘못된 reportNo가 전달된 경우 오류 처리
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid report number.");
         } catch (Exception e) {
+            e.printStackTrace();
             // 기타 예외 처리
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing the request.");
         }
@@ -38,42 +47,52 @@ public class ReportDetailServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
+        System.out.println("Action: " + action); // 디버깅용 출력
+
         if ("delete".equals(action)) {
             try {
                 // 삭제 요청 처리
                 int reportNo = Integer.parseInt(request.getParameter("reportId"));
-                reportService.deleteReport(reportNo);
+                boolean isDeleted = reportService.deleteReport(reportNo);
                 // 삭제 성공 메시지 설정
-                request.getSession().setAttribute("message", "신고글이 삭제되었습니다.");
+                System.out.println("Delete Report No: " + reportNo); // 디버깅용 출력
+                System.out.println("Is Report Deleted: " + isDeleted); // 디버깅용 출력
+
+                if (isDeleted) {
+                    request.getSession().setAttribute("message", "신고글이 삭제되었습니다.");
+                } else {
+                    request.getSession().setAttribute("message", "신고글 삭제에 실패했습니다.");
+                }
                 response.sendRedirect(request.getContextPath() + "/CheckBoard");
             } catch (NumberFormatException e) {
+                e.printStackTrace();
                 // 잘못된 reportNo가 전달된 경우 오류 처리
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid report number.");
             } catch (Exception e) {
+                e.printStackTrace();
                 // 기타 예외 처리
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing the request.");
             }
         } else if ("confirm".equals(action)) {
             try {
-                // 계정 정지 요청 처리
                 int reportNo = Integer.parseInt(request.getParameter("reportId"));
-                ReportDTO report = reportService.selectReportByNo(reportNo);
-                
-                // 신고된 사용자의 ID를 가져옴
-                String reportedUserId = report.getReportedUser().getUserId();
+                boolean isConfirmed = reportService.updateReportStatus(reportNo, "계정정지완료");
 
-                // 사용자 계정을 정지 처리하는 서비스 호출
-                userService.suspendUserAccount(reportedUserId);
+                // 상태 업데이트 결과 출력
+                System.out.println("Confirm Report No: " + reportNo); // 디버깅용 출력
+                System.out.println("Is Report Confirmed: " + isConfirmed); // 디버깅용 출력
 
-                // 정지 성공 메시지 설정
-                request.getSession().setAttribute("message", "사용자 계정이 정지되었습니다.");
-
-                // 홈페이지로 리다이렉트
-                response.sendRedirect(request.getContextPath() + "/home");
+                if (isConfirmed) {
+                    response.sendRedirect(request.getContextPath() + "/CheckBoard");
+                } else {
+                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to update report status.");
+                }
             } catch (NumberFormatException e) {
+                e.printStackTrace();
                 // 잘못된 reportNo가 전달된 경우 오류 처리
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid report number.");
             } catch (Exception e) {
+                e.printStackTrace();
                 // 기타 예외 처리
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing the request.");
             }

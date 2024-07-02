@@ -15,6 +15,7 @@
 			let movePath = "";
 			
 			switch(successCode){
+				/* user 관련  */
 				case "joinUser" : 
 					successMessage = "회원가입에 성공하셨습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }";
@@ -28,23 +29,66 @@
 					movePath = "${ pageContext.servletContext.contextPath }";
 					break;
 					
-				case "reportSubmitted":
-					successMessage = "신고가 완료되었습니다.";
-					movePath = "${ pageContext.servletContext.contextPath }/community/list";
-					break;
 					
+					/* 공지사항 관련  */
 				case "insertNotice" :
-					successMessage = "새로운 공지사항이 등록되었습니다."
+					successMessage = "정상적으로 등록되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/notice/list";
 					break;
 					
 				case "updateNotice" :
-					successMessage = "정상적으로 수정되었습니다."
+					successMessage = "정상적으로 수정되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/notice/list";
 					break;
-				case "communityUpdate" :
-					successMessage = "정상적으로 수정되었습니다."
+					
+					
+					/* 커뮤니티 관련 */
+				case "insertCommunity" :
+					successMessage = "정상적으로 등록되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/community/list";
+					break;
+				case "updateCommunity" :
+					successMessage = "정상적으로 수정되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/community/detail?communityNo=${requestScope.communityNo}";
+					break;
+
+				case "deleteCommunity" :
+					successMessage = "정상적으로 삭제되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/community/list";
+					break;
+					
+					
+					/* 분실물 관련 */
+				case "enrollLnfBoard":
+					successMessage = "정상적으로 등록되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/lnf/insert";
+					break;
+
+				case "modifyLnfBoard":
+					successMessage = "정상적으로 수정되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/lnf/modify";
+					break;
+
+				case "deleteLnfBoard":
+					successMessage = "정상적으로 삭제되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/lnf/delete";
+					break;
+
+				case "searchLnfBoard":
+					successMessage = "정상적으로 등록되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/lnf/search";
+					break;
+
+					/* 내려요 관련 */
+				case "downEnroll" :
+					successMessage = "정상적으로 등록되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/down/enroll";
+					break;
+					
+					/* 신고 관련 */
+				case "reportSubmitted":
+					successMessage = "신고가 완료되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/community/list";
 					break;
 			}
 

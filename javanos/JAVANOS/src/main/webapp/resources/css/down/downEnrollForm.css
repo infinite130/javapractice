@@ -135,17 +135,33 @@
         }
         
         .date {
-         position: absolute;
-        left: 10px; /* 왼쪽 위치 */
-        top: 10px; /* 위쪽 위치 */
-        font-size: 12px; /* 폰트 크기 */
+        block-size: 27px;
+        font-size: 15px; /* 폰트 크기 */
         background-color: #848484;
     }
      
       .nickname {
-        position: absolute;
+        
         top: 20px; /* 위쪽 위치 */
         right: 20px; /* 오른쪽 위치 */
         font-size: 20px; /* 폰트 크기 */
+    }
+    
+    .item-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        border: 2px solid #000; /* 테두리 두께 */
+        padding:30px; /* 패딩 */
+        border-radius: 10px; /* 테두리 둥글기 */
+        width: 500%;
+        box-sizing: border-box;
+    
+    }
+    .top-info {
+        width: 1000%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2px;
     }
     

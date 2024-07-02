@@ -63,11 +63,8 @@
 						<c:when test="${ (sessionScope.loginUser.userRole eq 'ROLE_USER') && (!(sessionScope.loginUser.userNo eq community.userNo))}">
 							<button id="reportBtn">신고</button>
 						</c:when>
-						<c:when test="${ sessionScope.loginUser.userRole eq 'ROLE_ADMIN' }">
-							<button>계정정지</button>
-						</c:when>
 					</c:choose>
-					<button id="listbtn" onclick="gotolist()">목록보기</button>
+					<button id="listBtn" onclick="gotolist()">목록보기</button>
 				</div>
 			</div>
 	</section>
@@ -83,9 +80,9 @@
 		    let button = document.getElementById('reportBtn');
 		    button.addEventListener('click', function() {
 			    let communityNo = ${ community.communityNo };
-			    let reportedUserId = ${ community.userNo };
+			    let reportedUserNo = ${ community.userNo };
 			    
-			    location.href = "${pageContext.servletContext.contextPath}/reportmain?communityNo=" + communityNo + "&reportedUserId=" + reportedUserId;
+			    location.href = "${pageContext.servletContext.contextPath}/reportmain?communityNo=" + communityNo + "&reportedUserNo=" + reportedUserNo;
 		    });
 		});
 		

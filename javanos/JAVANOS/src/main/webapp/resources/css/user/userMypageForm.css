@@ -2,11 +2,9 @@
 
 /* 전체 페이지 설정 */
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-/*     background-color: #f2f2f2;
- */}
+}
 
 /* 마이페이지 설정 */
 .mypage-wrapper {
@@ -16,6 +14,7 @@ body {
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    margin-top: 110px;
 }
 
 /* 마이페이지 제목 설정 */
@@ -43,27 +42,30 @@ body {
 /* 마이페이지 버튼 설정 */
 .mypage-wrapper input[type="button"],
 .mypage-wrapper input[type="submit"] {
-    background-color: #333;
-    color: white;
-    border: none;
-    padding: 12px 0;
+    /* background-color: #333;
+    color: white; */
+/*     border: 3px solid #635DDA; 
+ */    padding: 12px 0;
     cursor: pointer;
     border-radius: 5px;
     width: 100%;
     font-size: 16px;
+    margin-left: 0px;
+}
+
+#changePwdBtn,
+#changeNicknameBtn,
+#changeEmailBtn {
+    width: 60px; 
 }
 
 /* 수정, 취소, 회원탈퇴 버튼 스타일 */
 #updateBtn,
 #cancelBtn,
 #deleteBtn {
-    margin-top: 15px; /* 원하는 만큼의 여백을 추가합니다 */
-}
-
-/* 마이페이지 버튼 호버 설정 */
-.mypage-wrapper input[type="button"]:hover,
-.mypage-wrapper input[type="submit"]:hover {
-    background-color: #575757;
+	background-color: #ffffff;
+	border: 2px solid black;
+    margin-top: 15px; 
 }
 
 /* 에러 메시지 설정 */

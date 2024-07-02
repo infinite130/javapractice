@@ -1,17 +1,21 @@
 package com.javanos.project.notice.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.javanos.project.common.paging.SelectCriteria;
 import com.javanos.project.notice.model.dto.NoticeDTO;
 
 public interface NoticeDAO {
 
 	// db 테이블에 접근, 작업수행하는 메소드 선언하기
 
+	public int selectTotalCount(Map<String, String> searchMap);
+	
 	// 전체 조회 메소드
-	public List<NoticeDTO> selectAllNoticeList();
+	public List<NoticeDTO> selectAllNoticeList(SelectCriteria selectCriteria);
 
 	// 새 공지 삽입 메소드
 	public int insertNotice(NoticeDTO newNotice);
@@ -39,4 +43,6 @@ public interface NoticeDAO {
 	// 제목과 내용으로 공지사항 검색 메소드
     public List<NoticeDTO> searchNoticeByTitleAndBody(String keyword);
     
+    
+   
 }

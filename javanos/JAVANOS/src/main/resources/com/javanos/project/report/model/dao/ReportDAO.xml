@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.javanos.project.report.model.dao.ReportDAO">
     <resultMap type="com.javanos.project.report.model.dto.ReportDTO" id="reportResultMap">
         <id property="reportNo" column="REPORT_NO"/>
         <result property="reportReason" column="REPORT_REASON"/>
         <result property="reportDate" column="REPORT_DATE"/>
         <result property="reportStatus" column="REPORT_STATUS"/>
-        <result property="communityNo" column="COMMUNITY_NO"/>
         <association property="reportUser" javaType="com.javanos.project.user.model.dto.UserDTO">
             <id property="userNo" column="REPORT_USER_NO"/>
             <result property="userId" column="REPORT_USER_ID"/>
@@ -17,8 +14,32 @@
             <id property="userNo" column="REPORTED_USER_NO"/>
             <result property="userId" column="REPORTED_USER_ID"/>
         </association>
+        <association property="communityNo" javaType="com.javanos.project.community.model.dto.CommunityDTO">
+            <id property="communityNo" column="COMMUNITY_NO"/>
+        </association>
     </resultMap>
+    
+    <!-- Total count query -->
+    <select id="selectTotalCount" resultType="int">
+        SELECT COUNT(*) FROM TBL_REPORT
+    </select>
 
+    <!-- Paginated select query -->
+    <select id="selectReports" parameterType="com.javanos.project.common.paging.SelectCriteria" resultMap="reportResultMap">
+        SELECT 
+            R.REPORT_NO, R.REPORT_REASON, R.REPORT_DATE, R.REPORT_STATUS, 
+            R.REPORT_USER_NO, RU.USER_ID AS REPORT_USER_ID,
+            R.REPORTED_USER_NO, RE.USER_ID AS REPORTED_USER_ID,
+            R.COMMUNITY_NO
+        FROM 
+            TBL_REPORT R
+        LEFT JOIN TBL_USER RU ON R.REPORT_USER_NO = RU.USER_NO
+        LEFT JOIN TBL_USER RE ON R.REPORTED_USER_NO = RE.USER_NO
+        ORDER BY R.REPORT_NO DESC
+        LIMIT #{startRow}, #{limit}
+    </select>
+
+    <!-- All reports select query -->
     <select id="selectAllReports" resultMap="reportResultMap">
         SELECT 
             R.REPORT_NO, R.REPORT_REASON, R.REPORT_DATE, R.REPORT_STATUS, 
@@ -29,14 +50,9 @@
             TBL_REPORT R
         LEFT JOIN TBL_USER RU ON R.REPORT_USER_NO = RU.USER_NO
         LEFT JOIN TBL_USER RE ON R.REPORTED_USER_NO = RE.USER_NO
-        WHERE R.REPORT_STATUS = 'Y'
     </select>
 
-    <insert id="insertReport" parameterType="com.javanos.project.report.model.dto.ReportDTO">
-        INSERT INTO TBL_REPORT (REPORT_REASON, REPORT_DATE, REPORT_STATUS, REPORT_USER_NO, REPORTED_USER_NO, COMMUNITY_NO)
-        VALUES (#{reportReason}, NOW(), 'Y', #{reportUser.userNo}, #{reportedUser.userNo}, #{communityNo})
-    </insert>
-
+    <!-- Single report select query -->
     <select id="selectReportByNo" parameterType="int" resultMap="reportResultMap">
         SELECT
             R.REPORT_NO, R.REPORT_REASON, R.REPORT_DATE, R.REPORT_STATUS, 
@@ -50,6 +66,13 @@
         WHERE R.REPORT_NO = #{reportNo}
     </select>
 
+    <!-- Insert report query -->
+    <insert id="insertReport" parameterType="com.javanos.project.report.model.dto.ReportDTO">
+        INSERT INTO TBL_REPORT (REPORT_REASON, REPORT_DATE, REPORT_STATUS, REPORT_USER_NO, REPORTED_USER_NO, COMMUNITY_NO)
+        VALUES (#{reportReason}, NOW(), 'Y', #{reportUser.userNo}, #{reportedUser.userNo}, #{communityNo.communityNo})
+    </insert>
+
+    <!-- Select user by userId query -->
     <select id="selectUserByUserId" parameterType="string" resultType="com.javanos.project.user.model.dto.UserDTO">
         SELECT 
             USER_NO, USER_ID, USER_PWD, USER_NAME, USER_NICKNAME, USER_EMAIL, USER_ROLE, USER_ENROLL_DATE, USER_STATUS, USER_STOP_DATE 
@@ -59,16 +82,29 @@
             USER_ID = #{userId}
     </select>
     
-        <select id="selectUserByUserNo" parameterType="int" resultType="com.javanos.project.user.model.dto.UserDTO">
-        SELECT 
-            USER_NO, USER_ID, USER_PWD, USER_NAME, USER_NICKNAME, USER_EMAIL, USER_ROLE, USER_ENROLL_DATE, USER_STATUS, USER_STOP_DATE 
-        FROM 
-            TBL_USER 
-        WHERE 
-            USER_NO = #{userNo}
-    </select>
-
+    <!-- Delete report query -->
     <delete id="deleteReport" parameterType="int">
         DELETE FROM TBL_REPORT WHERE REPORT_NO = #{reportNo}
     </delete>
+    
+    <!-- Select user nickname by userNo query -->
+    <select id="selectUserNicknameByUserNo" parameterType="int" resultType="string">
+        SELECT USER_NICKNAME
+        FROM TBL_USER
+        WHERE USER_NO = #{userNo}
+    </select>
+    
+    <!-- Update report status query -->
+    <update id="updateReportStatus" parameterType="map">
+        UPDATE TBL_REPORT
+        SET REPORT_STATUS = #{reportStatus}
+        WHERE REPORT_NO = #{reportNo}
+    </update>
+
+    <!-- Ban user by userNo query -->
+    <update id="banUserByUserNo" parameterType="int">
+        UPDATE TBL_USER
+        SET USER_STATUS = 'N'
+        WHERE USER_NO = #{userNo}
+    </update>
 </mapper>

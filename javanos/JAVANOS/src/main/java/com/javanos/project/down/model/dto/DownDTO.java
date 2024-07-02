@@ -1,6 +1,8 @@
 package com.javanos.project.down.model.dto;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.javanos.project.lnf.model.dto.StationDTO;
 import com.javanos.project.user.model.dto.UserDTO;
@@ -10,7 +12,7 @@ public class DownDTO implements java.io.Serializable {
 	private int downNo;
 	private String downRoom; //칸
 	private String downFull; //혼잡도
-	private Date downEnrollDate; //등록일(작성일)
+	private LocalDateTime downEnrollDate; //등록일(작성일)
 	private Date downModifyDate; //수정일
 	private String downStatus; //게시판 삭제
 	private int userNo;
@@ -24,7 +26,7 @@ public class DownDTO implements java.io.Serializable {
 		
 	}
 
-	public DownDTO(int downNo, String downRoom, String downFull, Date downEnrollDate, Date downModifyDate,
+	public DownDTO(int downNo, String downRoom, String downFull, LocalDateTime downEnrollDate, Date downModifyDate,
 			String downStatus, int userNo, UserDTO user, int inStationNo, StationDTO inStation, int downStationNo,
 			StationDTO downStation) {
 		super();
@@ -66,11 +68,11 @@ public class DownDTO implements java.io.Serializable {
 		this.downFull = downFull;
 	}
 
-	public Date getDownEnrollDate() {
+	public LocalDateTime getDownEnrollDate() {
 		return downEnrollDate;
 	}
 
-	public void setDownEnrollDate(Date downEnrollDate) {
+	public void setDownEnrollDate(LocalDateTime downEnrollDate) {
 		this.downEnrollDate = downEnrollDate;
 	}
 
@@ -138,13 +140,18 @@ public class DownDTO implements java.io.Serializable {
 		this.downStation = downStation;
 	}
 
+	// LocalDateTime을 형식화된 문자열로 변환하는 메서드 추가
+		public String getFormattedDownEnrollDate() {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			return downEnrollDate.format(formatter);
+		}
 	@Override
 	public String toString() {
 		return "DownDTO [downNo=" + downNo + ", downRoom=" + downRoom + ", downFull=" + downFull + ", downEnrollDate="
-				+ downEnrollDate + ", downModifyDate=" + downModifyDate + ", downStatus=" + downStatus + ", userNo="
-				+ userNo + ", user=" + user + ", inStationNo=" + inStationNo + ", inStation=" + inStation
+				+ getFormattedDownEnrollDate() + ", downModifyDate=" + downModifyDate + ", downStatus=" + downStatus
+				+ ", userNo=" + userNo + ", user=" + user + ", inStationNo=" + inStationNo + ", inStation=" + inStation
 				+ ", downStationNo=" + downStationNo + ", downStation=" + downStation + "]";
 	}
-
+	
 	
 }

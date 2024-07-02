@@ -1,7 +1,6 @@
 package com.javanos.project.lnf.model.dto;
 
 import java.sql.Time;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -18,15 +17,18 @@ public class LnfBoardDTO implements java.io.Serializable  {
 	private LocalDateTime enrollDate;
 	private LocalDateTime modifyDate;
 	private String boardStatus;
+	private String lnfStaLine;
+	private String lnfStaName;
+	private int writerNo;
 	private UserDTO userNo;
-	private StationDTO staNo;
 	
 	public LnfBoardDTO() {
 		super();
 	}
 
 	public LnfBoardDTO(int lnfNo, String missing, Date findDate, Time findTime, String keep, String description,
-			LocalDateTime enrollDate, LocalDateTime modifyDate, String boardStatus, UserDTO userNo, StationDTO staNo) {
+			LocalDateTime enrollDate, LocalDateTime modifyDate, String boardStatus, String lnfStaLine,
+			String lnfStaName, int writerNo, UserDTO userNo) {
 		super();
 		this.lnfNo = lnfNo;
 		this.missing = missing;
@@ -37,8 +39,10 @@ public class LnfBoardDTO implements java.io.Serializable  {
 		this.enrollDate = enrollDate;
 		this.modifyDate = modifyDate;
 		this.boardStatus = boardStatus;
+		this.lnfStaLine = lnfStaLine;
+		this.lnfStaName = lnfStaName;
+		this.writerNo = writerNo;
 		this.userNo = userNo;
-		this.staNo = staNo;
 	}
 
 	public int getLnfNo() {
@@ -113,6 +117,30 @@ public class LnfBoardDTO implements java.io.Serializable  {
 		this.boardStatus = boardStatus;
 	}
 
+	public String getLnfStaLine() {
+		return lnfStaLine;
+	}
+
+	public void setLnfStaLine(String lnfStaLine) {
+		this.lnfStaLine = lnfStaLine;
+	}
+
+	public String getLnfStaName() {
+		return lnfStaName;
+	}
+
+	public void setLnfStaName(String lnfStaName) {
+		this.lnfStaName = lnfStaName;
+	}
+
+	public int getWriterNo() {
+		return writerNo;
+	}
+
+	public void setWriterNo(int writerNo) {
+		this.writerNo = writerNo;
+	}
+
 	public UserDTO getUserNo() {
 		return userNo;
 	}
@@ -121,22 +149,15 @@ public class LnfBoardDTO implements java.io.Serializable  {
 		this.userNo = userNo;
 	}
 
-	public StationDTO getStaNo() {
-		return staNo;
-	}
-
-	public void setStaNo(StationDTO staNo) {
-		this.staNo = staNo;
-	}
-
 	@Override
 	public String toString() {
 		return "LnfBoardDTO [lnfNo=" + lnfNo + ", missing=" + missing + ", findDate=" + findDate + ", findTime="
 				+ findTime + ", keep=" + keep + ", description=" + description + ", enrollDate=" + enrollDate
-				+ ", modifyDate=" + modifyDate + ", boardStatus=" + boardStatus + ", userNo=" + userNo + ", staNo="
-				+ staNo + "]";
+				+ ", modifyDate=" + modifyDate + ", boardStatus=" + boardStatus + ", lnfStaLine=" + lnfStaLine
+				+ ", lnfStaName=" + lnfStaName + ", writerNo=" + writerNo + ", userNo=" + userNo + "]";
 	}
 	
 	
 
+	
 }
