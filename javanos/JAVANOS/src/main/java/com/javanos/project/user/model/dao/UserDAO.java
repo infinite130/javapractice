@@ -1,5 +1,8 @@
 package com.javanos.project.user.model.dao;
 
+import java.util.List;
+
+import com.javanos.project.community.model.dto.CommunityDTO;
 import com.javanos.project.user.model.dto.UserDTO;
 
 public interface UserDAO {
@@ -19,5 +22,7 @@ public interface UserDAO {
 	int updateUser(UserDTO originUser);
 
 	int deleteUser(UserDTO loginUser);
+
+	List<CommunityDTO> selectBoardList(UserDTO loginUser);
 
 }

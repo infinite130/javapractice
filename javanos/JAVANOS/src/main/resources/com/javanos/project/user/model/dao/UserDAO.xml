@@ -18,6 +18,18 @@
 		<result property="userStopDate" column="USER_STOP_DATE"/>
 	</resultMap>
 	
+	<resultMap type="com.javanos.project.community.model.dto.CommunityDTO" id="communityResultMap">
+		<id property="communityNo" column="COMMUNITY_NO"/>
+		<result property="communityTitle" column="COMMUNITY_TITLE"/>
+		<result property="communityBody" column="COMMUNITY_BODY"/>
+		<result property="communityCount" column="COMMUNITY_COUNT"/>
+		<result property="communityEnrollDate" column="COMMUNITY_ENROLL_DATE"/>
+		<result property="communityModifyDate" column="COMMUNITY_MODIFY_DATE"/>
+		<result property="communityBoardStatus" column="COMMUNITY_BOARD_STATUS"/>
+		<result property="userNo" column="USER_NO"/>
+		<association property="user" resultMap="userResultMap"/>
+	</resultMap>
+	
 	<select id="selectCountByUserId" resultType="_int">
 		SELECT
 			COUNT(USER_NO)
@@ -101,5 +113,66 @@
 	 		AND USER_STATUS = 'Y'
 	 		AND (USER_STOP_DATE IS NULL OR CURDATE() > USER_STOP_DATE) 
 	</update>
+	
+	<select id="selectBoardList" resultMap="communityResultMap">
+    SELECT 
+        c.COMMUNITY_NO, 
+        c.COMMUNITY_TITLE, 
+        c.COMMUNITY_BODY, 
+        c.COMMUNITY_COUNT, 
+        c.COMMUNITY_ENROLL_DATE, 
+        c.COMMUNITY_MODIFY_DATE, 
+        c.COMMUNITY_BOARD_STATUS, 
+        c.USER_NO,
+        u.USER_ID, 
+        u.USER_NAME, 
+        u.USER_NICKNAME, 
+        u.USER_EMAIL, 
+        u.USER_ROLE, 
+        u.USER_ENROLL_DATE, 
+        u.USER_STATUS, 
+        u.USER_STOP_DATE
+    FROM TBL_COMMUNITY c
+    JOIN TBL_USER u ON c.USER_NO = u.USER_NO
+    WHERE u.USER_ID = #{userId} AND c.COMMUNITY_BOARD_STATUS = 'Y';
+	</select>
+	
+	<!-- <select id="selectBoardList" resultMap="communityResultMap">
+    SELECT 
+        c.COMMUNITY_NO, 
+        c.COMMUNITY_TITLE, 
+        c.COMMUNITY_BODY, 
+        c.COMMUNITY_COUNT, 
+        c.COMMUNITY_ENROLL_DATE, 
+        c.COMMUNITY_MODIFY_DATE, 
+        c.COMMUNITY_BOARD_STATUS, 
+        c.USER_NO
+    FROM TBL_COMMUNITY c
+    JOIN TBL_USER u ON c.USER_NO = u.USER_NO
+    WHERE u.USER_ID = #{userId} AND c.COMMUNITY_BOARD_STATUS = 'Y';
+	</select> -->
+	
+	<!-- <select id="selectBoardList" resultMap="communityResultMap">
+    SELECT 
+        c.COMMUNITY_NO, 
+        c.COMMUNITY_TITLE, 
+        c.COMMUNITY_BODY, 
+        c.COMMUNITY_COUNT, 
+        c.COMMUNITY_ENROLL_DATE, 
+        c.COMMUNITY_MODIFY_DATE, 
+        c.COMMUNITY_BOARD_STATUS, 
+        c.USER_NO,
+        u.USER_ID, 
+        u.USER_NAME, 
+        u.USER_NICKNAME, 
+        u.USER_EMAIL, 
+        u.USER_ROLE, 
+        u.USER_ENROLL_DATE, 
+        u.USER_STATUS, 
+        u.USER_STOP_DATE
+    FROM TBL_COMMUNITY c
+    JOIN TBL_USER u ON c.USER_NO = u.USER_NO
+    WHERE u.USER_ID = #{userId} AND c.COMMUNITY_BOARD_STATUS = 'Y';
+	</select> -->
 	
 </mapper>

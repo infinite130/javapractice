@@ -12,9 +12,10 @@ public interface NoticeDAO {
 
 	// db 테이블에 접근, 작업수행하는 메소드 선언하기
 
-	public int selectTotalCount(Map<String, String> searchMap);
+	/* 페이징 처리를 위한 전체 게시물 수 조회 메소드 */
+    public int selectTotalCount(Map<String, String> searchMap);
 	
-	// 전체 조회 메소드
+    /* 페이징 처리된 게시물 목록 조회 메소드 */
 	public List<NoticeDTO> selectAllNoticeList(SelectCriteria selectCriteria);
 
 	// 새 공지 삽입 메소드
@@ -34,15 +35,5 @@ public interface NoticeDAO {
 	// 삭제 메소드
 	public int deleteNotice(int no);
 
-	// 제목으로 공지사항 검색 메소드
-	public List<NoticeDTO> searchNoticeByTitle(String title);
-
-	// 내용으로 공지사항 검색 메소드
-	public List<NoticeDTO> searchNoticeByBody(String Body);
-
-	// 제목과 내용으로 공지사항 검색 메소드
-    public List<NoticeDTO> searchNoticeByTitleAndBody(String keyword);
-    
-    
    
 }

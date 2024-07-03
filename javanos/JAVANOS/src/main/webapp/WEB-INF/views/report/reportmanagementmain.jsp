@@ -17,89 +17,78 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #e8f5e9;
+            background-color: #f9f9f9;
             color: #333;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
             margin: 0;
-        }
-        .content {
-            flex: 1;
-        }
-        table {
-            width: 80%;
-            border-collapse: collapse;
-            margin: 20px auto;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        table, th, td {
-            border: 1px solid #a5d6a7;
-        }
-        th, td {
-            padding: 15px;
-            text-align: left;
-        }
-        th {
-            background-color: #81c784;
-            color: white;
-        }
-        tr {
-            background-color: white;
-            transition: box-shadow 0.3s;
-        }
-        tr:hover {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 0;
         }
         .container {
-            text-align: center;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
-        .button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #4caf50;
-            color: white;
-            border: none;
-            border-radius: 5px;
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center; /* Center align text in table cells */
+        }
+        th {
+            background-color: #f4f4f4;
+            color: #555;
+        }
+        tr {
+            transition: background-color 0.3s;
             cursor: pointer;
         }
-        .button:hover {
-            background-color: #388e3c;
+        tr:hover {
+            background-color: #f1f1f1;
         }
         .pagination {
-            text-align: center;
-            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
         }
         .pagination a {
             margin: 0 5px;
+            padding: 8px 16px;
+            border: 1px solid #ddd;
             text-decoration: none;
-            padding: 5px 10px;
-            color: #4caf50;
-            border: 1px solid #4caf50;
-            border-radius: 3px;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
         }
         .pagination a.active {
-            background-color: #4caf50;
-            color: white;
+            background-color: #333;
+            color: #fff;
         }
-        .pagination a:hover {
-            background-color: #388e3c;
-            border-color: #388e3c;
-            color: white;
-        }
-        footer {
-            background-color: #4caf50;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            position: relative;
-            bottom: 0;
-            width: 100%;
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
         }
     </style>
+    <script>
+        function goToDetail(reportNo) {
+            location.href = '${pageContext.servletContext.contextPath}/reportdetail?reportNo=' + reportNo;
+        }
+    </script>
 </head>
 <body>
 <jsp:include page="../common/menubar.jsp"/>
+<div id="wrap">
+<section>
 
 <div class="content">
     <div class="container">
@@ -108,33 +97,31 @@
             <tr>
                 <th>신고 번호</th>
                 <th>신고 사유</th>
-                <th>신고 날짜</th>
-                <th>신고자</th>
+                <th>신고한 회원</th>
                 <th>신고당한 회원</th>
-                <th>상세 보기</th>
+                <th>신고 날짜</th>
             </tr>
             <c:forEach var="report" items="${reports}">
-                <tr>
+                <tr onclick="goToDetail('${report.reportNo}')">
                     <td>${report.reportNo}</td>
                     <td>${report.reportReason}</td>
-                    <td>${report.reportDate}</td>
                     <td><c:out value="${report.reportUser.userId}" /></td>
                     <td><c:out value="${report.reportedUser.userId}" /></td>
-                    <td><a href="reportdetail?reportNo=${report.reportNo}">상세 보기</a></td>
+                    <td>${report.reportDate}</td>
                 </tr>
             </c:forEach>
         </table>
         
-        <div class="pagination">
-            <c:forEach begin="${selectCriteria.startPage}" end="${selectCriteria.endPage}" var="i">
-                <a href="CheckBoard?currentPage=${i}" class="${i == selectCriteria.pageNo ? 'active' : ''}">${i}</a>
-            </c:forEach>
-        </div>
+        <jsp:include page="../common/paging.jsp">
+            <jsp:param name="link" value="/CheckBoard" />
+        </jsp:include>
+        
     </div>
 </div>
+</section>
+</div>
 
-<footer>
-    <jsp:include page="../common/footer.jsp"/>
-</footer>
+<jsp:include page="../common/footer.jsp" flush="false" />
+
 </body>
 </html>

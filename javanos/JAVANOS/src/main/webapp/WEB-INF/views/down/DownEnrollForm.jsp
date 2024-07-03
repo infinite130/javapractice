@@ -10,6 +10,8 @@
 </head>
 <body>
     <jsp:include page="../common/menubar.jsp"/>
+    <div id="wrap">
+	<section>
     <br>
     <form action="${ pageContext.servletContext.contextPath }/down/enroll" method="post">
        <div class="container">
@@ -114,7 +116,6 @@
                 <div class="top-info">
                 <span class="date"><c:out value="${ down.getFormattedDownEnrollDate() }"/></span>
                 </div>
-                <br>
                 <div class="label-below">
                     <label>하차역</label>         
                     <span><div class="box"><c:out value="${ down.downStation.staName }"/></div></span>
@@ -122,7 +123,6 @@
                   <div class="label-below">
                     <label>하차 호선도</label>
                     <span><div class="box"><c:out value="${ down.downStation.staLine }"/></div></span>
-                <br>                
                 </div>
                 
                 <div class="label-below">
@@ -187,6 +187,9 @@
 		<!-- 마지막 페이지로 이동 버튼 -->
 		<button id="maxPage">>></button> 
 	</div>
+	</section>
+	</div>
+	<jsp:include page="../common/footer.jsp"/>
 	
 	<script>
 	  /* 등록 유효성 검사 */                      //등록버튼 id                    

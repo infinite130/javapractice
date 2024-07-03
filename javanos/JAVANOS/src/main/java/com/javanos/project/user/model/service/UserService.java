@@ -3,10 +3,13 @@ package com.javanos.project.user.model.service;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.javanos.project.community.model.dto.CommunityDTO;
 import com.javanos.project.user.model.dao.UserDAO;
 import com.javanos.project.user.model.dto.UserDTO;
 
 import static com.javanos.project.common.mybatis.Template.getSqlSession;
+
+import java.util.List;
 
 public class UserService {
 
@@ -125,6 +128,20 @@ public class UserService {
 		String userPwd = userDAO.selectPwd(loginUser);
 		
 		return userPwd;
+	}
+
+	public List<CommunityDTO> selectBoardList(UserDTO loginUser) {
+		
+		SqlSession session = getSqlSession();
+		userDAO = session.getMapper(UserDAO.class);
+		
+		List<CommunityDTO> communityList = userDAO.selectBoardList(loginUser);
+		
+		System.out.println("service : " + communityList);
+		
+		session.close();
+		
+		return communityList;
 	}
 
 }

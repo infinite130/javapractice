@@ -14,53 +14,63 @@
 <style>
     body {
         font-family: Arial, sans-serif;
-        background-color: #e8f5e9;
+        background-color: #f9f9f9;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        text-align: center;
+    }
+    h1 {
+        margin-bottom: 20px;
         color: #333;
     }
     table {
-        width: 50%;
+        width: 100%;
         border-collapse: collapse;
-        margin: 60px auto;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
     }
     table, th, td {
-        border: 1px solid #a5d6a7;
+        border: 1px solid #ddd;
     }
     th, td {
-        padding: 15px;
-        text-align: left;
+        padding: 12px;
+         text-align: center;
     }
     th {
-        background-color: #81c784;
-        color: white;
+        background-color: #f4f4f4;
+        color: #555;
     }
     tr {
-        background-color: white;
-        transition: box-shadow 0.3s;
+        transition: background-color 0.3s;
     }
     tr:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        background-color: #f1f1f1;
     }
-    .container {
-        text-align: center;
+ .button-container {
+        margin-top: 20px;
     }
     .button {
-        margin-top: 20px;
         padding: 10px 20px;
-        background-color: #4caf50;
-        color: white;
-        border: none;
-        border-radius: 5px;
+       /*  margin: 5px;
+        border: 1px solid #ddd;
+        background-color: #f1f1f1;
         cursor: pointer;
-        display: inline-block;
+        transition: background-color 0.3s, color 0.3s; */
     }
     .button:hover {
-        background-color: #388e3c;
+        /* background-color: #ddd; */
     }
-    .button-container {
-        text-align: center;
-        margin-top: 20px;
-    }
+    .button:focus {
+        outline: none;
+    } 
 </style>
 </head>
 <body>
@@ -105,7 +115,7 @@
             <td><%= report.getReportStatus() %></td>
         </tr>
     </table>
-    <div class="button-container">
+<div class="button-container">
         <form method="post" action="${pageContext.servletContext.contextPath}/banUser" style="display:inline;">
             <input type="hidden" name="reportNo" value="<%= report.getReportNo() %>">
             <input type="hidden" name="reportedUserNo" value="<%= report.getReportedUser() != null ? report.getReportedUser().getUserNo() : "" %>">
@@ -116,6 +126,7 @@
             <input type="hidden" name="action" value="delete">
             <button class="button" type="submit">삭제</button>
         </form>
+        <input type="button" value="목록" class="button" onclick="location.href='${pageContext.servletContext.contextPath}/CheckBoard'">
     </div>
 </div>
 

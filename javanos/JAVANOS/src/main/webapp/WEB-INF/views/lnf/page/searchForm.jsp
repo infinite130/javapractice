@@ -123,6 +123,8 @@
 </section>
 </div>
 
+<jsp:include page="../../common/footer.jsp"/>
+
 <script>
     $(document).ready(function() {
         $('table tbody tr').click(function() {

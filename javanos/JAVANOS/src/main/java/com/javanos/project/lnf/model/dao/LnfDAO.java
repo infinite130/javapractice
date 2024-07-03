@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.javanos.project.common.paging.SelectCriteria;
 import com.javanos.project.lnf.model.dto.LnfBoardDTO;
-import com.javanos.project.notice.model.dto.NoticeDTO;
 
 public interface LnfDAO {
 	

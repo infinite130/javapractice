@@ -162,7 +162,15 @@
 			WHERE LNF_NO= #{lnfNo};
 	</update>
 	
-	
+	<select id="selectTotalCount" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM TBL_LNF
+        <where>
+            <if test="searchCondition != null and searchValue != null and !searchValue.isEmpty()">
+                ${searchCondition} LIKE #{searchValue}
+            </if>
+        </where>
+    </select>
 		
 	
 </mapper>

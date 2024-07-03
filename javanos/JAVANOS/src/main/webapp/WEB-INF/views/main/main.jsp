@@ -9,8 +9,8 @@
 </head>
 <body>
 <jsp:include page="../common/menubar.jsp"/>
-<div id="wrap">
-<section>
+<div id="mainWrap">
+<section id="mainSection">
 <!-- 루트 URL에 접속할 때만 표시될 이미지 -->
 <div class="main-image-container">
     <img src="${ pageContext.servletContext.contextPath }/resources/image/common/mainimage.png" alt="Main Image">

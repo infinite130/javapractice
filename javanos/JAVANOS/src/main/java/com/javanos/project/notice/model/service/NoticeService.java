@@ -22,23 +22,26 @@ public class NoticeService {
 
 	// db 연결 관리 (SqlSession - close)
 
-	/* 페이징 처리를 위한 전체 게시물 수 조회용 메소드 */
-	public int selectTotalCount(Map<String, String> searchMap) {
-		
-		SqlSession session = getSqlSession();
-		noticeDAO = session.getMapper(NoticeDAO.class);
-		
-		int totalCount = noticeDAO.selectTotalCount(searchMap);
-		
-		session.close();
-		
-		return totalCount;
-	}
+	 /* 페이징 처리를 위한 전체 게시물 수 조회용 메소드 */
+    public int selectTotalCount(Map<String, String> searchMap) {
+        
+        SqlSession session = getSqlSession(); // MyBatis SqlSession 객체 생성
+        noticeDAO = session.getMapper(NoticeDAO.class); // NoticeDAO 인터페이스의 매퍼 구현체를 가져옴
+        
+        int totalCount = noticeDAO.selectTotalCount(searchMap); // DAO를 통해 전체 게시물 수를 조회
+        
+        session.close(); // SqlSession 닫기
+        
+        return totalCount; // 조회된 전체 게시물 수 반환
+    }
 	
 	// 전체 목록 조회 메소드 (페이징 처리 추가)
     public List<NoticeDTO> selectAllNoticeList(SelectCriteria selectCriteria) {
+    	
         SqlSession session = getSqlSession();
         noticeDAO = session.getMapper(NoticeDAO.class);
+        
+        selectCriteria.setStartRow(selectCriteria.getStartRow() - 1); // 시작 행 설정
 
         List<NoticeDTO> noticeList = noticeDAO.selectAllNoticeList(selectCriteria);
 
@@ -139,61 +142,4 @@ public class NoticeService {
 		return result;
 	}
 
-	// 제목으로 공지사항 검색 메소드
-	public List<NoticeDTO> searchNoticeByTitle(String title) {
-
-		SqlSession session = getSqlSession();
-		noticeDAO = session.getMapper(NoticeDAO.class);
-
-		List<NoticeDTO> searchResult = noticeDAO.searchNoticeByTitle(title);
-
-		session.close();
-
-		return searchResult;
-	}
-
-	// 내용으로 공지사항 검색 메소드
-	public List<NoticeDTO> searchNoticeByBody(String body) {
-		
-		SqlSession session = getSqlSession();
-		noticeDAO = session.getMapper(NoticeDAO.class);
-		
-		List<NoticeDTO> searchResult = noticeDAO.searchNoticeByBody(body);
-		
-		session.close();
-		
-		return searchResult;
-	}
-
-	// 제목 또는 내용으로 공지사항 검색 메소드
-	public List<NoticeDTO> searchNoticeByTitleAndBody(String keyword) {
-		SqlSession session = getSqlSession();
-		noticeDAO = session.getMapper(NoticeDAO.class);
-
-		List<NoticeDTO> noticeList = noticeDAO.searchNoticeByTitleAndBody(keyword);
-
-		session.close();
-
-		return noticeList;
-	}
-	
-
-
-    // 제목 또는 내용으로 검색된 공지사항 수 조회 메소드
-    public int getSearchNoticeCount(String searchCondition, String searchValue) {
-        SqlSession session = getSqlSession();
-        noticeDAO = session.getMapper(NoticeDAO.class);
-
-        Map<String, String> searchMap = new HashMap<>();
-        searchMap.put("searchCondition", searchCondition);
-        searchMap.put("searchValue", searchValue);
-
-        int totalCount = noticeDAO.selectTotalCount(searchMap);
-
-        session.close();
-
-        return totalCount;
-    }
-
-   
 }

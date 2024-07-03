@@ -30,7 +30,15 @@
                             <li><a href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
                         </c:when>
                         <c:when test="${ sessionScope.loginUser.userRole eq 'ROLE_USER' }">
-                            <li><a href="${ pageContext.servletContext.contextPath }/user/mypage">마이페이지</a></li>
+                        	<li class="dropdown">
+        						<a class="dropbtn" href="${ pageContext.servletContext.contextPath }/user/mypage">마이페이지</a>
+                            	<div class="dropdown-content">
+                            		<ul>
+                                		<li><a href="${ pageContext.servletContext.contextPath }/user/mypage">마이페이지</a></li>
+                                		<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/list">나의 게시글</a></li>
+                            		</ul>
+                            	</div>
+                           	</li>
                             <li><a href="${ pageContext.servletContext.contextPath }/user/logout">로그아웃</a></li>
                         </c:when>
                         <c:when test="${ sessionScope.loginUser.userRole eq 'ROLE_ADMIN' }">

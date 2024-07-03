@@ -114,11 +114,13 @@
         </form>
     </div>
 </div>
-<%-- <jsp:include page="../../common/paging/jsp" flush="false">
+<jsp:include page="../../common/paging.jsp" flush="false">
 	<jsp:param value="lnf/main" name="link"/>
-</jsp:include> --%>
+</jsp:include>
 </section>
 </div>
+
+<jsp:include page="../../common/footer.jsp"/>
 
 <script>
     $(document).ready(function() {

@@ -24,7 +24,7 @@ header {
 }
 .nav-area {
     display: flex;
-    justify-content: flex-end; /* Align items to the right */
+    justify-content: flex-end; 
 }
 .nav-area ul {
     list-style-type: none;
@@ -33,7 +33,7 @@ header {
     display: flex;
 }
 .nav-area li {
-    margin-left: 10px; /* Add space between menu items */
+    margin-left: 10px; 
 }
 .nav-area li a {
     display: block;
@@ -50,6 +50,22 @@ header {
     background-color: #444;
 }
 
+/* 드롭 메뉴 */
+.dropdown-content {
+	font-size: 13px;
+    position: absolute;
+    background-color: #333;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    display: none;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block; /* 호버 시 드롭다운 콘텐츠 표시 */
+}
+
+
 
 /* Footer 스타일 추가 */
 footer {
@@ -59,16 +75,6 @@ footer {
     padding: 10px 0;
 }
 
-
-/* .home-image {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.home-image img {
-    max-width: 100%;
-    height: auto;
-} */
 .logo-container {
 	display: flex;
     justify-content: flex-end;
@@ -82,21 +88,23 @@ footer {
     height: 110px;
     object-fit: cover;
 }
-.main-image-container, .home-image-container {
-    text-align: center;
-    margin-top: 20px;
+
+#mainSection{
+   padding-bottom:0;
 }
 
-.main-image-container img, .home-image-container img {
-    max-width: 100%;
-    height: auto;
+.main-image-container{
+   margin-top:25px;
+   padding-bottom:20px;
+   width:100%;
+}
+.main-image-container img{
+   width: 100%;
 }
 
 #homeTextArea{
 	width: 800px;
 }
-
-
 
 #wrap{
 	min-height: 100vh;
@@ -123,7 +131,6 @@ input[file]
 {
 	font-family: 'DungGeunMo';
 }
-
 
 button,
 input[type="button"],

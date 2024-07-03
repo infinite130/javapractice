@@ -118,6 +118,8 @@
         </div>
     </div>
 
+	<jsp:include page="../../common/footer.jsp"/>
+
     <script>
         function deleteBoard(lnfNo) {
             if (confirm("정말로 삭제하시겠습니까?")) {

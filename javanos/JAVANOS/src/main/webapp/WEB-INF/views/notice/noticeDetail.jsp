@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>공지사항 상세정보</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/notice/noticeDetail.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/notice/noticeDetail.css">
 
 </head>
 <body>
@@ -45,18 +46,21 @@
 			</table>
 			<br>
 			<div align="center">
-				<button id="listButton" onclick="location.href='${ pageContext.servletContext.contextPath }/notice/list'">목록</button>
+				<button id="listButton"
+					onclick="location.href='${ pageContext.servletContext.contextPath }/notice/list'">목록</button>
 				<%-- 조건문으로 관리자일때만 보이는 버튼 만듬 --%>
 				<c:if test="${ sessionScope.loginUser.userRole eq 'ROLE_ADMIN' }">
 					<%-- ?no=${requestScope.notice.no}: ?(쿼리문자열 시작을 의미), no=${}(key=value 형식의 파라미터값) --%>
 					<%-- 따라서 ? 뒤는 사용자가 클릭한 버튼을 통해 해당 공지사항의 번호이고, 그 번호의 수정페이지로 이동함 --%>
-					<button id="updateButton" onclick="location.href='${ pageContext.servletContext.contextPath }/notice/update?no=${ requestScope.notice.noticeNo }'">수정</button>
-					<button id="deleteButton" onclick="deleteNotice(${ requestScope.notice.noticeNo })">삭제</button>
+					<button id="updateButton"
+						onclick="location.href='${ pageContext.servletContext.contextPath }/notice/update?no=${ requestScope.notice.noticeNo }'">수정</button>
+					<button id="deleteButton"
+						onclick="deleteNotice(${ requestScope.notice.noticeNo })">삭제</button>
 				</c:if>
 			</div>
 		</div>
 	</div>
-	
+
 	<script>
     function deleteNotice(noticeNo) {
         if (confirm("정말로 삭제하시겠습니까?")) {

@@ -97,6 +97,7 @@ public class AuthenticationFilter implements Filter {
 		allPermitList.add("/notice/noticeSearchList");
 		
 		userPermitList.add("/user/mypage");
+		userPermitList.add("/user/mypage/list");
 		userPermitList.add("/user/delete");
 		userPermitList.add("/down/enroll");
 		userPermitList.add("/down/delete");

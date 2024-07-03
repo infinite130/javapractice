@@ -65,14 +65,21 @@
 		FROM TBL_NOTICE A
 		JOIN TBL_USER B ON (A.NOTICE_USER_NO = B.USER_NO)
 		<where>
-			A.NOTICE_BOARD_STATUS = 'Y' <!-- 공지사항 상태 'Y'일때만 조회함 -->
-			<if test="searchValue != null and searchValue != ''">
-				<!-- 제목 또는 내용에서 검색 -->
+			A.NOTICE_BOARD_STATUS = 'Y'
+			<if test="searchCondition == 'title'">
+				AND A.NOTICE_TITLE LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+			<if test="searchCondition == 'body'">
+				AND A.NOTICE_BODY LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+			<if test="searchCondition == 'titleAndBody'">
 				AND (
 				A.NOTICE_TITLE LIKE CONCAT('%', #{searchValue}, '%')
-				OR
-				A.NOTICE_BODY LIKE CONCAT('%', #{searchValue}, '%')
+				OR A.NOTICE_BODY LIKE CONCAT('%', #{searchValue}, '%')
 				)
+			</if>
+			<if test="searchCondition == 'writer'">
+				AND B.USER_NICKNAME LIKE CONCAT('%', #{searchValue}, '%')
 			</if>
 		</where>
 		ORDER BY A.NOTICE_NO DESC <!-- 공지사항 정렬 최신순 -->
@@ -80,32 +87,32 @@
 	</select>
 
 
-	 <!-- 공지사항 전체 개수 조회 -->
-    <select id="selectTotalCount" resultType="_int"
-            parameterType="hashmap">
-        SELECT
-        COUNT(*)
-        FROM TBL_NOTICE A
-        JOIN TBL_USER B ON (A.NOTICE_USER_NO = B.USER_NO)
-        <where>
-            A.NOTICE_BOARD_STATUS = 'Y'
-            <if test="searchCondition == 'title'">
-                AND A.NOTICE_TITLE LIKE CONCAT('%', #{searchValue}, '%')
-            </if>
-            <if test="searchCondition == 'body'">
-                AND A.NOTICE_BODY LIKE CONCAT('%', #{searchValue}, '%')
-            </if>
-            <if test="searchCondition == 'titleAndBody'">
-                AND (
-                A.NOTICE_TITLE LIKE CONCAT('%', #{searchValue}, '%')
-                OR A.NOTICE_BODY LIKE CONCAT('%', #{searchValue}, '%')
-                )
-            </if>
-            <if test="searchCondition == 'writer'">
-                AND B.USER_NICKNAME LIKE CONCAT('%', #{searchValue}, '%')
-            </if>
-        </where>
-    </select>
+	<!-- 공지사항 전체 개수 조회 -->
+	<select id="selectTotalCount" resultType="_int"
+		parameterType="hashmap">
+		SELECT 
+		COUNT(*)
+		FROM TBL_NOTICE A
+		JOIN TBL_USER B ON (A.NOTICE_USER_NO = B.USER_NO)
+		<where>
+			A.NOTICE_BOARD_STATUS = 'Y'
+			<if test="searchCondition == 'title'">
+				AND A.NOTICE_TITLE LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+			<if test="searchCondition == 'body'">
+				AND A.NOTICE_BODY LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+			<if test="searchCondition == 'titleAndBody'">
+				AND (
+				A.NOTICE_TITLE LIKE CONCAT('%', #{searchValue}, '%')
+				OR A.NOTICE_BODY LIKE CONCAT('%', #{searchValue}, '%')
+				)
+			</if>
+			<if test="searchCondition == 'writer'">
+				AND B.USER_NICKNAME LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+		</where>
+	</select>
 
 	<!-- 공지사항 신규 작성 -->
 	<insert id="insertNotice">
@@ -195,77 +202,6 @@
 		DELETE FROM TBL_NOTICE
 		WHERE NOTICE_NO = #{noticeNo}
 	</delete>
-
-
-
-	<!-- 제목 검색 -->
-	<select id="searchNoticeByTitle" resultMap="noticeResultMap"
-		parameterType="String">
-		SELECT
-		A.NOTICE_NO,
-		A.NOTICE_TITLE,
-		A.NOTICE_BODY,
-		A.NOTICE_USER_NO,
-		B.USER_NICKNAME,
-		A.NOTICE_ENROLL_DATE,
-		A.NOTICE_COUNT
-		FROM TBL_NOTICE A
-		JOIN TBL_USER B ON (A.NOTICE_USER_NO = B.USER_NO)
-		WHERE
-		A.NOTICE_BOARD_STATUS = 'Y' <!-- 공지사항 상태 'Y'일때만 조회함 -->
-		AND A.NOTICE_TITLE LIKE CONCAT('%', #{keyword}, '%')
-		ORDER BY
-		A.NOTICE_NO DESC <!-- 공지사항 정렬 최신순 -->
-	</select>
-
-
-
-	<!-- 내용 검색 -->
-	<select id="searchNoticeByBody" resultMap="noticeResultMap"
-		parameterType="String">
-		SELECT
-		A.NOTICE_NO,
-		A.NOTICE_TITLE,
-		A.NOTICE_BODY,
-		A.NOTICE_USER_NO,
-		B.USER_NICKNAME,
-		A.NOTICE_ENROLL_DATE,
-		A.NOTICE_COUNT
-		FROM TBL_NOTICE A
-		JOIN TBL_USER B ON (A.NOTICE_USER_NO = B.USER_NO)
-		WHERE
-		A.NOTICE_BOARD_STATUS = 'Y' <!-- 공지사항 상태 'Y'일때만 조회함 -->
-		AND A.NOTICE_BODY LIKE CONCAT('%', #{keyword}, '%')
-		ORDER BY
-		A.NOTICE_NO DESC <!-- 공지사항 정렬 최신순 -->
-	</select>
-
-
-
-	<!-- 제목+내용 검색 -->
-	<select id="searchNoticeByTitleAndBody"
-		resultMap="noticeResultMap" parameterType="String">
-		SELECT
-		A.NOTICE_NO,
-		A.NOTICE_TITLE,
-		A.NOTICE_BODY,
-		A.NOTICE_USER_NO,
-		B.USER_NICKNAME,
-		A.NOTICE_ENROLL_DATE,
-		A.NOTICE_COUNT
-		FROM TBL_NOTICE A
-		JOIN TBL_USER B ON
-		(A.NOTICE_USER_NO = B.USER_NO)
-		WHERE A.NOTICE_BOARD_STATUS = 'Y'
-		AND (
-		A.NOTICE_TITLE LIKE CONCAT('%', #{keyword}, '%')
-		OR A.NOTICE_BODY LIKE
-		CONCAT('%', #{keyword}, '%')
-		)
-		ORDER BY A.NOTICE_NO DESC
-	</select>
-
-
 
 
 </mapper>
