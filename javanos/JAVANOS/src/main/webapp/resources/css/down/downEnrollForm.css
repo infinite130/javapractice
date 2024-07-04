@@ -19,6 +19,8 @@
         border-radius: 10px; /* 테두리 둥글기 줄이기 */
         width: 100%;
         box-sizing: border-box;
+         background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
   
     /* 테두리 안 간격 */
@@ -76,14 +78,19 @@
     }
 
     .search select {
-        width: 120px; /* 너비 */
-        font-size: 12px; /* 폰트 크기 */
-        padding: 3px;
+        width: 140px; /* 너비 */
+        font-size: 13px; /* 폰트 크기 */
+        padding: 7px;
         text-align: center; 
         text-align-last: center;
         border: 2px solid; 
         height: 20;
     }
+    
+     .search option{
+         font-size:15px;
+    }
+    
     
     /* 크기와 두께 조정 */
     .label-below select { 
@@ -155,6 +162,8 @@
         border-radius: 10px; /* 테두리 둥글기 */
         width: 100%;
         box-sizing: border-box;
+         background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     
     }
     .top-info {

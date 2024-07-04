@@ -65,6 +65,48 @@
 			
 			
 	<script>
+	document.addEventListener('DOMContentLoaded', () => {
+	    const maxFiles = 3;
+	    const input = document.getElementById('bodyImg');
+	    const message = document.getElementById('fileLimitMessage');
+	    const imgElements = document.querySelectorAll('.imgView');
+
+	    input.addEventListener('change', function(event) {
+	        const files = event.target.files;
+	        
+	        if (files.length > maxFiles) {
+	            message.style.display = 'inline';
+	            input.value = ''; // 파일 선택 초기화
+	            imgElements.forEach(img => {
+	                img.style.display = 'none';
+	                img.src = '';
+	            });
+	        } else {
+	            message.style.display = 'none';
+
+	            // 모든 이미지 요소 숨기기 및 src 초기화
+	            imgElements.forEach(img => {
+	                img.style.display = 'none';
+	                img.src = '';
+	            });
+
+	            // 선택된 파일을 이미지로 표시
+	            Array.from(files).forEach((file, index) => {
+	                if (index < imgElements.length) {
+	                    const reader = new FileReader();
+	                    reader.onload = function(e) {
+	                        imgElements[index].src = e.target.result;
+	                        imgElements[index].style.display = 'block';
+	                    };
+	                    reader.readAsDataURL(file);
+	                }
+	            });
+	        }
+	    });
+	});
+	
+
+
 		document.getElementById('thumbnailImg').addEventListener('change', (event) => {
            const files = event.target.files;
            const imgPreview = document.getElementById('titleImgView');

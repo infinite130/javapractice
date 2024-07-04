@@ -62,11 +62,9 @@ function prepareFormSubmission() {
 <body>
 <jsp:include page="../common/menubar.jsp"/>
 
-        
 <div id="report-form-container">
-
     <div class="container">
-    <h1>신고페이지</h1><br>
+        <h1>신고페이지</h1><br>
         <form method="post" action="${pageContext.servletContext.contextPath}/RegistReport" onsubmit="prepareFormSubmission(); return validateForm();">
             <c:if test="${not empty sessionScope.loginUser}">
                 <input type="hidden" name="userId" value="${sessionScope.loginUser.userId}">

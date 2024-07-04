@@ -3,6 +3,7 @@ package com.javanos.project.user.model.service;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.javanos.project.common.paging.SelectCriteria;
 import com.javanos.project.community.model.dto.CommunityDTO;
 import com.javanos.project.user.model.dao.UserDAO;
 import com.javanos.project.user.model.dto.UserDTO;
@@ -129,19 +130,30 @@ public class UserService {
 		
 		return userPwd;
 	}
+	
+	public int selectTotalCount(UserDTO loginUser) {
+		SqlSession session = getSqlSession();
+		userDAO = session.getMapper(UserDAO.class);
+		
+		int totalCount = userDAO.selectTotalCount(loginUser);
+		
+		session.close();
+		return totalCount;
+	}
 
-	public List<CommunityDTO> selectBoardList(UserDTO loginUser) {
+	public List<CommunityDTO> selectBoardList(UserDTO loginUser, SelectCriteria selectCriteria) {
 		
 		SqlSession session = getSqlSession();
 		userDAO = session.getMapper(UserDAO.class);
 		
-		List<CommunityDTO> communityList = userDAO.selectBoardList(loginUser);
+		selectCriteria.setStartRow(selectCriteria.getStartRow() - 1);
 		
-		System.out.println("service : " + communityList);
-		
+		List<CommunityDTO> communityList = userDAO.selectBoardList(loginUser.getUserId(), selectCriteria.getStartRow(), selectCriteria.getLimit());
+				
 		session.close();
-		
 		return communityList;
 	}
+
+	
 
 }

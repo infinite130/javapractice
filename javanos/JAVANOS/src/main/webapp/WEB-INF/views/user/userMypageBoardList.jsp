@@ -9,14 +9,7 @@
 <title>Javanos</title>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <style>
-/* body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-} */
-/* 마이페이지 설정 */
+
 .boardList-wrapper {
 	 max-width: 800px;
     margin: 20px auto;
@@ -123,19 +116,21 @@ button#writeNotice:hover {
     background-color: #218838;
 }
 
-/* Change cursor to pointer when hovering over table rows or cells */
 table tr:hover, table td:hover {
     cursor: pointer;
 }
 
-/* Change background color when hovering over table rows */
 table tr:hover {
     background-color: #dbe6ff;
 }
 
-/* Change background color when not hovering over table rows */
 table tr {
     transition: background-color 0.3s;
+}
+
+table th:nth-child(2),
+table td:nth-child(2) {
+    width: 50%; 
 }
 </style>
 </head>
@@ -157,7 +152,7 @@ table tr {
 		<c:forEach items="${ communityList }" var="board">
 			<tr onclick="showCommunityDeatil(${board.communityNo})">
 				<td>${ board.communityNo }</td>
-				<td>${ board.communityTitle }</td>
+				<td width=500>${ board.communityTitle }</td>
 				<td>${ board.user.userNickname }</td>
 				<td>${ board.communityCount }</td>
 				<td>${ board.communityEnrollDate }</td>
@@ -165,6 +160,9 @@ table tr {
 		</c:forEach>
 	</table>
 	</div>
+	<jsp:include page="../common/paging.jsp" flush="false">
+		<jsp:param value="/user/mypage/list" name="link"/>
+	</jsp:include>
 	</section>
 	</div>
 	<jsp:include page="../common/footer.jsp"/>

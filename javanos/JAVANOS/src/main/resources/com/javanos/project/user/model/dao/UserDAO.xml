@@ -114,27 +114,36 @@
 	 		AND (USER_STOP_DATE IS NULL OR CURDATE() > USER_STOP_DATE) 
 	</update>
 	
+	<select id="selectTotalCount" resultType="_int">
+		SELECT 
+    		COUNT(*) AS count_result
+		FROM TBL_COMMUNITY c
+		JOIN TBL_USER u ON c.USER_NO = u.USER_NO
+		WHERE u.USER_ID = #{ userId } AND c.COMMUNITY_BOARD_STATUS = 'Y';
+	</select>
+	
 	<select id="selectBoardList" resultMap="communityResultMap">
-    SELECT 
-        c.COMMUNITY_NO, 
-        c.COMMUNITY_TITLE, 
-        c.COMMUNITY_BODY, 
-        c.COMMUNITY_COUNT, 
-        c.COMMUNITY_ENROLL_DATE, 
-        c.COMMUNITY_MODIFY_DATE, 
-        c.COMMUNITY_BOARD_STATUS, 
-        c.USER_NO,
-        u.USER_ID, 
-        u.USER_NAME, 
-        u.USER_NICKNAME, 
-        u.USER_EMAIL, 
-        u.USER_ROLE, 
-        u.USER_ENROLL_DATE, 
-        u.USER_STATUS, 
-        u.USER_STOP_DATE
-    FROM TBL_COMMUNITY c
-    JOIN TBL_USER u ON c.USER_NO = u.USER_NO
-    WHERE u.USER_ID = #{userId} AND c.COMMUNITY_BOARD_STATUS = 'Y';
+    	SELECT 
+        	c.COMMUNITY_NO, 
+        	c.COMMUNITY_TITLE, 
+        	c.COMMUNITY_BODY, 
+        	c.COMMUNITY_COUNT, 
+        	c.COMMUNITY_ENROLL_DATE, 
+        	c.COMMUNITY_MODIFY_DATE, 
+        	c.COMMUNITY_BOARD_STATUS, 
+        	c.USER_NO,
+        	u.USER_ID, 
+        	u.USER_NAME, 
+        	u.USER_NICKNAME, 
+        	u.USER_EMAIL, 
+        	u.USER_ROLE, 
+        	u.USER_ENROLL_DATE, 
+        	u.USER_STATUS, 
+        	u.USER_STOP_DATE
+    	FROM TBL_COMMUNITY c
+    	JOIN TBL_USER u ON c.USER_NO = u.USER_NO
+    	WHERE u.USER_ID = #{ userId } AND c.COMMUNITY_BOARD_STATUS = 'Y'
+    	LIMIT #{ startRow }, #{ limit };
 	</select>
 	
 	<!-- <select id="selectBoardList" resultMap="communityResultMap">

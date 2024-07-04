@@ -22,20 +22,28 @@ public class RegistReportServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        // 세션에서 로그인 사용자 정보를 가져옴
         HttpSession session = request.getSession();
         UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
         if (loginUser == null) {
             response.sendRedirect("login.jsp");
             return;
         }
-        String userId = loginUser.getUserId();
+        int reportingUserNo = loginUser.getUserNo();
+
+        String communityNo = request.getParameter("communityNo");
+        int reportedUserNo = Integer.parseInt(request.getParameter("reportedUserNo"));
+
+        ReportService reportService = new ReportService();
+        boolean isAlreadyReported = reportService.isUserAlreadyReported(reportedUserNo, reportingUserNo);
+
+        if (isAlreadyReported) {
+            response.getWriter().println("<script>alert('이미 신고된 글입니다.'); location.href='" + request.getContextPath() + "/community/list';</script>");
+            return;
+        }
 
         // 폼 데이터 가져오기
         String check1 = request.getParameter("actualCheck1");
         String additionalText = request.getParameter("additionalText");
-        String communityNo = request.getParameter("communityNo");
-        String reportedUserNo = request.getParameter("reportedUserNo");
 
         // 디버깅 로그 추가
         System.out.println("check1: " + check1);
@@ -44,8 +52,7 @@ public class RegistReportServlet extends HttpServlet {
         System.out.println("reportedUserNo: " + reportedUserNo);
 
         // ReportService를 이용해 reportedUserNo로 userNickname을 가져옴
-        ReportService reportService = new ReportService();
-        String reportedUserNickname = reportService.getUserNicknameByUserNo(Integer.parseInt(reportedUserNo));
+        String reportedUserNickname = reportService.getUserNicknameByUserNo(reportedUserNo);
 
         // 디버깅 로그 추가
         System.out.println("reportedUserNo: " + reportedUserNo);
@@ -55,7 +62,7 @@ public class RegistReportServlet extends HttpServlet {
         String currentDate = formatter.format(new Date());
 
         // 로그 출력
-        System.out.println("신고한 회원: " + userId);
+        System.out.println("신고한 회원: " + loginUser.getUserId());
         System.out.println("신고당한 회원: " + reportedUserNickname);
         System.out.println("신고 내용: " + check1);
         if (additionalText != null && !additionalText.isEmpty()) {
@@ -71,7 +78,7 @@ public class RegistReportServlet extends HttpServlet {
 
         // 사용자 Nickname을 기반으로 UserDTO 객체 생성
         UserDTO reportedUser = new UserDTO();
-        reportedUser.setUserNo(Integer.parseInt(reportedUserNo)); // userNo를 설정
+        reportedUser.setUserNo(reportedUserNo); // userNo를 설정
         reportedUser.setUserNickname(reportedUserNickname);
         report.setReportedUser(reportedUser);
 
@@ -84,7 +91,6 @@ public class RegistReportServlet extends HttpServlet {
         int result = reportService.insertReport(report);
 
         if (result > 0) {
-            // 성공 메시지 설정 및 리다이렉트
             response.getWriter().println("<script>alert('신고가 성공적으로 완료되었습니다.'); location.href='" + request.getContextPath() + "/community/list';</script>");
         } else {
             response.sendRedirect("error.jsp");

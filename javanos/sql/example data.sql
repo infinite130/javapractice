@@ -11,10 +11,12 @@ INSERT INTO TBL_STATION (STA_CODE, STA_NAME, STA_LINE) VALUES
 (340, '가락시장', '3호선'),
 (2548, '천호', '5호선');
 
--- TBL_LNF
-INSERT INTO TBL_LNF (LNF_MISSING, LNF_FIND_DATE, LNF_FIND_TIME, LNF_KEEP, LNF_DESCRIPTION, LNF_WRITER_NO, LNF_STA_NO) VALUES 
-('냉장고', '2024-06-20', '12:30:00', '가락시장역 3호선 역사', '냉장고를 어떻게 가지고 다니시죠?', 1, 1),
-('지갑', '2024-06-21', '10:15:00', '발견 장소', '저 민증 3개 있어요. 잃어버려서 재발급 2번 했어요. 근데 집에서 다시 찾았어요.', 1, 2);
+
+-- TBL_LNF 테이블에 데이터 삽입
+INSERT INTO TBL_LNF (LNF_MISSING, LNF_FIND_DATE, LNF_FIND_TIME, LNF_KEEP, LNF_DESCRIPTION, LNF_STA_LINE, LNF_STA_NAME, USER_NO) VALUES 
+('냉장고', '2024-06-20', '12:30:00', '가락시장역 3호선 역사', '냉장고를 어떻게 가지고 다니시죠?', '1호선', '서울역', 1),
+('지갑', '2024-06-21', '10:15:00', '발견 장소', '저 민증 3개 있어요. 잃어버려서 재발급 2번 했어요. 근데 집에서 다시 찾았어요.', '1호선', '서울역', 1);
+
 
 
 --- TBL_COMMUNITY

@@ -76,18 +76,18 @@
             
             <div class="search">
                 <select name="stationsearch" onchange="filterStations(this)">
-                    <option value="" selected>호선검색 필터</option>
-                    <option value="1호선" ${ requestScope.selectCriteria.searchValue eq "1호선"? "selected": "" }>1호선</option>
-                    <option value="2호선" ${ requestScope.selectCriteria.searchValue eq "2호선"? "selected": "" }>2호선</option>
-                    <option value="3호선" ${ requestScope.selectCriteria.searchValue eq "3호선"? "selected": "" }>3호선</option>
-                    <option value="4호선" ${ requestScope.selectCriteria.searchValue eq "4호선"? "selected": "" }>4호선</option>
-                    <option value="5호선" ${ requestScope.selectCriteria.searchValue eq "5호선"? "selected": "" }>5호선</option>
-                    <option value="6호선" ${ requestScope.selectCriteria.searchValue eq "6호선"? "selected": "" }>6호선</option>
-                    <option value="7호선" ${ requestScope.selectCriteria.searchValue eq "7호선"? "selected": "" }>7호선</option>
-                    <option value="8호선" ${ requestScope.selectCriteria.searchValue eq "8호선"? "selected": "" }>8호선</option>
-                    <option value="9호선" ${ requestScope.selectCriteria.searchValue eq "9호선"? "selected": "" }>9호선</option>
-                    <option value="공항철도" ${ requestScope.selectCriteria.searchValue eq "공항철도"? "selected": "" }>공항철도</option>
-                    <option value="수인분당선" ${ requestScope.selectCriteria.searchValue eq "4호선"? "selected": "" }>수인분당선</option>
+                    <option value="" selected>&#x1F683호선검색 필터</option>
+                    <option value="1호선" style="color:#2E2EFE;" ${ requestScope.selectCriteria.searchValue eq "1호선"? "selected": "" }>1호선</option>
+                    <option value="2호선" style="color:#2EFE2E;" ${ requestScope.selectCriteria.searchValue eq "2호선"? "selected": "" }>2호선</option>
+                    <option value="3호선" style="color:#FAAC58;" ${ requestScope.selectCriteria.searchValue eq "3호선"? "selected": "" }>3호선</option>
+                    <option value="4호선" style="color:#81DAF5;"${ requestScope.selectCriteria.searchValue eq "4호선"? "selected": "" }>4호선</option>
+                    <option value="5호선" style="color:#5F04B4;"${ requestScope.selectCriteria.searchValue eq "5호선"? "selected": "" }>5호선</option>
+                    <option value="6호선" style="color:#B45F04;"${ requestScope.selectCriteria.searchValue eq "6호선"? "selected": "" }>6호선</option>
+                    <option value="7호선" style="color:#29220A;"${ requestScope.selectCriteria.searchValue eq "7호선"? "selected": "" }>7호선</option>
+                    <option value="8호선" style="color:#FF0080;" ${ requestScope.selectCriteria.searchValue eq "8호선"? "selected": "" }>8호선</option>
+                    <option value="9호선" style="color:#B18904;"${ requestScope.selectCriteria.searchValue eq "9호선"? "selected": "" }>9호선</option>
+                    <option value="공항철도" style="color:#5882FA;" ${ requestScope.selectCriteria.searchValue eq "공항철도"? "selected": "" }>공항철도</option>
+                    <option value="수인분당선"style="color:#F7FE2E;" ${ requestScope.selectCriteria.searchValue eq "4호선"? "selected": "" }>수인분당선</option>
                     
                     <script>
                        function filterStations(selectElement) {

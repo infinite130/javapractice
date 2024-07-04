@@ -107,4 +107,12 @@
         SET USER_STATUS = 'N'
         WHERE USER_NO = #{userNo}
     </update>
+    
+<select id="countReportsByUsers" parameterType="map" resultType="int">
+    SELECT COUNT(*) 
+    FROM TBL_REPORT 
+    WHERE REPORTED_USER_NO = #{reportedUserNo} 
+      AND REPORT_USER_NO = #{reportingUserNo}
+</select>
+
 </mapper>

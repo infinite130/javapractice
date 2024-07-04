@@ -127,7 +127,8 @@
             let newPwd = $("#newPwd").val().trim();
             let confirmPwd = $("#confirmPwd").val().trim();
 
-            let userPwdPattern = /^(?=.*[A-Za-z])(?=.*\d)|(?=.*[A-Za-z])(?=.*[!@#$%^&*?_])|(?=.*\d)(?=.*[!@#$%^&*?_])[A-Za-z\d!@#$%^&*?_]{8,16}$/;
+            /* let userPwdPattern = /^(?=.*[A-Za-z])(?=.*\d)|(?=.*[A-Za-z])(?=.*[!@#$%^&*?_])|(?=.*\d)(?=.*[!@#$%^&*?_])[A-Za-z\d!@#$%^&*?_]{8,16}$/; */
+            let userPwdPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*?_])[A-Za-z\d!@#$%^&*?_]{8,16}$/;
             let isValid = true; // 모든 유효성 검사가 통과했는지 확인하는 변수
 
             // 현재 비밀번호 유효성 검사
@@ -165,7 +166,7 @@
                     $("#userPwdType").text("새 비밀번호는 필수입니다.").removeClass('valid').addClass('invalid');
                     isValid = false; // 유효성 검사 실패
                 } else if (!userPwdPattern.test(newPwd)) {
-                    $("#userPwdType").text("비밀번호는 8~16자의 영문자, 숫자, 특수문자 중 2가지 이상을 사용해야 합니다.").removeClass('valid').addClass('invalid');
+                    $("#userPwdType").text("비밀번호는 8~16자의 영문자, 숫자, 특수문자를 모두 포함해야합니다.").removeClass('valid').addClass('invalid');
                     isValid = false; // 유효성 검사 실패
                 } else {
                     $("#userPwdType").text("사용할 수 있는 비밀번호 형식입니다.").removeClass('invalid').addClass('valid');

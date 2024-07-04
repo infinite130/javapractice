@@ -2,6 +2,9 @@ package com.javanos.project.user.model.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.javanos.project.common.paging.SelectCriteria;
 import com.javanos.project.community.model.dto.CommunityDTO;
 import com.javanos.project.user.model.dto.UserDTO;
 
@@ -22,7 +25,8 @@ public interface UserDAO {
 	int updateUser(UserDTO originUser);
 
 	int deleteUser(UserDTO loginUser);
+	
+	int selectTotalCount(UserDTO loginUser);
 
-	List<CommunityDTO> selectBoardList(UserDTO loginUser);
-
+	List<CommunityDTO> selectBoardList(@Param("userId") String userId, @Param("startRow") int startRow, @Param("limit") int limit);
 }

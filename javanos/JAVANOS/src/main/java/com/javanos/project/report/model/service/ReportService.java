@@ -128,4 +128,12 @@ public class ReportService {
         session.close();
         return report;
     }
+    
+    public boolean isUserAlreadyReported(int reportedUserNo, int reportingUserNo) {
+        SqlSession session = getSqlSession();
+        reportDAO = session.getMapper(ReportDAO.class);
+        int reportCount = reportDAO.countReportsByUsers(reportedUserNo, reportingUserNo);
+        session.close();
+        return reportCount > 0;
+    }
 }

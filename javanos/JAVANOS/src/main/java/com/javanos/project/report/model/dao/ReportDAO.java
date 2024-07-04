@@ -28,4 +28,7 @@ public interface ReportDAO {
 
     // 페이징 처리된 게시물 목록 조회
     List<ReportDTO> selectReports(SelectCriteria selectCriteria);
+    
+    int countReportsByUsers(@Param("reportedUserNo") int reportedUserNo, @Param("reportingUserNo") int reportingUserNo);
+   
 }

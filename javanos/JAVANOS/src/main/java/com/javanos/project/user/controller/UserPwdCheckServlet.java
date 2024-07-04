@@ -30,7 +30,9 @@ public class UserPwdCheckServlet extends HttpServlet {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		if (passwordEncoder.matches(userPwd, storedPwd)) {
 			response.getWriter().write("pass");
-		}  else {
+		} else if(storedPwd.equals(userPwd)) {
+			response.getWriter().write("pass");
+		} else {
 			response.getWriter().write("fail");
 		}
 	}
